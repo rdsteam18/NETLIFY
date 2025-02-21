@@ -1,5 +1,0 @@
-RewriteEngine On
-RewriteCond %{HTTP_REFERER} ads.google.com [NC,OR]
-RewriteCond %{HTTP_REFERER} pagead2.googlesyndication.com [NC,OR]
-RewriteCond %{HTTP_REFERER} doubleclick.net [NC]
-RewriteRule .* - [F,L]
