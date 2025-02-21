@@ -9,7 +9,7 @@
         body {
             background-color: #121212;
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
@@ -20,6 +20,17 @@
         }
         h1 {
             margin: 0;
+        }
+        .search-bar {
+            margin: 20px auto;
+            max-width: 300px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
         }
         .anime-list {
             margin: 20px;
@@ -36,10 +47,11 @@
             border-radius: 10px;
             width: 200px;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .anime-card:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         .anime-card img {
             width: 100%;
@@ -48,6 +60,16 @@
         a {
             text-decoration: none;
             color: #fff;
+        }
+        .theme-toggle {
+            margin: 20px;
+            padding: 10px 20px;
+            background: #444;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
         }
         footer {
             background: #1e1e1e;
@@ -66,28 +88,60 @@
         </a>
        </center>
         <p>Watch Your Favorite Anime Online</p>
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
     </header>
+    
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="Search Anime..." onkeyup="searchAnime()">
+    </div>
     
     <div class="anime-list">
         <h2>Available Anime</h2>
-        <div class="anime">
+        <div class="anime" id="animeContainer">
             <a href="Solo Leveling - Season 1.html">
                 <div class="anime-card">
-                    <img src="https://image.tmdb.org/t/p/w185/rsOApVLbIQEcNkqSlOxNPyg3FyI.jpg" alt="Solo Leveling - Season 1.html">
+                    <img src="https://image.tmdb.org/t/p/w185/rsOApVLbIQEcNkqSlOxNPyg3FyI.jpg" alt="Solo Leveling - Season 1">
                     <p>Solo Leveling - Season 1</p>
                 </div>
             </a>
             <a href="Sakamoto Days - Season 1.html">
                 <div class="anime-card">
-                    <img src="https://image.tmdb.org/t/p/w185/xfdyTs0SSVt2FySoL5IEnMzqANj.jpg" alt="Sakamoto Days - Season 1.html">
-                    <p>More Anime Coming Soon</p>
+                    <img src="https://image.tmdb.org/t/p/w185/xfdyTs0SSVt2FySoL5IEnMzqANj.jpg" alt="More Anime Coming Soon">
+                    <p>Sakamoto Days - Season 1</p>
+                </div>
+            </a>
+          <a href="Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb.html">
+                <div class="anime-card">
+                    <img src="https://image.tmdb.org/t/p/w185/64fd0Noh5jL1dVDPxPTLqlfosrG.jpg" alt="Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb">
+                    <p>Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb</p>
                 </div>
             </a>
         </div>
     </div>
+  <div>
+    
+  </div>
     
     <footer>
         <p>&copy; NETLIFY. All Rights Reserved.</p>
     </footer>
+    
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+        }
+        function searchAnime() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let animeCards = document.querySelectorAll(".anime-card");
+            animeCards.forEach(card => {
+                let title = card.querySelector("p").innerText.toLowerCase();
+                if (title.includes(input)) {
+                    card.parentElement.style.display = "block";
+                } else {
+                    card.parentElement.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
