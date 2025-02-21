@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Streaming - Sakamoto Days</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 10px;
+        }
+        .episode-buttons {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e84118;
+        }
+    
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Sakamoto Days - Season 1</h1>
+        <iframe id="videoFrame" src="https://filemoon.to/e/4btbxr36uq6w/Toonhub4u_Sakamoto_Days_S01E01_1080p_x265_10bit_NF_WEB-DL_Multi_Audio_ESub.mkv" allowfullscreen></iframe>
+        <div class="episode-buttons">
+            <button onclick="changeEpisode('https://filemoon.to/e/4btbxr36uq6w/')">Episode 1</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/nzbmpdsdx1vj/')">Episode 2</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/piii6owhoy11/')">Episode 3</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/7376eg1hf2hk/')">Episode 4</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/0rak89hcmv8p/')">Episode 6</button>
+        </div>
+    </div>
+
+    <script>
+        function changeEpisode(url) {
+            document.getElementById("videoFrame").src = url;
+        }
+    </script>
+  
+   
+</body>
+</html>
