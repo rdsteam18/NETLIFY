@@ -37,6 +37,22 @@
         button:hover {
             background-color: #e84118;
         }
+    
+    </style>
+    <style>
+        /* Common ad networks ke elements hide karne ke liye */
+iframe[src*="ads"],
+iframe[src*="doubleclick"],
+iframe[src*="googlesyndication"],
+iframe[src*="adservice"],
+iframe[src*="ytimg.com"],
+div[id*="google_ads"],
+div[class*="ad-container"],
+div[class*="ad-box"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
     </style>
 </head>
 <body>
@@ -56,6 +72,53 @@
         function changeEpisode(url) {
             document.getElementById("videoFrame").src = url;
         }
+    </script>
+    <script>
+        setInterval(() => {
+    let ads = document.querySelectorAll('iframe, div[class*="ad"], div[id*="ads"]');
+    ads.forEach(ad => ad.remove());
+    console.log("Ads removed! 🚀");
+}, 1000);
+
+    </script>
+    <script>
+        if (window.adsbygoogle) {
+    console.log("Injected Ads Detected! Removing...");
+    window.adsbygoogle = null;
+}
+
+    </script>
+    <script>
+        // Ads aur unke scripts ko detect karke block karne ke liye function
+(function() {
+    'use strict';
+
+    // Ad-related elements aur scripts ko block karna
+    function blockAds() {
+        let adElements = document.querySelectorAll(
+            'iframe[src*="ads"], script[src*="ads"], div[id*="ads"], div[class*="ad"], section[id*="ad"], aside[id*="ad"]'
+        );
+        adElements.forEach(ad => ad.remove());
+
+        let adScripts = document.querySelectorAll('script');
+        adScripts.forEach(script => {
+            let src = script.src;
+            if (src.includes('ads') || src.includes('doubleclick') || src.includes('googlesyndication') || src.includes('adservice')) {
+                script.remove();
+            }
+        });
+
+        console.log("🚀 Ads Blocked Successfully!");
+    }
+
+    // Har 1 second me check karega aur ads ko block karega
+    setInterval(blockAds, 1000);
+
+    // Window events pe bhi ads block karega
+    window.onload = blockAds;
+    document.addEventListener("DOMContentLoaded", blockAds);
+})();
+
     </script>
 </body>
 </html>
