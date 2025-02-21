@@ -1,138 +1,59 @@
-I<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NETLIFY</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Anime Streaming - Sakamoto Days</title>
     <style>
-        .related-episodes {
-            margin-top: 20px;
-            padding: 10px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .dark-mode .related-episodes {
-            background: #333;
-            color: white;
-        }
-        .episode-thumbnails {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .episode-thumbnails a {
-            text-decoration: none;
-            color: black;
-            text-align: center;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .dark-mode .episode-thumbnails a {
-            color: white;
-        }
-        .episode-thumbnails img {
-            width: 80px;
-            height: 50px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .episode-thumbnails img:hover {
-            transform: scale(1.1);
-        }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            transition: background 0.5s, color 0.5s;
-        }
-        .dark-mode {
             background-color: #121212;
             color: white;
+            text-align: center;
         }
         .container {
             max-width: 800px;
             margin: auto;
             padding: 20px;
         }
-        .video-container {
-            position: relative;
-            max-width: 100%;
-            margin: auto;
-            text-align: center;
-            margin-top: 20px;
-        }
         iframe {
             width: 100%;
-            max-width: 600px;
-            height: 350px;
+            height: 450px;
+            border: none;
             border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .episode-buttons {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e84118;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Sakamoto Days - Season 1</h1>
-            <span class="toggle-btn" onclick="toggleDarkMode()">
-                <i class="fas fa-adjust"></i>
-            </span>
+        <h1>Sakamoto Days - Season 1</h1>
+        <iframe id="videoFrame" src="https://filemoon.to/e/4btbxr36uq6w/Toonhub4u_Sakamoto_Days_S01E01_1080p_x265_10bit_NF_WEB-DL_Multi_Audio_ESub.mkv" allowfullscreen></iframe>
+        <div class="episode-buttons">
+            <button onclick="changeEpisode('https://filemoon.to/e/4btbxr36uq6w/')">Episode 1</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/nzbmpdsdx1vj/')">Episode 2</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/piii6owhoy11/')">Episode 3</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/7376eg1hf2hk/')">Episode 4</button>
+            <button onclick="changeEpisode('https://filemoon.to/e/0rak89hcmv8p/')">Episode 6</button>
         </div>
-        
-        <div class="anime-details">
-            <h2>Anime Details</h2>
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjos-tuZTR2Jm9WTqmbJLSYezoU-8fLy8G6YeF1Cv9KsNtXKOGCq50N7xp5DBJQ6iwIpPwfMRQNyTZd0yReB0fUrb1sHgGCn4wg02xHIu8aQ9injNY9z5seMqJpRihFTG9SG_BiiTK_CHBkEQIesL4ms9PMiy_2Toh-WAVkcbUYniScCjM2oPhyVtPp/s1600-rw/xfdyTs0SSVt2FySoL5IEnMzqANj.jpg" alt="Sakamoto Days Anime" class="anime-img">
-            <p><strong>Title:</strong> Sakamoto Days</p>
-            <p><strong>Genre:</strong> Action, Comedy</p>
-            <p><strong>Release Year:</strong> 2024</p>
-        </div>
-
-        <div class="episodes">
-            <h2>Episode 1</h2>
-            <div class="video-container">
-                <iframe id="videoFrame" src="https://multimovies.cloud/e/efksklcmfrkq" allowfullscreen></iframe>
-            </div>
-            
-            <div class="related-episodes">
-                <h3>Related Episodes</h3>
-                <div class="episode-thumbnails">
-                    <a onclick="changeVideo('https://multimovies.cloud/e/episode2link')">
-                        <img src="episode2.jpg" alt="Episode 1">
-                        <p>Episode 1</p>
-                    </a>
-                <div class="episode-thumbnails">
-                    <a onclick="changeVideo('https://youtu.be/M9VwP8ecxyI?si=v8WIMoKhuxkbzA7T')">
-                        <img src="episode2.jpg" alt="Episode 2">
-                        <p>Episode 2</p>
-                    </a>
-                    <a onclick="changeVideo('https://multimovies.cloud/e/episode3link')">
-                        <img src="episode3.jpg" alt="Episode 3">
-                        <p>Episode 3</p>
-                    </a>
-                    <a onclick="changeVideo('https://youtu.be/M9VwP8ecxyI?si=v8WIMoKhuxkbzA7T')">
-                        <img src="episode4.jpg" alt="Episode 4">
-                        <p>Episode 4</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="ad-banner">Advertisement: Watch latest anime here!</div>
     </div>
-    
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-        }
 
-        function changeVideo(url) {
+    <script>
+        function changeEpisode(url) {
             document.getElementById("videoFrame").src = url;
         }
     </script>
