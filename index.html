@@ -44,7 +44,7 @@
         }
         .anime {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-columns: repeat(6, 1fr);
             gap: 10px;
             justify-content: center;
             padding: 10px;
@@ -85,6 +85,12 @@
             width: 100%;
             bottom: 0;
         }
+      @media (max-width: 768px) {
+    .anime {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
     </style>
 </head>
 <body>
@@ -117,22 +123,21 @@
                     <p>Sakamoto Days - Season 1</p>
                 </div>
             </a>
-          <a href="Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb.html">
+            <a href="Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb.html">
                 <div class="anime-card">
                     <img src="https://image.tmdb.org/t/p/w185/64fd0Noh5jL1dVDPxPTLqlfosrG.jpg" alt="Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb">
                     <p>Crayon Shin-chan: Invoke a Storm!The Singing Buttocks Bomb</p>
                 </div>
             </a>
-           <a href="Solo Leveling - Season 2.html">
+		<a href="Solo Leveling - Season 2.html">
                 <div class="anime-card">
                     <img src="https://image.tmdb.org/t/p/w185/rsOApVLbIQEcNkqSlOxNPyg3FyI.jpg" alt="Solo Leveling - Season 1">
                     <p>Solo Leveling - Season 2</p>
                 </div>
             </a>
-          
         </div>
     </div>
-   <div class="footer">
+    <div class="footer">
  All Rights Reserved. <a href="https://omdev.netlify.app/" style="color: #00d1b2; text-decoration: none;">© NETLIFY</a>
     </div>
     
