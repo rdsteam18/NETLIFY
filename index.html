@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,16 +43,16 @@
             margin: 20px;
         }
         .anime {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            padding: 10px;
         }
         .anime-card {
             background: #222;
             padding: 10px;
             border-radius: 10px;
-            width: 200px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -119,29 +120,21 @@
           <a href="Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb.html">
                 <div class="anime-card">
                     <img src="https://image.tmdb.org/t/p/w185/64fd0Noh5jL1dVDPxPTLqlfosrG.jpg" alt="Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb">
-                    <p>Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb</p>
+                    <p>Crayon Shin-chan: Invoke a Storm!The Singing Buttocks Bomb</p>
                 </div>
             </a>
+           <a href="Solo Leveling - Season 2.html">
+                <div class="anime-card">
+                    <img src="https://image.tmdb.org/t/p/w185/rsOApVLbIQEcNkqSlOxNPyg3FyI.jpg" alt="Solo Leveling - Season 1">
+                    <p>Solo Leveling - Season 2</p>
+                </div>
+            </a>
+          
         </div>
     </div>
-  <div>
-    <script type="text/javascript">
-	atOptions = {
-		'key' : '41ebf2e60df1b2c70a841c4254a06d61',
-		'format' : 'iframe',
-		'height' : 300,
-		'width' : 160,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/41ebf2e60df1b2c70a841c4254a06d61/invoke.js"></script>
-
-      <script type='text/javascript' src='//pl25933201.effectiveratecpm.com/30/ea/5c/30ea5ca4c3756db7a0dd3bcdd62ee118.js'></script>
-  </div>
-    
-    <footer>
-        <p>&copy; NETLIFY. All Rights Reserved.</p>
-    </footer>
+   <div class="footer">
+ All Rights Reserved. <a href="https://omdev.netlify.app/" style="color: #00d1b2; text-decoration: none;">© NETLIFY</a>
+    </div>
     
     <script>
         function toggleTheme() {
@@ -160,11 +153,5 @@
             });
         }
     </script>
-	<script src="https://cdn.adguard.com/public/AdGuard/script.js"></script>
-<script>
-    window.AdGuard = window.AdGuard || {};
-    window.AdGuard.init();
-</script>
-
 </body>
 </html>
