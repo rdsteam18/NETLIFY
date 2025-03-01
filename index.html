@@ -33,10 +33,6 @@
         <meta name="twitter:image" content="https://omdev.netlify.app/assets/anime-thumbnail.jpg"/>
         <meta name="twitter:description" content="Stream and Enjoy HD Anime Series and Movies for Free on OmDev Anime & Netlify. Explore a wide range of anime genres and episodes."/>
         <meta name="twitter:site" content="@OmDevAnime"/>
-
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3097658772821429"
-     crossorigin="anonymous"></script>
-
     <title>NETLIFY</title>
 
 </head>
@@ -66,12 +62,6 @@
             </ul>
         </nav>
     </header>
-
-    <script>
-      function toggleMenu() {
-          document.querySelector(".nav-links").classList.toggle("show");
-      }
-    </script>
     
     <div class="anime-list">
         <h2>Available Anime</h2>
@@ -107,22 +97,5 @@
  All Rights Reserved. <a href="https://omdev.netlify.app/" style="color: #00d1b2; text-decoration: none;">© NETLIFY</a>
     </div>
     
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle("light-mode");
-        }
-        function searchAnime() {
-            let input = document.getElementById("search").value.toLowerCase();
-            let animeCards = document.querySelectorAll(".anime-card");
-            animeCards.forEach(card => {
-                let title = card.querySelector("p").innerText.toLowerCase();
-                if (title.includes(input)) {
-                    card.parentElement.style.display = "block";
-                } else {
-                    card.parentElement.style.display = "none";
-                }
-            });
-        }
-    </script>
 </body>
 </html>
