@@ -16,3 +16,20 @@
                 }
             });
         }
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector(".search-input");
+
+        searchInput.addEventListener("input", function () {
+            const query = searchInput.value.toLowerCase();
+            const animeCards = document.querySelectorAll(".anime-card");
+
+            animeCards.forEach(card => {
+                const title = card.textContent.toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
