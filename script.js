@@ -33,3 +33,24 @@
             });
         });
     });
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("animeData.json") // JSON file load karna
+        .then(response => response.json())
+        .then(animeData => {
+            const animeContainer = document.getElementById("animeContainer");
+            animeContainer.innerHTML = ""; // Pehle se jo bhi data hai use clear karna
+
+            animeData.forEach(anime => {
+                const animeCard = document.createElement("a");
+                animeCard.href = anime.link;
+                animeCard.innerHTML = `
+                    <div class="anime-card">
+                        <img src="${anime.image}" alt="${anime.title}">
+                        <p>${anime.title}</p>
+                    </div>
+                `;
+                animeContainer.appendChild(animeCard);
+            });
+        })
+        .catch(error => console.error("Error loading anime data:", error));
+});
