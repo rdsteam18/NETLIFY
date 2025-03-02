@@ -182,8 +182,10 @@
         }
       @media (max-width: 768px) {
     .anime {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
         .title {
     white-space: nowrap;
     overflow: hidden;
