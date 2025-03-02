@@ -182,8 +182,16 @@
         }
       @media (max-width: 768px) {
     .anime {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
+        .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 150px; /* Adjust as needed */
+    display: block;
+}
+
 }
  body {
     font-family: Arial, sans-serif;
@@ -227,12 +235,4 @@ button:hover {
         .blog h2 {
             color: #ff4757;
         }
-
-.title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 150px; /* Adjust as needed */
-    display: block;
-}
 
