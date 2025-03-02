@@ -217,3 +217,13 @@ button {
 button:hover {
     background-color: #e84118;
 }
+   .blog {
+            margin-top: 40px;
+            text-align: left;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .blog h2 {
+            color: #ff4757;
+        }
