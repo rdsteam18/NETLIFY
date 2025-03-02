@@ -188,10 +188,11 @@
     .anime {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-            justify-content: center;
-            padding: 10px;
 }
+         .anime-card img {
+            width: 100%;
+            border-radius: 10px;
+            aspect-ratio: 1.5/2;
 
 }
  body {
