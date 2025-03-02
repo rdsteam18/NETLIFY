@@ -1,10 +1,10 @@
-        .search-container {
+
+                    .search-container {
     position: relative;
 }
 
 .search-input {
     height: 50px;
-    
     border-radius: 30px;
     padding-left: 35px;
     border: none;
@@ -33,6 +33,7 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
+          flex-wrap: wrap;
       }
 
       nav {
@@ -76,13 +77,13 @@
       /* Responsive Design */
       @media (max-width: 768px) {
           nav {
-              flex-direction: row;
-              justify-content: space-between;
+              flex-direction: column;
+              align-items: center;
           }
 
           .logo {
               flex-grow: 1;
-              text-align: left;
+              text-align: center;
           }
 
           .logo img {
@@ -91,7 +92,6 @@
 
           .menu-toggle {
               display: block;
-              order: 2;
           }
 
           .nav-links {
@@ -109,8 +109,17 @@
           .nav-links.show {
               display: flex;
           }
-
+          /* Search bar mobile adjustment */
+          .search-container {
+              width: 100%;
+              margin-top: 10px;
+              text-align: center;
+          }
+          .search-input {
+              width: 90%;
+          }
       }
+
         body {
             background-color: #121212;
             color: #fff;
@@ -148,6 +157,7 @@
         .anime-card img {
             width: 100%;
             border-radius: 10px;
+            aspect-ratio: 1.5/2;
         }
         a {
             text-decoration: none;
