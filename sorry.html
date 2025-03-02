@@ -99,6 +99,22 @@
             from { transform: translateX(-10px) translateY(-10px); }
             to { transform: translateX(10px) translateY(10px); }
         }
+	     .home-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #ff4757;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out;
+            animation: blink 1s infinite alternate;
+        }
+        .home-button:hover {
+            background-color: #e63946;
+        }
     </style>
 
 </head>
@@ -129,11 +145,11 @@
         </nav>
     </header>
     
-   <div class="background-animation"></div>
-    <div class="container">
-      <h1>⚠</h1>
+   <div class="container">
+        <h1>⚠</h1>
         <h1>Sorry!</h1>
         <p>We are having temporary server issues. Please try again later.</p>
+        <a href="https://omdev.netlify.app/" class="home-button">Go to Home Page</a>
     </div>
     <div class="footer">
  All Rights Reserved. <a href="https://omdev.netlify.app/" style="color: #00d1b2; text-decoration: none;">© NETLIFY</a>
