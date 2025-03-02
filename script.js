@@ -54,3 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error loading anime data:", error));
 });
+
+document.querySelectorAll('.title').forEach(el => {
+    if (el.innerText.length > 17) { 
+        el.innerText = el.innerText.substring(0, 17) + '...';
+    }
+});
