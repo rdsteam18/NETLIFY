@@ -82,9 +82,8 @@
           }
 
           .logo {
-    position: absolute;
-    left: 30%; /* 30% से थोड़ा center की तरफ आएगा */
-    transform: translateX(-20%); /* Center की ओर shift */
+              flex-grow: 1;
+              text-align: center;
 }
 
           }
@@ -94,11 +93,8 @@
           }
 
          .menu-toggle {
-    display: block;
-    position: absolute;
-    right: 20px; /* Right से 20px दूर रहेगा */
-    top: 50%;
-    transform: translateY(-50%); /* Vertically center करेगा */
+              display: block;
+          }
 }
 
 
@@ -188,21 +184,13 @@
             width: 100%;
             bottom: 0;
         }
-      @media (max-width: 768px) {
+      @media (max-width: 760px) {
     .anime {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
       gap: 10px;
             justify-content: center;
             padding: 10px;
-}
-
-        .title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 150px; /* Adjust as needed */
-    display: block;
 }
 
 }
