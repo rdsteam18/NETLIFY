@@ -76,25 +76,25 @@
 
       /* Responsive Design */
       @media (max-width: 768px) {
-          nav {
-              flex-direction: column;
-              align-items: center;
+           nav {
+              flex-direction: row;
+              justify-content: space-between;
           }
 
           .logo {
               flex-grow: 1;
-              text-align: center;
-}
-
+              text-align: left;
           }
 
           .logo img {
               height: 45px;
           }
 
-         .menu-toggle {
+          .menu-toggle {
               display: block;
+              order: 2;
           }
+
 }
 
 
