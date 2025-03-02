@@ -184,17 +184,28 @@
             width: 100%;
             bottom: 0;
         }
-      @media (max-width: 760px) {
+@media (max-width: 760px) {
     .anime {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-         .anime-card img {
-            width: 100%;
-            border-radius: 10px;
-            aspect-ratio: 1.5/2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 कार्ड प्रति रो */
+        gap: 10px; /* कार्ड्स के बीच स्पेस */
+    }
 
+    .anime-card {
+        background: #222;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .anime-card img {
+        width: 100%;
+        border-radius: 10px;
+        aspect-ratio: 1.5/2;
+    }
 }
+
  body {
     font-family: Arial, sans-serif;
     background-color: #121212;
