@@ -157,7 +157,7 @@
         .anime-card img {
             width: 100%;
             border-radius: 10px;
-            aspect-ratio: 1.5/2;
+            aspect-ratio: 1/2;
         }
         a {
             text-decoration: none;
