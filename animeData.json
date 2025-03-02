@@ -12,11 +12,17 @@
     {
         "title": "Crayon Shin-chan",
         "image": "https://image.tmdb.org/t/p/w185/64fd0Noh5jL1dVDPxPTLqlfosrG.jpg",
-        "link": "Crayon Shin-chan.html"
+        "link": "Crayon Shin-chan: Invoke a Storm! The Singing Buttocks Bomb.html"
     },
     {
         "title": "Solo Leveling - Season 2",
         "image": "https://image.tmdb.org/t/p/w185/rsOApVLbIQEcNkqSlOxNPyg3FyI.jpg",
         "link": "Solo Leveling - Season 2.html"
+    }
+    ,
+    {
+        "title": "Dragon Ball DAIMA",
+        "image": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQMiO1qdYy0Mi1oOUsFljS1ieWibk3oYM1RwNmqfu-AnA8U7ibv",
+        "link": "dragon-ball-daima.html"
     }
 ]
