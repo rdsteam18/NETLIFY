@@ -82,17 +82,25 @@
           }
 
           .logo {
-              flex-grow: 1;
-              text-align: center;
+    position: absolute;
+    left: 30%; /* 30% से थोड़ा center की तरफ आएगा */
+    transform: translateX(-20%); /* Center की ओर shift */
+}
+
           }
 
           .logo img {
               height: 45px;
           }
 
-          .menu-toggle {
-              display: block;
-          }
+         .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 20px; /* Right से 20px दूर रहेगा */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center करेगा */
+}
+
 
           .nav-links {
               display: none;
@@ -157,7 +165,7 @@
         .anime-card img {
             width: 100%;
             border-radius: 10px;
-            aspect-ratio: 1.3/2;
+            aspect-ratio: 1.5/2;
         }
         a {
             text-decoration: none;
