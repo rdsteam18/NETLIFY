@@ -189,15 +189,17 @@
         }
       @media (max-width: 760px) {
     .anime {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    .anime-card img {
+        width: 100%;
+        border-radius: 10px;
+        aspect-ratio: 1/1.5;
+        object-fit: cover;
+    }
 }
-         .anime-card {
-            width: 100%;
-            border-radius: 10px;
-           object-fit: contain;
-} }
 
  body {
     font-family: Arial, sans-serif;
