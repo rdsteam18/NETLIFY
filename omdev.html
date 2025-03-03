@@ -19,22 +19,69 @@
       style='font-family: "Public Sans", "Noto Sans", sans-serif;'
     >
       <div>
-        <div class="@container">
-          <div class="@[480px]:px-4 @[480px]:py-3">
-            <div
-              class="bg-cover bg-center flex flex-col justify-end overflow-hidden bg-[#310c0c] @[480px]:rounded min-h-[218px]"
-              style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 25%), url("https://cdn.usegalileo.ai/sdxl10/f084d94c-a4c9-47a7-ae15-0154c1fbbb6c.png");'
-            >
-              <div class="flex justify-center gap-2 p-5">
-                <div class="size-1.5 rounded-full bg-[#310c0c]"></div>
-                <div class="size-1.5 rounded-full bg-[#310c0c] opacity-50"></div>
-                <div class="size-1.5 rounded-full bg-[#310c0c] opacity-50"></div>
-                <div class="size-1.5 rounded-full bg-[#310c0c] opacity-50"></div>
-                <div class="size-1.5 rounded-full bg-[#310c0c] opacity-50"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+       <div class="@container">
+  <div class="@[480px]:px-4 @[480px]:py-3">
+    <div class="relative w-full min-h-[218px] overflow-hidden @[480px]:rounded">
+      <!-- Image Slider -->
+      <div id="slider" class="relative w-full min-h-[218px]">
+        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
+          <img src="https://image.tmdb.org/t/p/w185/yEr23ZTYkz5cv3aSdLvlzuI3thI.jpg" class="w-full h-[218px] object-cover">
+        </a>
+        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
+          <img src="https://image.tmdb.org/t/p/w185/g7vQXsELihik4oHJwqhL6WuTJ3j.jpg" class="w-full h-[218px] object-cover">
+        </a>
+        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
+          <img src="https://image.tmdb.org/t/p/w185/d4Mc687WE8wFAk5nlmJJh4qNuIO.jpg" class="w-full h-[218px] object-cover">
+        </a>
+        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
+          <img src="https://image.tmdb.org/t/p/w185/ozOjfhE6ADlWto0IKgVtniRvUOW.jpg" class="w-full h-[218px] object-cover">
+        </a>
+        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
+          <img src="https://image.tmdb.org/t/p/w185/9KuIDiBuWQ5VjezynTZ8YJCPBsL.jpg" class="w-full h-[218px] object-cover">
+        </a>
+      </div>
+
+      <!-- Indicator Dots -->
+      <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2">
+        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(0)"></div>
+        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(1)"></div>
+        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(2)"></div>
+        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(3)"></div>
+        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(4)"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+  const totalSlides = slides.length;
+
+  function updateSlider() {
+    slides.forEach((slide, index) => {
+      slide.style.opacity = index === currentIndex ? "1" : "0";
+    });
+
+    dots.forEach(dot => dot.classList.remove("opacity-100"));
+    dots[currentIndex].classList.add("opacity-100");
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateSlider();
+  }
+
+  function goToSlide(index) {
+    currentIndex = index;
+    updateSlider();
+  }
+
+  updateSlider();
+  setInterval(nextSlide, 2000); // Auto change every 2 sec
+</script>
+
         <div class="pb-3">
           <div class="flex border-b border-[#7e2020] px-4 justify-between">
             <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#ff0000] text-white gap-1 pb-[7px] pt-2.5 flex-1" href="#">
