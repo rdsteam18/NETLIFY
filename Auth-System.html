@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth System-NETLIFY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+   .image-container {
+    text-align: ;
+    margin-top: 20px;
+}
+
+.image-container img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.image-container img:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Form styling */
+#auth-container {
+    border: 2px solid #ddd;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+#auth-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Button effects */
+button {
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+   
+    
+    <div id="auth-container" class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 id="form-title" class="text-2xl font-bold text-center mb-4">Sign Up</h2>
+        
+        <input type="email" id="email" placeholder="Email" class="w-full p-2 mb-2 border rounded">
+        <input type="password" id="password" placeholder="Password" class="w-full p-2 mb-2 border rounded">
+        
+        <button id="auth-button" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Sign Up</button>
+        <p id="toggle-text" class="text-center text-sm mt-2 cursor-pointer text-blue-600">Already have an account? Log in</p>
+        <button id="logout-button" class="w-full bg-red-500 text-white p-2 mt-2 rounded hidden">Log Out</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBng920GO7MpEp96Y0QDO8bqStbCcyN73g",
+  authDomain: "omdev-netlify.firebaseapp.com",
+  projectId: "omdev-netlify",
+  storageBucket: "omdev-netlify.firebasestorage.app",
+  messagingSenderId: "506734077573",
+  appId: "1:506734077573:web:6a66043103a472f0d6ebec",
+  measurementId: "G-803W1SVXE7"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const authButton = document.getElementById("auth-button");
+        const toggleText = document.getElementById("toggle-text");
+        const logoutButton = document.getElementById("logout-button");
+        const formTitle = document.getElementById("form-title");
+
+        let isSignUp = true;
+
+        toggleText.addEventListener("click", () => {
+            isSignUp = !isSignUp;
+            formTitle.innerText = isSignUp ? "Sign Up" : "Login";
+            authButton.innerText = isSignUp ? "Sign Up" : "Log In";
+            toggleText.innerText = isSignUp ? "Already have an account? Log in" : "New user? Sign Up";
+        });
+        
+       authButton.addEventListener("click", () => {
+    if (isSignUp) {
+        createUserWithEmailAndPassword(auth, email.value, password.value)
+            .then(() => {
+                alert("Signup successful!");
+                window.location.href = "https://omdev.netlify.app/"; // Redirect after signup
+            })
+            .catch(error => alert(error.message));
+    } else {
+        signInWithEmailAndPassword(auth, email.value, password.value)
+            .then(() => {
+                alert("Login successful!");
+                window.location.href = "https://omdev.netlify.app/"; // Redirect after login
+            })
+            .catch(error => alert(error.message));
+    }
+});
+
+        logoutButton.addEventListener("click", () => {
+            signOut(auth).then(() => alert("Logged out!"));
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                email.style.display = "none";
+                password.style.display = "none";
+                authButton.style.display = "none";
+                toggleText.style.display = "none";
+                logoutButton.classList.remove("hidden");
+                formTitle.innerText = `Logged in as: ${user.email}`;
+            } else {
+                email.style.display = "block";
+                password.style.display = "block";
+                authButton.style.display = "block";
+                toggleText.style.display = "block";
+                logoutButton.classList.add("hidden");
+                formTitle.innerText = "Sign Up";
+            }
+        });
+    </script>
+</body>
+</html>
