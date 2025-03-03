@@ -1,4 +1,3 @@
-
                     .search-container {
     position: relative;
 }
@@ -62,6 +61,11 @@
           color: #ffffff;
           text-decoration: none;
           font-size: 18px;
+          transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+          color: #ff4757;
       }
 
       .menu-toggle {
@@ -94,7 +98,6 @@
               display: block;
               order: 2;
           }
-
 }
 
 
@@ -188,14 +191,12 @@
     .anime {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
-         .anime-card img {
+         .anime-card {
             width: 100%;
             border-radius: 10px;
-            aspect-ratio: 1/2;
            object-fit: contain;
-           
-
 } }
 
  body {
@@ -240,4 +241,3 @@ button:hover {
         .blog h2 {
             color: #ff4757;
         }
-
