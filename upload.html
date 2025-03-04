@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload New Anime</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <h2>Upload New Anime</h2>
+    <form id="animeUploadForm">
+        <label>Anime Title:</label>
+        <input type="text" id="title" required><br><br>
+
+        <label>Image URL:</label>
+        <input type="text" id="imageUrl" required><br><br>
+
+        <label>Watch Link:</label>
+        <input type="text" id="watchLink" required><br><br>
+
+        <button type="submit">Upload Anime</button>
+    </form>
+
+    <script>
+        // 🔥 Firebase Configuration
+       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBng920GO7MpEp96Y0QDO8bqStbCcyN73g",
+  authDomain: "omdev-netlify.firebaseapp.com",
+  databaseURL: "https://omdev-netlify-default-rtdb.firebaseio.com",
+  projectId: "omdev-netlify",
+  storageBucket: "omdev-netlify.firebasestorage.app",
+  messagingSenderId: "506734077573",
+  appId: "1:506734077573:web:6a66043103a472f0d6ebec",
+  measurementId: "G-803W1SVXE7"
+};
+
+        // 🔥 Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // 📝 Form Submission
+        document.getElementById("animeUploadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById("title").value;
+            const imageUrl = document.getElementById("imageUrl").value;
+            const watchLink = document.getElementById("watchLink").value;
+
+            db.collection("animeList").add({
+                title: title,
+                image: imageUrl,
+                link: watchLink,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert("✅ Anime Uploaded Successfully!");
+                document.getElementById("animeUploadForm").reset();
+            }).catch((error) => {
+                console.error("❌ Error Uploading Anime:", error);
+            });
+        });
+    </script>
+</body>
+</html>
