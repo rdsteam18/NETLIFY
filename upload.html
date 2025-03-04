@@ -1,108 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload New Anime</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <title>Anime Manager</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e2e;
-            color: white;
             text-align: center;
-            margin: 0;
+            background-color: #f4f4f4;
             padding: 20px;
-        }
-        h2 {
-            color: #ff9800;
         }
         form {
-            background: #2a2a3b;
+            background: white;
             padding: 20px;
             border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
             display: inline-block;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        label {
-            font-weight: bold;
+            width: 300px;
         }
         input {
-            width: 100%;
+            display: block;
+            margin: 10px auto;
             padding: 10px;
-            margin: 10px 0;
-            border: none;
+            width: calc(100% - 22px);
+            border: 1px solid #ccc;
             border-radius: 5px;
-            background: #3b3b4f;
-            color: white;
         }
         button {
-            background: #ff9800;
-            color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            background-color: #28a745;
+            color: white;
             font-size: 16px;
+            margin-top: 10px;
         }
-        button:hover {
-            background: #e68900;
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px gray;
         }
     </style>
 </head>
 <body>
-    <h2>Upload New Anime</h2>
-    <form id="animeUploadForm">
-        <label>Anime Title:</label>
-        <input type="text" id="title" required><br><br>
+    <h2>🎌 Anime JSON मैनेजर</h2>
 
-        <label>Image URL:</label>
-        <input type="text" id="imageUrl" required><br><br>
-
-        <label>Watch Link:</label>
-        <input type="text" id="watchLink" required><br><br>
-
-        <button type="submit">Upload Anime</button>
+    <form id="animeForm">
+        <input type="text" id="title" placeholder="Anime Title" required>
+        <input type="text" id="image" placeholder="Image URL" required>
+        <input type="text" id="link" placeholder="Anime Page Link" required>
+        <button type="submit">➕ Add Anime</button>
+        <button type="button" id="updateJsonBtn">🔄 Update JSON</button>
+      
     </form>
+  
+
+    <h3>📜 Anime List</h3>
+    <ul id="animeList"></ul>
 
     <script>
-        // 🔥 Firebase Configuration
-       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBng920GO7MpEp96Y0QDO8bqStbCcyN73g",
-  authDomain: "omdev-netlify.firebaseapp.com",
-  databaseURL: "https://omdev-netlify-default-rtdb.firebaseio.com",
-  projectId: "omdev-netlify",
-  storageBucket: "omdev-netlify.firebasestorage.app",
-  messagingSenderId: "506734077573",
-  appId: "1:506734077573:web:6a66043103a472f0d6ebec",
-  measurementId: "G-803W1SVXE7"
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTBpBWxMbcRq6pRW-pA4tUgH0AiAMmFVg",
+            authDomain: "animedb-c3498.firebaseapp.com",
+            databaseURL: "https://animedb-c3498-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "animedb-c3498",
+            storageBucket: "animedb-c3498.firebasestorage.app",
+            messagingSenderId: "531128784587",
+            appId: "1:531128784587:web:878759a4f4ad1199022d4e"
+        };
 
-        // 🔥 Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const db = firebase.database();
 
-        // 📝 Form Submission
-        document.getElementById("animeUploadForm").addEventListener("submit", function(event) {
+        document.getElementById('animeForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            
-            const title = document.getElementById("title").value;
-            const imageUrl = document.getElementById("imageUrl").value;
-            const watchLink = document.getElementById("watchLink").value;
+            const title = document.getElementById('title').value;
+            const image = document.getElementById('image').value;
+            const link = document.getElementById('link').value;
 
-            db.collection("animeList").add({
-                title: title,
-                image: imageUrl,
-                link: watchLink,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                alert("✅ Anime Uploaded Successfully!");
-                document.getElementById("animeUploadForm").reset();
-            }).catch((error) => {
-                console.error("❌ Error Uploading Anime:", error);
+            db.ref('animes/').push({ title, image, link }).then(() => {
+                alert("✅ Anime Added!");
+                document.getElementById('animeForm').reset();
+            }).catch(error => console.error("Error adding anime:", error));
+        });
+
+        db.ref('animes/').on('value', (snapshot) => {
+            const animeList = document.getElementById('animeList');
+            animeList.innerHTML = "";
+            snapshot.forEach((childSnapshot) => {
+                const anime = childSnapshot.val();
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <img src="${anime.image}" width="50">
+                    <b>${anime.title}</b> - <a href="${anime.link}" target="_blank">Watch</a>
+                    <button onclick="deleteAnime('${childSnapshot.key}')">❌ Delete</button>
+                `;
+                animeList.appendChild(li);
             });
+        });
+
+        function deleteAnime(key) {
+            db.ref('animes/' + key).remove().then(() => {
+                alert("🗑 Anime Deleted!");
+            }).catch(error => console.error("Error deleting anime:", error));
+        }
+
+        document.getElementById('updateJsonBtn').addEventListener('click', function() {
+            fetch("http://localhost:5000/update-json")
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => console.error("Error updating JSON:", error));
         });
     </script>
 </body>
