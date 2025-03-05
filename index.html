@@ -111,7 +111,7 @@
 		'key' : '41ebf2e60df1b2c70a841c4254a06d61',
 		'format' : 'iframe',
 		'height' : 300,
-		'width' : 160,
+		'width' : 160,//
 		'params' : {}
 	};
 </script>
@@ -124,6 +124,25 @@
     <div class="footer">
  All Rights Reserved. <a href="https://omdev.netlify.app/" style="color: #00d1b2; text-decoration: none;">© NETLIFY</a>
     </div>
+
+	<ul id="anime-list"></ul>
+
+    <script>
+        // JSON फाइल GitHub से लोड करें
+        fetch("https://raw.githubusercontent.com/rdsteam18/NETLIFY/main/animeData.json")
+            .then(response => response.json())
+            .then(data => {
+                let animeList = document.getElementById("anime-list");
+                
+                // JSON डेटा को HTML में दिखाना
+                data.forEach(anime => {
+                    let listItem = document.createElement("li");
+                    listItem.textContent = `${anime.name} - ${anime.genre}`;
+                    animeList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error("Error loading JSON:", error));
+    </script>
     
 </body>
 </html>
