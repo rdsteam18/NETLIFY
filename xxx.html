@@ -7,7 +7,16 @@
 </head>
 <body>
     <h2>Update JSON Data</h2>
-    <textarea id="jsonData" rows="10" cols="50"></textarea><br><br>
+
+    <label>Title:</label>
+    <input type="text" id="title"><br><br>
+
+    <label>Image URL:</label>
+    <input type="text" id="image"><br><br>
+
+    <label>Link URL:</label>
+    <input type="text" id="link"><br><br>
+
     <button onclick="updateJSON()">Update JSON</button>
 
     <script>
@@ -15,26 +24,62 @@
             const token = "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"; // अपना GitHub Token डालें
             const repo = "rdsteam18/NETLIFY"; // अपनी GitHub Repository डालें
             const filePath = "animeData.json"; // JSON फाइल का Path
-            const apiUrl = `https://api.github.com/repos/rdsteam18/NETLIFY/contents/animeData.json`;
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
 
-            // नया JSON डेटा लें
-            const newData = document.getElementById("jsonData").value;
-            const content = btoa(unescape(encodeURIComponent(newData))); // Base64 Encode
+            // यूज़र द्वारा इनपुट किए गए डेटा को लें
+            const newEntry = {
+                title: document.getElementById("title").value,
+                image: document.getElementById("image").value,
+                link: document.getElementById("link").value
+            };
 
-            // GitHub API से Existing JSON डेटा लोड करें
-            const response = await fetch(apiUrl, {
-                headers: {
-                    Authorization: `token ${token}`,
-                    Accept: "application/vnd.github.v3+json"
+            try {
+                // GitHub API से Existing JSON डेटा लोड करें
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        Authorization: `token ${token}`,
+                        Accept: "application/vnd.github.v3+json"
+                    }
+                });
+
+                if (!response.ok) {
+                    alert("❌ Error fetching file: " + response.statusText);
+                    return;
                 }
-            });
 
-            if (!response.ok) {
-                alert("Error fetching file: " + response.statusText);
-                return;
+                const fileData = await response.json();
+                const sha = fileData.sha; // पुरानी फाइल का SHA
+                let existingData = JSON.parse(atob(fileData.content)); // Base64 से JSON में बदलें
+
+                // नया डेटा जोड़ें
+                existingData.push(newEntry);
+
+                // JSON को अपडेट करें
+                const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(existingData, null, 2))));
+
+                // अब GitHub पर JSON अपडेट करें
+                const updateResponse = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        Authorization: `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: "Added new anime data",
+                        content: updatedContent,
+                        sha: sha
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    alert("✅ JSON फाइल सफलतापूर्वक अपडेट हो गई!");
+                } else {
+                    alert("❌ JSON अपडेट में समस्या आई!");
+                }
+            } catch (error) {
+                alert("❌ Error: " + error.message);
             }
-
-            const fileData = await response.json();
-            const sha = fileData.sha; // पुरानी फाइल का SHA
-
-            /
+        }
+    </script>
+</body>
+</html>
