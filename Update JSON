@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update JSON File</title>
+</head>
+<body>
+    <h2>Update JSON Data</h2>
+    <textarea id="jsonData" rows="10" cols="50"></textarea><br><br>
+    <button onclick="updateJSON()">Update JSON</button>
+
+    <script>
+        async function updateJSON() {
+            const token = "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"; // अपना GitHub Token डालें
+            const repo = "rdsteam18/NETLIFY"; // अपनी GitHub Repository डालें
+            const filePath = "animeData.json"; // JSON फाइल का Path
+            const apiUrl = `https://api.github.com/repos/rdsteam18/NETLIFY/contents/animeData.json`;
+
+            // नया JSON डेटा लें
+            const newData = document.getElementById("jsonData").value;
+            const content = btoa(unescape(encodeURIComponent(newData))); // Base64 Encode
+
+            // GitHub API से Existing JSON डेटा लोड करें
+            const response = await fetch(apiUrl, {
+                headers: {
+                    Authorization: `token ${token}`,
+                    Accept: "application/vnd.github.v3+json"
+                }
+            });
+
+            if (!response.ok) {
+                alert("Error fetching file: " + response.statusText);
+                return;
+            }
+
+            const fileData = await response.json();
+            const sha = fileData.sha; // पुरानी फाइल का SHA
+
+            /
