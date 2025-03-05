@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,54 +16,55 @@
     </form>
 
     <script>
-      const githubToken = "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";
-const repoOwner = "rdsteam18";
-const repoName = "NETLIFY";
-const filePath = "animeData.json";
+        const githubToken = "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"; // सुरक्षा के लिए टोकन को यहां सीधे न रखें
+        const repoOwner = "rdsteam18";
+        const repoName = "NETLIFY";
+        const filePath = "animeData.json";
 
-document.getElementById("animeForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    
-    const title = document.getElementById("title").value;
-    const image = document.getElementById("image").value;
-    const link = document.getElementById("link").value;
+        document.getElementById("animeForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            
+            const title = document.getElementById("title").value;
+            const image = document.getElementById("image").value;
+            const link = document.getElementById("link").value;
 
-    const newAnime = { title, image, link };
+            const newAnime = { title, image, link };
+            const apiUrl = `https://api.github.com/repos/rdsteam18/NETLIFY/contents/animeData.json`;
+            const headers = {
+                "Authorization": `Bearer ${githubToken}`,
+                "Accept": "application/vnd.github.v3+json",
+                "Content-Type": "application/json"
+            };
 
-    // GitHub API से JSON फ़ाइल प्राप्त करें
-    const apiUrl = `https://api.github.com/repos/rdsteam18/NETLIFY/contents/animeData.json`;
-    const headers = { "Authorization": `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`, "Accept": "application/vnd.github.v3+json" };
+            try {
+                let response = await fetch(apiUrl, { headers });
+                if (!response.ok) throw new Error("Failed to fetch JSON file");
+                
+                let data = await response.json();
+                let content = JSON.parse(atob(data.content));
+                content.push(newAnime);
+                
+                let encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2))));
+                let updateResponse = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers,
+                    body: JSON.stringify({
+                        message: "Added new anime",
+                        content: encodedContent,
+                        sha: data.sha
+                    })
+                });
 
-    try {
-        let response = await fetch(apiUrl, { headers });
-        let data = await response.json();
-        let content = JSON.parse(atob(data.content));
-
-        // नया डेटा जोड़ें
-        content.push(newAnime);
-
-        // JSON को GitHub पर अपडेट करें
-        let updateResponse = await fetch(apiUrl, {
-            method: "PUT",
-            headers,
-            body: JSON.stringify({
-                message: "Added new anime",
-                content: btoa(JSON.stringify(content, null, 2)),
-                sha: data.sha
-            })
+                if (updateResponse.ok) {
+                    alert("Anime added successfully!");
+                    document.getElementById("animeForm").reset();
+                } else {
+                    alert("Failed to update JSON");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
         });
-
-        if (updateResponse.ok) {
-            alert("Anime added successfully!");
-            document.getElementById("animeForm").reset();
-        } else {
-            alert("Failed to update JSON");
-        }
-    } catch (error) {
-        console.error("Error:", error);
-    }
-});
-
     </script>
 </body>
 </html>
