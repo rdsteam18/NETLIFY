@@ -120,21 +120,34 @@
 </div>
 
 <script src="script.js"></script>
-	<ul id="anime-list"></ul>
-
-    <script>
+<script>
         // JSON फाइल GitHub से लोड करें
         fetch("https://raw.githubusercontent.com/rdsteam18/NETLIFY/main/animeData.json")
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not OK");
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log("Fetched Data:", data);  // Debugging के लिए
+
                 let animeList = document.getElementById("anime-list");
                 
                 // JSON डेटा को HTML में दिखाना
-                data.forEach(anime => {
-                    let listItem = document.createElement("li");
-                    listItem.textContent = `${anime.name} - ${anime.genre}`;
-                    animeList.appendChild(listItem);
-                });
+                if (Array.isArray(data)) {
+                    data.forEach(anime => {
+                        if (anime.name && anime.genre) {  // Null values से बचने के लिए
+                            let listItem = document.createElement("li");
+                            listItem.textContent = `${anime.name} - ${anime.genre}`;
+                            animeList.appendChild(listItem);
+                        } else {
+                            console.warn("Invalid data format:", anime);
+                        }
+                    });
+                } else {
+                    console.error("Data is not an array:", data);
+                }
             })
             .catch(error => console.error("Error loading JSON:", error));
     </script>
