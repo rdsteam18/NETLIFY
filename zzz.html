@@ -11,7 +11,7 @@
 </head>
 <body>
     <h1>GitHub Episode Uploader</h1>
-    <form action="https://script.google.com/macros/s/AKfycbwsTkpEs8c2dQK3YmzBwI2Naxlo78QasBHIWd4YVqhhW4e9HzogPpUFjj_LMy4cIks/exec" method="post">
+    <form action="https://script.google.com/macros/s/AKfycbxqZpg08m4v4ieljejHwJikcyrBBVJsco5NCfKiCg/dev" method="post">
         <label for="filename">Enter File Name:</label>
         <input type="text" id="filename" name="filename" placeholder="Enter File Name" required>
 
@@ -26,7 +26,7 @@
 
     <script>
         function fetchEpisodes() {
-            fetch("https://script.google.com/macros/s/AKfycbwsTkpEs8c2dQK3YmzBwI2Naxlo78QasBHIWd4YVqhhW4e9HzogPpUFjj_LMy4cIks/exec")
+            fetch("https://script.google.com/macros/s/AKfycbxqZpg08m4v4ieljejHwJikcyrBBVJsco5NCfKiCg/dev")
             .then(response => response.json())
             .then(data => {
                 const episodeList = document.getElementById("episodeList");
