@@ -99,14 +99,14 @@ const firebaseConfig = {
         createUserWithEmailAndPassword(auth, email.value, password.value)
             .then(() => {
                 alert("Signup successful!");
-                window.location.href = "https://omdev.netlify.app/"; // Redirect after signup
+                window.location.href = "omdev.netlify.app/"; // Redirect after signup
             })
             .catch(error => alert(error.message));
     } else {
         signInWithEmailAndPassword(auth, email.value, password.value)
             .then(() => {
                 alert("Login successful!");
-                window.location.href = "https://omdev.netlify.app/"; // Redirect after login
+                window.location.href = "https://omdev.netlify.app/xxx.html"; // Redirect after login
             })
             .catch(error => alert(error.message));
     }
