@@ -11,13 +11,15 @@
 </head>
 <body>
     <h1>GitHub Episode Uploader</h1>
-    <label>फाइल का नाम:</label>
-    <input type="text" id="fileName" placeholder="anime-name.html">
-    <br>
-    <label>एपिसोड लिंक:</label>
-    <input type="text" id="episodeLink" placeholder="https://example.com/episode.mp4">
-    <br>
-    <button onclick="updateGitHubFile()">एपिसोड जोड़ें</button>
+    <form action="https://script.google.com/macros/s/AKfycbwsTkpEs8c2dQK3YmzBwI2Naxlo78QasBHIWd4YVqhhW4e9HzogPpUFjj_LMy4cIks/exec" method="post">
+        <label for="filename">Enter File Name:</label>
+        <input type="text" id="filename" name="filename" placeholder="Enter File Name" required>
+
+        <label for="episode_link">Enter Episode Link:</label>
+        <input type="text" id="episode_link" name="episode_link" placeholder="Enter Episode Link" required>
+
+        <button type="submit">Submit</button>
+    </form>
     
     <p id="status"></p>
     
