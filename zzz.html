@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Episode Uploader</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>GitHub Episode Uploader</h1>
+    <label>फाइल का नाम:</label>
+    <input type="text" id="fileName" placeholder="anime-name.html">
+    <br>
+    <label>एपिसोड लिंक:</label>
+    <input type="text" id="episodeLink" placeholder="https://example.com/episode.mp4">
+    <br>
+    <button onclick="updateGitHubFile()">एपिसोड जोड़ें</button>
+    
+    <p id="status"></p>
+    
+    <script>
+        async function updateGitHubFile() {
+            const fileName = document.getElementById('fileName').value;
+            const episodeLink = document.getElementById('episodeLink').value;
+            const repo = 'NETLIFY';
+            const owner = 'rdsteam18';
+            const branch = 'main';
+            const token = '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';
+
+            if (!fileName || !episodeLink) {
+                document.getElementById('status').innerText = '⚠️ कृपया फाइल नाम और एपिसोड लिंक डालें!';
+                return;
+            }
+            
+            // GitHub API से फाइल कंटेंट प्राप्त करना
+            const fileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`;
+            const headers = { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' };
+            
+            let fileData;
+            try {
+                const response = await fetch(fileUrl, { headers });
+                fileData = await response.json();
+                if (!response.ok) throw new Error(fileData.message);
+            } catch (error) {
+                document.getElementById('status').innerText = '⚠️ फाइल नहीं मिली, नई फाइल बनाई जाएगी!';
+                fileData = null;
+            }
+            
+            let content = fileData ? atob(fileData.content) : '<html><body><h1>Solo Leveling Episodes</h1><ul></ul></body></html>';
+            let newContent = content.replace('</ul>', `<li><a href="${episodeLink}">New Episode</a></li></ul>`);
+            
+            const updatedFile = {
+                message: 'New Episode Added',
+                content: btoa(newContent),
+                branch,
+                sha: fileData ? fileData.sha : undefined
+            };
+            
+            // GitHub पर फाइल अपडेट करना
+            try {
+                const updateResponse = await fetch(fileUrl, {
+                    method: 'PUT',
+                    headers,
+                    body: JSON.stringify(updatedFile)
+                });
+                if (!updateResponse.ok) throw new Error('Upload failed');
+                document.getElementById('status').innerText = '✅ एपिसोड सफलतापूर्वक जोड़ दिया गया!';
+            } catch (error) {
+                document.getElementById('status').innerText = '❌ अपडेट फेल!';
+            }
+        }
+    </script>
+</body>
+</html>
