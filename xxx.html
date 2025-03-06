@@ -3,71 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Form</title>
+    <title>Update Anime List</title>
 </head>
 <body>
-    <h2>Add Anime</h2>
+    <h2>Add New Anime</h2>
     <form id="animeForm">
-        <input type="text" id="title" placeholder="Title" required>
-        <input type="url" id="image" placeholder="Image URL" required>
-        <input type="text" id="link" placeholder="Page Link" required>
-        <button type="submit">Add Anime</button>
+        <label>Title:</label>
+        <input type="text" id="title" required><br><br>
+
+        <label>Image Link:</label>
+        <input type="text" id="image" required><br><br>
+
+        <label>Page Link:</label>
+        <input type="text" id="link" required><br><br>
+
+        <button type="submit">Add to List</button>
     </form>
 
     <script>
-        const githubToken = "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"; 
-        const repoOwner = "rdsteam18";
-        const repoName = "NETLIFY";
-        const filePath = "animeData.json";
+        document.getElementById("animeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        document.getElementById("animeForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
-            
-            const title = document.getElementById("title").value;
-            const image = document.getElementById("image").value;
-            const link = document.getElementById("link").value;
+            var title = document.getElementById("title").value;
+            var image = document.getElementById("image").value;
+            var link = document.getElementById("link").value;
 
-            const newAnime = { title, image, link };
-            const apiUrl = `https://api.github.com/repos/rdsteam18/NETLIFY/contents/animeData.json`;
-            const headers = {
-                "Authorization": `Bearer ${githubToken}`,
-                "Accept": "application/vnd.github.v3+json",
-                "Content-Type": "application/json"
-            };
+            var url = "https://script.google.com/macros/s/AKfycbzFrEIs9NpGr2VlQmoqS2aZn9rgHtRbWmt5Hx0Df2Lhf_w34rchA8_j6zE-gHlYD1ah/exec"; // अपने Google Apps Script का URL डालें
 
-            try {
-                // JSON फ़ाइल की जानकारी प्राप्त करें
-                let response = await fetch(apiUrl, { headers });
-                if (!response.ok) throw new Error("Failed to fetch JSON file");
-                
-                let data = await response.json();
-                let content = JSON.parse(atob(data.content));
-                content.push(newAnime);
-                
-                let encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2))));
-                
-                // JSON फ़ाइल को अपडेट करें
-                let updateResponse = await fetch(apiUrl, {
-                    method: "PUT",
-                    headers,
-                    body: JSON.stringify({
-                        message: "Added new anime",
-                        content: encodedContent,
-                        sha: data.sha
-                    })
-                });
+            var data = { title: title, image: image, link: link };
 
-                if (updateResponse.ok) {
-                    alert("Anime added successfully!");
-                    document.getElementById("animeForm").reset();
-                } else {
-                    let errorData = await updateResponse.json();
-                    alert("Failed to update JSON: " + errorData.message);
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Error: " + error.message);
-            }
+            fetch(url, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            }).then(() => {
+                alert("Anime Added Successfully!");
+                document.getElementById("animeForm").reset();
+            }).catch(error => console.log(error));
         });
     </script>
 </body>
