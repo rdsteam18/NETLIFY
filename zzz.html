@@ -26,7 +26,7 @@
 
     <script>
         function fetchEpisodes() {
-            fetch("YOUR_GOOGLE_SCRIPT_WEB_APP_URL")
+            fetch("https://script.google.com/macros/s/AKfycbwsTkpEs8c2dQK3YmzBwI2Naxlo78QasBHIWd4YVqhhW4e9HzogPpUFjj_LMy4cIks/exec")
             .then(response => response.json())
             .then(data => {
                 const episodeList = document.getElementById("episodeList");
@@ -58,8 +58,8 @@
             }
             
             // GitHub API से फाइल कंटेंट प्राप्त करना
-            const fileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`;
-            const headers = { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' };
+            const fileUrl = `https://api.github.com/repos/rdsteam18/NETLIFY/contents/${fileName}`;
+            const headers = { 'Authorization': `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`, 'Accept': 'application/vnd.github.v3+json' };
             
             let fileData;
             try {
