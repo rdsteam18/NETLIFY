@@ -4,21 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Anime List</title>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #ff79c6; }
+            50% { box-shadow: 0 0 20px #ff79c6; }
+            100% { box-shadow: 0 0 5px #ff79c6; }
+        }
+
+        @keyframes wave {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2e;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            background: #282a36;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+            animation: fadeIn 1s ease-out;
+        }
+        .logo {
+            width: 80px;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 0 10px #ff79c6);
+        }
+        h2 {
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background: #44475a;
+            color: white;
+            transition: transform 0.2s;
+        }
+        input:hover {
+            transform: rotate(-1deg);
+        }
+        input:focus {
+            outline: none;
+            transform: scale(1.05);
+            animation: glow 1.5s infinite;
+        }
+        button {
+            background: #ff79c6;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+            animation: fadeIn 2s ease-out;
+        }
+        button:hover {
+            background: #bd93f9;
+            animation: glow 1s infinite;
+        }
+        button:active {
+            animation: wave 0.5s;
+        }
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ff79c6;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 5s infinite;
+        }
+        @keyframes float {
+            from { transform: translateY(100vh); opacity: 0.6; }
+            to { transform: translateY(-10vh); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
-    <h2>Add New Anime</h2>
-    <form id="animeForm">
-        <label>Title:</label>
-        <input type="text" id="title" required><br><br>
+    <div class="particles"></div>
+    <div class="container">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhQ7VdONt8W-hQ1U9cjlSyDreUB4qVxFH4I9VbiKD5cjKCHT-rqpu_Pt_Rc3Ff-IXIs2CW24yLg8HumiOQ6mS8QTPyfjI93LGSrxgtV6s0ol7Ky_GA8j42d1HttAkOrMgPaDyL_uDXkZfM15AzSE1TDh2j4FY8KZjyDWxrX0CD1X-rN95_GdqTqEjR2TGw=s150" class="logo" alt="Logo">
+        <h2>Add New Anime</h2>
+        <form id="animeForm">
+            <label>Title:</label>
+            <input type="text" id="title" required>
 
-        <label>Image Link:</label>
-        <input type="text" id="image" required><br><br>
+            <label>Image Link:</label>
+            <input type="text" id="image" required>
 
-        <label>Page Link:</label>
-        <input type="text" id="link" required><br><br>
+            <label>Page Link:</label>
+            <input type="text" id="link" required>
 
-        <button type="submit">Add to List</button>
-    </form>
+            <button type="submit">Add to List</button>
+        </form>
+    </div>
 
     <script>
         document.getElementById("animeForm").addEventListener("submit", function(event) {
@@ -42,6 +162,18 @@
                 document.getElementById("animeForm").reset();
             }).catch(error => console.log(error));
         });
+
+        function createParticles() {
+            let particleContainer = document.querySelector(".particles");
+            for (let i = 0; i < 20; i++) {
+                let particle = document.createElement("div");
+                particle.classList.add("particle");
+                particle.style.left = Math.random() * 100 + "vw";
+                particle.style.animationDuration = (Math.random() * 5 + 3) + "s";
+                particleContainer.appendChild(particle);
+            }
+        }
+        createParticles();
     </script>
 </body>
 </html>
