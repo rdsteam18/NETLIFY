@@ -22,6 +22,26 @@
     </form>
     
     <p id="status"></p>
+       <ul id="episodeList"></ul>
+
+    <script>
+        function fetchEpisodes() {
+            fetch("YOUR_GOOGLE_SCRIPT_WEB_APP_URL")
+            .then(response => response.json())
+            .then(data => {
+                const episodeList = document.getElementById("episodeList");
+                episodeList.innerHTML = "";
+                data.forEach(episode => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `<a href="${episode.link}" target="_blank">${episode.name}</a>`;
+                    episodeList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        fetchEpisodes();
+    </script>
     
     <script>
         async function updateGitHubFile() {
