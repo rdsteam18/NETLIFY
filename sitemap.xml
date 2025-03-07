@@ -6,19 +6,44 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-
 <url>
   <loc>https://omdev.netlify.app/</loc>
   <lastmod>2025-03-07T19:33:12+00:00</lastmod>
   <priority>1.00</priority>
 </url>
+
 <url>
-  <loc>https://omdev.netlify.app/omdev</loc>
+  <loc>https://omdev.netlify.app/solo-leveling-season-1.html</loc>
+  <lastmod>2025-03-08T19:33:12+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://omdev.netlify.app/solo-leveling-season-2.html</loc>
+  <lastmod>2025-03-08T19:33:12+00:00</lastmod>
+  <priority>0.70</priority>
+</url>
+  <url>
+    <loc>https://omdev.netlify.app/sakamoto%20days%20-%20season%201</loc>
+    <lastmod>2025-03-08T19:33:12+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omdev.netlify.app/dragon-ball-daima</loc>
+    <lastmod>2025-03-08T19:33:12+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://omdev.netlify.app/ramayana-the-legend-of-prince-rama.html</loc>
+    <lastmod>2025-03-08T19:33:12+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+      <url>
+  <loc>https://omdev.netlify.app/auth-system</loc>
   <lastmod>2025-03-07T19:33:12+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-<url>
-  <loc>https://omdev.netlify.app/auth-system</loc>
+      <url>
+  <loc>https://omdev.netlify.app/omdev</loc>
   <lastmod>2025-03-07T19:33:12+00:00</lastmod>
   <priority>0.80</priority>
 </url>
@@ -27,6 +52,4 @@
   <lastmod>2025-03-07T19:33:12+00:00</lastmod>
   <priority>0.64</priority>
 </url>
-
-
 </urlset>
