@@ -56,6 +56,52 @@
     </style>
 </head>
 <body>
+ <header>
+        <nav>
+            <div class="logo">
+                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhQ7VdONt8W-hQ1U9cjlSyDreUB4qVxFH4I9VbiKD5cjKCHT-rqpu_Pt_Rc3Ff-IXIs2CW24yLg8HumiOQ6mS8QTPyfjI93LGSrxgtV6s0ol7Ky_GA8j42d1HttAkOrMgPaDyL_uDXkZfM15AzSE1TDh2j4FY8KZjyDWxrX0CD1X-rN95_GdqTqEjR2TGw=s150" alt="Logo">
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="search-container">
+        <input type="text" class="form-control search-input" placeholder="Search...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+            <ul class="nav-links">
+    <li><a href='/' title='Go to Home'>Home</a></li>
+    <li><a href='/omdev' title='Know more about OmDev'>OmDev</a></li>
+    <li><a href="genres.html" title="Explore Genres">Genres</a></li>
+    <li>
+        <a href='/auth-system' title='Login to your account'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+                <defs>
+                    <style>
+                        .cls-3 { fill:#6fabe6; }
+                        .cls-4 { fill:#82bcf4; }
+                    </style>
+                </defs>
+                <g id="User_profile" data-name="User profile">
+                    <path d="M47 24A23 23 0 1 1 12.81 3.91 23 23 0 0 1 47 24z" style="fill:#374f68"/>
+                    <path d="M47 24a22.91 22.91 0 0 1-8.81 18.09A22.88 22.88 0 0 1 27 45C5.28 45-4.37 17.34 12.81 3.91A23 23 0 0 1 47 24z" style="fill:#425b72"/>
+                    <path class="cls-3" d="M39.2 35.39a19 19 0 0 1-30.4 0 17 17 0 0 1 10.49-8.73 8.93 8.93 0 0 0 9.42 0 17 17 0 0 1 10.49 8.73z"/>
+                    <path class="cls-4" d="M39.2 35.39a19 19 0 0 1-4.77 4.49 19 19 0 0 1-15.13-1 7.08 7.08 0 0 1-.51-12.18c.1-.07 0-.05.5-.05a9 9 0 0 0 9.42 0 17 17 0 0 1 10.49 8.74z"/>
+                    <path class="cls-3" d="M33 19a9 9 0 1 1-12.38-8.34A9 9 0 0 1 33 19z"/>
+                    <path class="cls-4" d="M33 19a9 9 0 0 1-2.6 6.33c-9.13 3.74-16.59-7.86-9.78-14.67A9 9 0 0 1 33 19z"/>
+                </g>
+            </svg>
+            Login
+        </a>
+    </li>
+</ul>
+
+        </nav>
+    </header>
     <div class="container">
         <h1>Ramayana: The Legend of Prince Rama</h1>
         <iframe src="https://filemoon.to/e/bycdaue07ebr/Toonhub4u_Ramayana_The_Legend_of_Prince_Rama_1993_Remastered_720p_HD_WEBRip_Triple_Audio_2_Dubs_Hindi-Hindi-Eng.mkv" allowfullscreen></iframe>
@@ -65,6 +111,9 @@
         <h2>About the Movie</h2>
         <p>'Ramayana: The Legend of Prince Rama' is a beautifully animated adaptation of the ancient Indian epic, Ramayana. Released in 1993, this film brings to life the heroic journey of Lord Rama, his love for Sita, and his battle against the demon king Ravana. The movie is known for its stunning animation, powerful storytelling, and deep spiritual significance.</p>
         <p>Experience the divine tale of duty, honor, and devotion through this timeless classic. Whether you are a fan of mythology or simply love great animation, this film is a must-watch.</p>
+    </div>
+<div class="footer">
+ All Rights Reserved. <a href="https://omdev.netlify.app/" style="color: #00d1b2; text-decoration: none;">© NETLIFY</a>
     </div>
 </body>
 </html>
