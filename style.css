@@ -245,13 +245,3 @@ button:hover {
         .blog h2 {
             color: #ff4757;
         }
- .share-buttons { display: flex; gap: 10px; margin-top: 20px; }
-        .share-buttons a, .copy-url {
-            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-            border-radius: 5px; cursor: pointer; border: none;
-        }
-        .whatsapp { background: #25D366; }
-        .facebook { background: #1877F2; }
-        .instagram { background: #E4405F; }
-        .copy-url { background: #555; color: white; font-size: 14px; }
-        img { width: 24px; height: 24px; }
