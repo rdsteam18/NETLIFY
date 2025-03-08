@@ -3,7 +3,7 @@
 <head>
 	<link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEgGhd-CvK9t1DntiBFXedIpokqWdKqwRCgOdI9KOEqlkLOgRpUCzkxDhiKbPAUhWgMa_3iCZy-eg1k1udxqEbMP8kMxLP9ktvBAqrgJV5S-nV1iStBeZjxgH7ECwxAJwmI_XUGnVzNO7Ff-Lbg2iHjsq7HPkuEKi3bXiEMaoJKPbgRyUikodONA5h4f=rw">
 <link rel="stylesheet" href="style.css">
-
+ <script src="script.js"></script>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="google-site-verification" content="d1uLLcwbDH99lepVNG6a_KEpVP24yjo1DqHN4aKhWk8" />
@@ -102,75 +102,6 @@
 	
 	<div id="pagination"></div>
   </div>
-<script>
-        let animeData = [];
-        let currentPage = 1;
-        const itemsPerPage = 20;
-
-        function displayAnime() {
-            console.log("Displaying anime...");  // Debugging
-
-            let animeContainer = document.getElementById("animeContainer");
-            animeContainer.innerHTML = "";
-
-            let start = (currentPage - 1) * itemsPerPage;
-            let end = start + itemsPerPage;
-            let paginatedItems = animeData.slice(start, end);
-
-            paginatedItems.forEach(anime => {
-                let animeItem = document.createElement("div");
-                animeItem.className = "anime-item";
-                animeItem.innerHTML = `
-                    <h3>${anime.title}</h3>
-                    <img src="${anime.image}" alt="${anime.title}" width="150">
-                    <p>${anime.description}</p>
-                `;
-                animeContainer.appendChild(animeItem);
-            });
-
-            displayPagination();
-        }
-
-        function displayPagination() {
-            let paginationContainer = document.getElementById("pagination");
-            paginationContainer.innerHTML = "";
-            let totalPages = Math.ceil(animeData.length / itemsPerPage);
-
-            let prevButton = document.createElement("button");
-            prevButton.innerText = "Previous";
-            prevButton.disabled = currentPage === 1;
-            prevButton.onclick = () => { currentPage--; displayAnime(); };
-            paginationContainer.appendChild(prevButton);
-
-            for (let i = 1; i <= totalPages; i++) {
-                let pageButton = document.createElement("button");
-                pageButton.innerText = i;
-                pageButton.disabled = i === currentPage;
-                pageButton.onclick = () => { currentPage = i; displayAnime(); };
-                paginationContainer.appendChild(pageButton);
-            }
-
-            let nextButton = document.createElement("button");
-            nextButton.innerText = "Next";
-            nextButton.disabled = currentPage === totalPages;
-            nextButton.onclick = () => { currentPage++; displayAnime(); };
-            paginationContainer.appendChild(nextButton);
-        }
-
-        window.onload = function () {
-            console.log("Window loaded, fetching anime data...");  // Debugging
-
-            fetch("animeData.json")
-                .then(response => response.json())
-                .then(data => {
-                    animeData = data;
-                    displayAnime();
-                })
-                .catch(error => console.error("Error loading anime data:", error));
-        };
-    </script>
-
-    <script src="script.js"></script>
     <div class="footer">
  All Rights Reserved. <a href="https://omdev.netlify.app/" style="color: #00d1b2; text-decoration: none;">© NETLIFY</a>
     </div>
