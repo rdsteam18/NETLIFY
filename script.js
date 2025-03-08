@@ -33,24 +33,52 @@
             });
         });
     });
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("animeData.json") // JSON file load karna
-        .then(response => response.json())
-        .then(animeData => {
-            const animeContainer = document.getElementById("animeContainer");
-            animeContainer.innerHTML = ""; // Pehle se jo bhi data hai use clear karna
+document.addEventListener("DOMContentLoaded", () => {
+    let currentPage = 1;
+    const itemsPerPage = 20;
+    let animeData = [];
 
-            animeData.forEach(anime => {
-                const animeCard = document.createElement("a");
-                animeCard.href = anime.link;
-                animeCard.innerHTML = `
-                    <div class="anime-card">
-                        <img src="${anime.image}" alt="${anime.title}">
-                        <p>${anime.title}</p>
-                    </div>
-                `;
-                animeContainer.appendChild(animeCard);
+    async function fetchAnimeData() {
+        try {
+            const response = await fetch("animeData.json");
+            animeData = await response.json();
+            displayAnime();
+            setupPagination();
+        } catch (error) {
+            console.error("Error loading anime data:", error);
+        }
+    }
+
+    function displayAnime() {
+        const animeContainer = document.getElementById("animeContainer");
+        animeContainer.innerHTML = "";
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedItems = animeData.slice(start, end);
+
+        paginatedItems.forEach(anime => {
+            const animeElement = document.createElement("div");
+            animeElement.classList.add("anime-item");
+            animeElement.innerHTML = `<h3>${anime.title}</h3><p>${anime.description}</p>`;
+            animeContainer.appendChild(animeElement);
+        });
+    }
+
+    function setupPagination() {
+        const paginationContainer = document.getElementById("pagination");
+        paginationContainer.innerHTML = "";
+        const totalPages = Math.ceil(animeData.length / itemsPerPage);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement("button");
+            pageButton.innerText = i;
+            pageButton.addEventListener("click", () => {
+                currentPage = i;
+                displayAnime();
             });
-        })
-        .catch(error => console.error("Error loading anime data:", error));
+            paginationContainer.appendChild(pageButton);
+        }
+    }
+
+    fetchAnimeData();
 });
