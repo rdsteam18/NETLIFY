@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="stylesheet" href="epstyle.css">
+	<script src="script.js"></script>
+
+    <link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEgGhd-CvK9t1DntiBFXedIpokqWdKqwRCgOdI9KOEqlkLOgRpUCzkxDhiKbPAUhWgMa_3iCZy-eg1k1udxqEbMP8kMxLP9ktvBAqrgJV5S-nV1iStBeZjxgH7ECwxAJwmI_XUGnVzNO7Ff-Lbg2iHjsq7HPkuEKi3bXiEMaoJKPbgRyUikodONA5h4f=rw">
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="OmDev Anime"/>
+    <meta name="description" content="Watch & Explore the Best Anime Series and Movies on OmDev Anime & Netlify. Stream popular anime episodes in HD quality for free."/>
+    <meta name="keywords" content="Anime, Watch Anime, Online Anime, OmDev Anime, Netlify Anime, The Daily Life of the Immortal King, Free Anime, Best Anime, HD Anime, Anime Series, Anime Movies, Dubbed Anime, Subbed Anime"/>
+    <meta name="author" content="OmDev Anime"/>
+    <meta name="contact" content="rdsteam18@gmail.com"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="language" content="English"/>
+    <meta name="distribution" content="global"/>
+    <meta name="rating" content="general"/>
+    
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="OmDev Anime & Netlify - Watch Anime Online"/>
+    <meta property="og:site_name" content="OmDev Anime & Netlify"/>
+    <meta property="og:url" content="https://omdev.netlify.app/"/>
+    <meta property="og:image" content="https://omdev.netlify.app/assets/anime-thumbnail.jpg"/>
+    <meta property="og:description" content="Stream and Enjoy HD Anime Series and Movies for Free on OmDev Anime & Netlify."/>
+    <meta property="og:locale" content="en_US"/>
+    <title>The Daily Life of the Immortal King - Season 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 10px;
+        }
+        .episode-buttons {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            justify-content: center;
+        }
+        .episode {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #222;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .episode img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            aspect-ratio: 16/9;
+        }
+        .episode button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        .episode button:hover {
+            background-color: #e84118;
+        }
+          .blog {
+            margin-top: 40px;
+            text-align: left;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .blog h2 {
+            color: #ff4757;
+        }
+    </style>
+</head>
+<body>
+<header>
+        <nav>
+            <div class="logo"><a href="https://omdev.netlify.app/">
+                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhQ7VdONt8W-hQ1U9cjlSyDreUB4qVxFH4I9VbiKD5cjKCHT-rqpu_Pt_Rc3Ff-IXIs2CW24yLg8HumiOQ6mS8QTPyfjI93LGSrxgtV6s0ol7Ky_GA8j42d1HttAkOrMgPaDyL_uDXkZfM15AzSE1TDh2j4FY8KZjyDWxrX0CD1X-rN95_GdqTqEjR2TGw=s150" alt="Logo">
+	    </a>
+	    </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="search-container">
+        <input type="text" class="form-control search-input" placeholder="Search...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+            <ul class="nav-links">
+    <li><a href='/' title='Go to Home'>Home</a></li>
+    <li><a href='/omdev' title='Know more about OmDev'>OmDev</a></li>
+    <li><a href="genres.html" title="Explore Genres">Genres</a></li>
+    <li>
+        <a href='/auth-system' title='Login to your account'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+                <defs>
+                    <style>
+                        .cls-3 { fill:#6fabe6; }
+                        .cls-4 { fill:#82bcf4; }
+                    </style>
+                </defs>
+                <g id="User_profile" data-name="User profile">
+                    <path d="M47 24A23 23 0 1 1 12.81 3.91 23 23 0 0 1 47 24z" style="fill:#374f68"/>
+                    <path d="M47 24a22.91 22.91 0 0 1-8.81 18.09A22.88 22.88 0 0 1 27 45C5.28 45-4.37 17.34 12.81 3.91A23 23 0 0 1 47 24z" style="fill:#425b72"/>
+                    <path class="cls-3" d="M39.2 35.39a19 19 0 0 1-30.4 0 17 17 0 0 1 10.49-8.73 8.93 8.93 0 0 0 9.42 0 17 17 0 0 1 10.49 8.73z"/>
+                    <path class="cls-4" d="M39.2 35.39a19 19 0 0 1-4.77 4.49 19 19 0 0 1-15.13-1 7.08 7.08 0 0 1-.51-12.18c.1-.07 0-.05.5-.05a9 9 0 0 0 9.42 0 17 17 0 0 1 10.49 8.74z"/>
+                    <path class="cls-3" d="M33 19a9 9 0 1 1-12.38-8.34A9 9 0 0 1 33 19z"/>
+                    <path class="cls-4" d="M33 19a9 9 0 0 1-2.6 6.33c-9.13 3.74-16.59-7.86-9.78-14.67A9 9 0 0 1 33 19z"/>
+                </g>
+            </svg>
+            Login
+        </a>
+    </li>
+</ul>
+
+        </nav>
+    </header>
+    <div class="container">
+        <h1>The Daily Life of the Immortal King - Season 1</h1>
+        <iframe id="videoFrame" src="https://short.icu/lpbTAPdGK" allowfullscreen></iframe>
+        <div class="episode-buttons">
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/1TEF9eCAJNM/maxresdefault.jpg" alt="Episode 1">
+                <button onclick="changeEpisode('https://short.icu/lpbTAPdGK')">Episode 1</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/RPRpWgwQf48/maxresdefault.jpg" alt="Episode 2">
+                <button onclick="changeEpisode('https://short.icu/cCAhE9jY2')">Episode 2</button>
+            </div>
+            <div class="episode">
+                <img src="https://m.media-amazon.com/images/S/pv-target-images/acd4ffa221a3eca36be94cc520663b8ee84057bcb760f97c8766bc58d25e62de.jpg" alt="Episode 3">
+                <button onclick="changeEpisode('https://short.icu/eT283Al4a')">Episode 3</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/Fd9NK-fI80g/maxresdefault.jpg" alt="Episode 4">
+                <button onclick="changeEpisode('https://short.icu/szIEB_QC7')">Episode 4</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/FRxPLcpipiI/maxresdefault.jpg" alt="Episode 5">
+                <button onclick="changeEpisode('https://short.icu/VWFv09jLR')">Episode 5</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/eRkLzZ7EExU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDvBpj8H4wsSlXdHKKtRii5mmPagQ" alt="Episode 6">
+                <button onclick="changeEpisode('https://short.icu/q53R1VtGx')">Episode 6</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimhttps://i.ytimg.com/vi/0NjzJRoXlPg/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB86E6KgNkbC57QesXeCk5-5gfvrQg.com/vi/eRkLzZ7EExU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDvBpj8H4wsSlXdHKKtRii5mmPagQ" alt="Episode 7">
+                <button onclick="changeEpisode('https://short.icu/hpNBHm-Vh')">Episode 7</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/IS4uX_SlGac/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDN42QF2HaLwirFRP330t0oh0VKyw" alt="Episode 8">
+                <button onclick="changeEpisode('https://short.icu/OfiPgXfm4')">Episode 8</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/AeX_s2449c8/maxresdefault.jpg" alt="Episode 9">
+                <button onclick="changeEpisode('https://short.icu/TzvXaGlJB')">Episode 9</button>
+            </div>
+            <div class="episode">
+                <img src="https://i.ytimg.com/vi/KpUhmekClGU/maxresdefault.jpg" alt="Episode 10">
+                <button onclick="changeEpisode('https://short.icu/xu6ZBYn7A')">Episode 10</button>
+            </div>
+        </div>
+    </div>
+<div class="blog">
+    <h2>About The Daily Life of the Immortal King</h2>
+    <p>This anime follows Wang Ling, a high school student with an extraordinary secret – he is an immortal with god-like powers. Despite his wish for a peaceful and ordinary life, his strength often causes unintended chaos.</p>
+    
+    <h2>Main Characters</h2>
+    <h3>Wang Ling</h3>
+    <p>A seemingly ordinary high school student who is actually an immensely powerful immortal.</p>
+    <h3>Sun Rong</h3>
+    <p>A bright and cheerful girl who becomes Wang Ling's close friend and love interest.</p>
+    <h3>Chen Chao</h3>
+    <p>One of Wang Ling's best friends, strong and energetic but unaware of Wang Ling’s true strength.</p>
+    <h3>Guo Hao</h3>
+    <p>A tech-savvy and intelligent friend who enjoys anime and gaming.</p>
+    
+    <h2>Episode Summary</h2>
+    <h3>Episode 1: Awakening</h3>
+    <p>Wang Ling enrolls in a prestigious magic academy, but his powers are beyond anyone’s imagination.</p>
+    <h3>Episode 2: New Friends and Challenges</h3>
+    <p>He tries to keep a low profile, but his immense strength draws attention.</p>
+    <h3>Episode 3: Hidden Powers</h3>
+    <p>When faced with an attack on the academy, Wang Ling's true strength is hinted at.</p>
+    <h3>Episode 4: The Seal Weakens</h3>
+    <p>As he struggles to suppress his power, the magical seal on his strength begins to falter.</p>
+    <h3>Episode 5: Battle of the Schools</h3>
+    <p>Wang Ling's school competes in a magic tournament, and he unintentionally steals the spotlight.</p>
+    
+    <h2>Why Watch?</h2>
+    <p>This anime is a mix of comedy, action, and supernatural elements that make it a must-watch for anime lovers. The humor, stunning fights, and unique storyline keep the audience engaged.</p>
+    
+    <h2>Conclusion</h2>
+    <p>If you enjoy overpowered protagonists, hilarious misunderstandings, and thrilling battles, <i>The Daily Life of the Immortal King</i> is the perfect anime for you.</p>
+</div>
+
+    <script>
+        function changeEpisode(url) {
+            document.getElementById("videoFrame").src = url;
+        }
+    </script>
+</body>
+</html>
