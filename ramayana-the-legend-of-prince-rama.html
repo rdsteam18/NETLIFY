@@ -54,6 +54,18 @@
             font-size: 16px;
             line-height: 1.6;
         }
+	    .server-buttons {
+            margin-top: 20px;
+        }
+        .server-buttons button {
+            background-color: #ffcc00;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -104,11 +116,22 @@
 
         </nav>
     </header>
-    <div class="container">
+   <div class="container">
         <h1>Ramayana: The Legend of Prince Rama</h1>
-        <iframe width="640" height="360" src="https://short.icu/SoaEDfiuW" frameborder="0" scrolling="0" allowfullscreen></iframe>
+        <iframe id="videoFrame" width="640" height="360" src="https://short.icu/SoaEDfiuW" frameborder="0" scrolling="0" allowfullscreen></iframe>
+        
+        <div class="server-buttons">
+            <button onclick="changeServer('https://short.icu/SoaEDfiuW')">Server 1</button>
+            <button onclick="changeServer('https://short.icu/server2')">Server 2</button>
+            <button onclick="changeServer('https://short.icu/server3')">Server 3</button>
+            <button onclick="changeServer('https://short.icu/server4')">Server 4</button>
+        </div>
     </div>
-
+ <script>
+        function changeServer(serverURL) {
+            document.getElementById('videoFrame').src = serverURL;
+        }
+    </script>
     <div class="blog-section">
         <h2>About the Movie</h2>
         <p>'Ramayana: The Legend of Prince Rama' is a beautifully animated adaptation of the ancient Indian epic, Ramayana. Released in 1993, this film brings to life the heroic journey of Lord Rama, his love for Sita, and his battle against the demon king Ravana. The movie is known for its stunning animation, powerful storytelling, and deep spiritual significance.</p>
