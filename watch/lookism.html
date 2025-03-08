@@ -218,8 +218,9 @@
 </div>
 
 <script>
-    function changeEpisode(url) {
+    	 function changeEpisode(url, episodeNumber) {
         document.getElementById("videoFrame").src = url;
+        document.getElementById("episodeTitle").innerText = "Now Watching: Episode " + episodeNumber;
     }
 </script>
 
