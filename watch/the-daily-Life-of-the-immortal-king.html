@@ -78,47 +78,48 @@
     </header>
     <div class="container">
         <h1>The Daily Life of the Immortal King - Season 1</h1>
-        <iframe id="videoFrame" src="https://short.icu/lpbTAPdGK" allowfullscreen></iframe>
+	    <div class="episode-title" id="episodeTitle">Now Watching: Episode 1</div>
+        <iframe id="videoFrame" src="https://short.icu/xu6ZBYn7A" allowfullscreen></iframe>
         <div class="episode-buttons">
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/1TEF9eCAJNM/maxresdefault.jpg" alt="Episode 1">
-                <button onclick="changeEpisode('https://short.icu/lpbTAPdGK')">Episode 1</button>
+                <button onclick="changeEpisode('https://short.icu/xu6ZBYn7A')">Episode 1</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/RPRpWgwQf48/maxresdefault.jpg" alt="Episode 2">
-                <button onclick="changeEpisode('https://short.icu/cCAhE9jY2')">Episode 2</button>
+                <button onclick="changeEpisode('https://short.icu/TzvXaGlJB')">Episode 2</button>
             </div>
             <div class="episode">
                 <img src="https://m.media-amazon.com/images/S/pv-target-images/acd4ffa221a3eca36be94cc520663b8ee84057bcb760f97c8766bc58d25e62de.jpg" alt="Episode 3">
-                <button onclick="changeEpisode('https://short.icu/eT283Al4a')">Episode 3</button>
+                <button onclick="changeEpisode('https://short.icu/OfiPgXfm4')">Episode 3</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/Fd9NK-fI80g/maxresdefault.jpg" alt="Episode 4">
-                <button onclick="changeEpisode('https://short.icu/szIEB_QC7')">Episode 4</button>
+                <button onclick="changeEpisode('https://short.icu/hpNBHm-Vh')">Episode 4</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/FRxPLcpipiI/maxresdefault.jpg" alt="Episode 5">
-                <button onclick="changeEpisode('https://short.icu/VWFv09jLR')">Episode 5</button>
+                <button onclick="changeEpisode('https://short.icu/q53R1VtGx')">Episode 5</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/eRkLzZ7EExU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDvBpj8H4wsSlXdHKKtRii5mmPagQ" alt="Episode 6">
-                <button onclick="changeEpisode('https://short.icu/q53R1VtGx')">Episode 6</button>
+                <button onclick="changeEpisode('https://short.icu/VWFv09jLR')">Episode 6</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/O63_KX1eP5U/maxresdefault.jpg" alt="Episode 7">
-                <button onclick="changeEpisode('https://short.icu/hpNBHm-Vh')">Episode 7</button>
+                <button onclick="changeEpisode('https://short.icu/szIEB_QC7')">Episode 7</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/IS4uX_SlGac/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDN42QF2HaLwirFRP330t0oh0VKyw" alt="Episode 8">
-                <button onclick="changeEpisode('https://short.icu/OfiPgXfm4')">Episode 8</button>
+                <button onclick="changeEpisode('https://short.icu/eT283Al4a')">Episode 8</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/AeX_s2449c8/maxresdefault.jpg" alt="Episode 9">
-                <button onclick="changeEpisode('https://short.icu/TzvXaGlJB')">Episode 9</button>
+                <button onclick="changeEpisode('https://short.icu/cCAhE9jY2')">Episode 9</button>
             </div>
             <div class="episode">
                 <img src="https://i.ytimg.com/vi/KpUhmekClGU/maxresdefault.jpg" alt="Episode 10">
-                <button onclick="changeEpisode('https://short.icu/xu6ZBYn7A')">Episode 10</button>
+                <button onclick="changeEpisode('https://short.icu/lpbTAPdGK')">Episode 10</button>
             </div>
         </div>
     </div>
@@ -156,9 +157,10 @@
 </div>
 
     <script>
-        function changeEpisode(url) {
-            document.getElementById("videoFrame").src = url;
-        }
-    </script>
+    	 function changeEpisode(url, episodeNumber) {
+        document.getElementById("videoFrame").src = url;
+        document.getElementById("episodeTitle").innerText = "Now Watching: Episode " + episodeNumber;
+    }
+</script>
 </body>
 </html>
