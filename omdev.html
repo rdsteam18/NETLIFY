@@ -1,441 +1,167 @@
-<html>
-  <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="od.css"
-    />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 15px;
+        }
+        .navbar img {
+            height: 50px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .navbar ul li a:hover {
+            color: #ff4c4c;
+        }
+        .banner {
+            text-align: center;
+            padding: 50px;
+            background: url('banner.jpg') no-repeat center center/cover;
+        }
+        .trending {
+            text-align: center;
+            padding: 20px;
+        }
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .anime-item {
+            background-color: #444;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .anime-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .anime-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .load-more {
+            text-align: center;
+            margin: 20px;
+        }
+        .load-more button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .load-more button:hover {
+            background-color: #d63434;
+        }
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Trending</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
 
-    <title>OmDev-NETLIFY</title>
-   <link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEgGhd-CvK9t1DntiBFXedIpokqWdKqwRCgOdI9KOEqlkLOgRpUCzkxDhiKbPAUhWgMa_3iCZy-eg1k1udxqEbMP8kMxLP9ktvBAqrgJV5S-nV1iStBeZjxgH7ECwxAJwmI_XUGnVzNO7Ff-Lbg2iHjsq7HPkuEKi3bXiEMaoJKPbgRyUikodONA5h4f=rw">
+    <!-- Banner Section -->
+    <header class="banner">
+        <h2>Welcome to Anime World</h2>
+        <p>Watch your favorite anime anytime, anywhere!</p>
+    </header>
 
-    <script src="od.js"></script>
-  </head>
-  <body>
-    <div
-      class="relative flex size-full min-h-screen flex-col bg-[#310c0c] dark justify-between group/design-root overflow-x-hidden"
-      style='font-family: "Public Sans", "Noto Sans", sans-serif;'
-    >
-      <div>
-       <div class="@container">
-  <div class="@[480px]:px-4 @[480px]:py-3">
-    <div class="relative w-full min-h-[218px] overflow-hidden @[480px]:rounded">
-      <!-- Image Slider -->
-      <div id="slider" class="relative w-full min-h-[218px]">
-        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-          <img src="https://image.tmdb.org/t/p/w185/yEr23ZTYkz5cv3aSdLvlzuI3thI.jpg" class="w-full h-[218px] object-cover">
-        </a>
-        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-          <img src="https://image.tmdb.org/t/p/w185/g7vQXsELihik4oHJwqhL6WuTJ3j.jpg" class="w-full h-[218px] object-cover">
-        </a>
-        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-          <img src="https://image.tmdb.org/t/p/w185/d4Mc687WE8wFAk5nlmJJh4qNuIO.jpg" class="w-full h-[218px] object-cover">
-        </a>
-        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-          <img src="https://image.tmdb.org/t/p/w185/ozOjfhE6ADlWto0IKgVtniRvUOW.jpg" class="w-full h-[218px] object-cover">
-        </a>
-        <a href="episodes.html" target="_blank" class="slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-          <img src="https://image.tmdb.org/t/p/w185/9KuIDiBuWQ5VjezynTZ8YJCPBsL.jpg" class="w-full h-[218px] object-cover">
-        </a>
-      </div>
-
-      <!-- Indicator Dots -->
-      <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2">
-        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(0)"></div>
-        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(1)"></div>
-        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(2)"></div>
-        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(3)"></div>
-        <div class="dot w-3 h-3 rounded-full bg-white opacity-50" onclick="goToSlide(4)"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  let currentIndex = 0;
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".dot");
-  const totalSlides = slides.length;
-
-  function updateSlider() {
-    slides.forEach((slide, index) => {
-      slide.style.opacity = index === currentIndex ? "1" : "0";
-    });
-
-    dots.forEach(dot => dot.classList.remove("opacity-100"));
-    dots[currentIndex].classList.add("opacity-100");
-  }
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    updateSlider();
-  }
-
-  function goToSlide(index) {
-    currentIndex = index;
-    updateSlider();
-  }
-
-  updateSlider();
-  setInterval(nextSlide, 2000); // Auto change every 2 sec
-</script>
-
-        <div class="pb-3">
-          <div class="flex border-b border-[#7e2020] px-4 justify-between">
-            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-[#ff0000] text-white gap-1 pb-[7px] pt-2.5 flex-1" href="#">
-              <div class="text-white" data-icon="House" data-size="24px" data-weight="fill">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
-                  ></path>
-                </svg>
-              </div>
-              <p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">Home</p>
-            </a>
-            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#de7c7c] gap-1 pb-[7px] pt-2.5 flex-1" href="#">
-              <div class="text-[#de7c7c]" data-icon="Star" data-size="24px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"
-                  ></path>
-                </svg>
-              </div>
-              <p class="text-[#de7c7c] text-sm font-bold leading-normal tracking-[0.015em]">Anime</p>
-            </a>
-            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#de7c7c] gap-1 pb-[7px] pt-2.5 flex-1" href="#">
-              <div class="text-[#de7c7c]" data-icon="Table" data-size="24px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM40,112H80v32H40Zm56,0H216v32H96ZM216,64V96H40V64ZM40,160H80v32H40Zm176,32H96V160H216v32Z"
-                  ></path>
-                </svg>
-              </div>
-              <p class="text-[#de7c7c] text-sm font-bold leading-normal tracking-[0.015em]">Movies</p>
-            </a>
-            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#de7c7c] gap-1 pb-[7px] pt-2.5 flex-1" href="#">
-              <div class="text-[#de7c7c]" data-icon="Calendar" data-size="24px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-96-88v64a8,8,0,0,1-16,0V132.94l-4.42,2.22a8,8,0,0,1-7.16-14.32l16-8A8,8,0,0,1,112,120Zm59.16,30.45L152,176h16a8,8,0,0,1,0,16H136a8,8,0,0,1-6.4-12.8l28.78-38.37A8,8,0,1,0,145.07,132a8,8,0,1,1-13.85-8A24,24,0,0,1,176,136,23.76,23.76,0,0,1,171.16,150.45Z"
-                  ></path>
-                </svg>
-              </div>
-              <p class="text-[#de7c7c] text-sm font-bold leading-normal tracking-[0.015em]">Webseries</p>
-            </a>
-          </div>
+    <!-- Trending Anime -->
+    <section class="trending">
+        <h2>All Anime List</h2>
+        <div class="anime-grid" id="animeGrid">
+            <!-- Anime details will be loaded here -->
         </div>
-        <div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
-          <div class="flex items-stretch p-4 gap-3">
-          <a href="episodes.html" class="block">  
-            <div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
-              <div
-                class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded flex flex-col"
-                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/131a071b-4d91-4cfd-b696-fc3c4b487926.png");'
-              ></div>
-              <div>
-                <p class="text-white text-base font-medium leading-normal">Anime 1</p>
-                <p class="text-[#de7c7c] text-sm font-normal leading-normal">Subtitle 1</p>
-              </div>
-            </div></a>
-            <a href="episodes.html" class="block">
-            <div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
-              <div
-                class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded flex flex-col"
-                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/33e290c5-d008-4f8b-8bd7-c7e6ed007112.png");'
-              ></div>
-              <div>
-                <p class="text-white text-base font-medium leading-normal">Anime 2</p>
-                <p class="text-[#de7c7c] text-sm font-normal leading-normal">Subtitle 2</p>
-              </div>
-            </div></a>
-            <a href="episodes.html" class="block">
-            <div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
-              <div
-                class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded flex flex-col"
-                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/1a9c6fa8-f4c8-4a61-bb68-2a772d5905d9.png");'
-              ></div>
-              <div>
-                <p class="text-white text-base font-medium leading-normal">Anime 3</p>
-                <p class="text-[#de7c7c] text-sm font-normal leading-normal">Subtitle 3</p>
-              </div>
-            </div></a>
-            <a href="episodes.html" class="block">
-            <div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
-              <div
-                class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded flex flex-col"
-                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/6faf05e1-421a-48e5-807d-aef14d1c0507.png");'
-              ></div>
-              <div>
-                <p class="text-white text-base font-medium leading-normal">Anime 4</p>
-                <p class="text-[#de7c7c] text-sm font-normal leading-normal">Subtitle 4</p>
-              </div>
-            </div></a>
-            <a href="episodes.html" class="block">
-            <div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
-              <div
-                class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded flex flex-col"
-                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/04e0f44e-71d6-4818-b55e-5d5ce2d1d8fe.png");'
-              ></div>
-              <div>
-                <p class="text-white text-base font-medium leading-normal">Anime 5</p>
-                <p class="text-[#de7c7c] text-sm font-normal leading-normal">Subtitle 5</p>
-              </div>
-            </div></a>
-          </div>
+        <div class="load-more">
+            <button id="loadMore">Load More</button>
         </div>
-        <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Trending Now</h2>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+    </section>
 
+    <script>
+        let page = 1;
+        let animeList = [];
+        async function fetchAnime() {
+            try {
+                const response = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}`);
+                const json = await response.json();
+                animeList = [...animeList, ...json.data];
+                renderAnime();
+            } catch (error) {
+                console.error('Error fetching anime data:', error);
+            }
+        }
 
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/0dc72dde-bd23-45b1-b120-1fa91a7c5846.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime A</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 1</p>
-            </div>
-          </div></a>
+        function renderAnime() {
+            const animeGrid = document.getElementById('animeGrid');
+            animeGrid.innerHTML = "";
+            animeList.forEach(anime => {
+                const animeItem = document.createElement('div');
+                animeItem.classList.add('anime-item');
+                animeItem.innerHTML = `
+                    <img src="${anime.images.jpg.image_url || 'placeholder.jpg'}" alt="${anime.title}">
+                    <h3>${anime.title}</h3>
+                `;
+                animeGrid.appendChild(animeItem);
+                setTimeout(() => {
+                    animeItem.classList.add('show');
+                }, 100);
+            });
+        }
 
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/fc859e68-5253-4569-bb56-c19dee525954.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime B</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 2</p>
-            </div>
-          </div></a>
+        document.getElementById('loadMore').addEventListener('click', () => {
+            page++;
+            fetchAnime();
+        });
 
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/70e9cbcc-23ce-4af3-b9a3-bfbf205ff39b.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime C</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 3</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/5c6503cc-6e6c-4b32-99a3-1a10ea9739c1.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime D</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 4</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/c3c31e78-2e90-415f-ae7d-32224ce61902.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime E</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 5</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/b7297ede-5943-4eff-930b-c818bb7f34b8.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime F</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 6</p>
-            </div>
-          </div></a>
-          
-        </div>
-        <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">New Releases</h2>
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/c54e41b5-a319-4813-8b98-01ecc94f6545.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime G</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 7</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/bf49f3cc-8141-4608-890e-6e75eb644e84.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime H</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 8</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/af93c806-a89b-42bf-8418-cece05d1cb46.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime I</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 9</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/0e1fd4f6-5b1e-4d0f-badc-deaf2a2632c3.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime J</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 10</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/9f2af046-78fa-43cf-8cef-935b11c306ee.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime K</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 11</p>
-            </div>
-          </div></a>
-
-          <a href="episodes.html" class="block">
-          <div class="flex flex-col gap-3 pb-3">
-            <div
-              class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/f10bd712-5693-49cb-a3bd-46739146e1ca.png");'
-            ></div>
-            <div>
-              <p class="text-white text-base font-medium leading-normal">Anime L</p>
-              <p class="text-[#de7c7c] text-sm font-normal leading-normal">Genre 12</p>
-            </div>
-          </div></a>
-        </div>
-        <div class="@container">
-          <div class="flex flex-col justify-end gap-6 px-4 py-10 @[480px]:gap-8 @[480px]:px-10 @[480px]:py-20">
-            <div class="flex flex-col gap-2 text-center">
-              <h1
-                class="text-white tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px]"
-              >
-                Get Premium Access free 
-              </h1>
-              <p class="text-white text-base font-normal leading-normal max-w-[720px">Unlock exclusive features and ad-free streaming.</p>
-            </div>
-            <div class="flex flex-1 justify-center">
-              <div class="flex justify-center">
-                <button
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#ff0000] text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] grow"
-                >
-                  <span class="truncate">Subscribe Now</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Upcoming Schedule</h2>
-      </div>
-      <div>
-        <div class="pb-3 text-center">
-            <h2 class="text-3xl font-extrabold text-white mt-5">Upcoming Schedule</h2>
-            <div class="max-w-md mx-auto bg-gradient-to-r from-[#7e2020] to-[#9e3030] p-6 rounded-lg shadow-xl mt-4 text-white transition-transform transform hover:scale-105 duration-300">
-              <ul class="divide-y divide-[#de7c7c]">
-                <li class="py-3 flex justify-between items-center">
-                  <span class="font-semibold">Monday</span>
-                  <span class="bg-white text-[#7e2020] px-3 py-1 rounded-full text-sm font-bold">Maths 6:00 PM</span>
-                </li>
-                <li class="py-3 flex justify-between items-center">
-                  <span class="font-semibold">Tuesday</span>
-                  <span class="bg-white text-[#7e2020] px-3 py-1 rounded-full text-sm font-bold">Physics & Chemistry 5:30 PM</span>
-                </li>
-                <li class="py-3 flex justify-between items-center">
-                  <span class="font-semibold">Wednesday</span>
-                  <span class="bg-white text-[#7e2020] px-3 py-1 rounded-full text-sm font-bold">Maths 6:00 PM</span>
-                </li>
-                <li class="py-3 flex justify-between items-center">
-                  <span class="font-semibold">Thursday</span>
-                  <span class="bg-gray-300 text-gray-800 px-3 py-1 rounded-full text-sm font-bold">Free Day</span>
-                </li>
-                <li class="py-3 flex justify-between items-center">
-                  <span class="font-semibold">Friday</span>
-                  <span class="bg-white text-[#7e2020] px-3 py-1 rounded-full text-sm font-bold">Maths 6:00 PM</span>
-                </li>
-                <li class="py-3 flex justify-between items-center">
-                  <span class="font-semibold">Saturday</span>
-                  <span class="bg-white text-[#7e2020] px-3 py-1 rounded-full text-sm font-bold">Physics & Chemistry 5:30 PM</span>
-                </li>
-                <li class="py-3 flex justify-between items-center">
-                  <span class="font-semibold">Sunday</span>
-                  <span class="bg-white text-[#7e2020] px-3 py-1 rounded-full text-sm font-bold">English 7:30 AM</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        
-        <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
-          <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
-            <a class="text-[#de7c7c] text-base font-normal leading-normal min-w-40" href="#">Privacy Policy</a>
-            <a class="text-[#de7c7c] text-base font-normal leading-normal min-w-40" href="#">Terms of Service</a>
-            <a class="text-[#de7c7c] text-base font-normal leading-normal min-w-40" href="#">Contact Us</a>
-          </div>
-          <div class="flex flex-wrap justify-center gap-4">
-            <a href="#">
-              <div class="text-[#de7c7c]" data-icon="FacebookLogo" data-size="24px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"
-                  ></path>
-                </svg>
-              </div>
-            </a>
-            <a href="#">
-              <div class="text-[#de7c7c]" data-icon="TwitterLogo" data-size="24px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"
-                  ></path>
-                </svg>
-              </div>
-            </a>
-            <a href="#">
-              <div class="text-[#de7c7c]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
-                  ></path>
-                </svg>
-              </div>
-            </a>
-          </div>
-          <p class="text-[#de7c7c] text-base font-normal leading-normal">© 2023 AnimeWorld. All rights reserved.</p>
-        </footer>
-        <div class="h-5 bg-[#310c0c]"></div>
-      </div>
-    </div>
-  </body>
+        fetchAnime();
+    </script>
+</body>
 </html>
