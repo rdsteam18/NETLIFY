@@ -13,61 +13,21 @@
             background-color: #1a1a1a;
             color: white;
         }
-        .navbar {
+        .header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background-color: #333;
-            padding: 15px;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #222;
         }
-        .navbar img {
-            height: 50px;
-        }
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-        .navbar ul li a {
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .navbar ul li a:hover {
-            color: #ff4c4c;
+        .logo {
+            width: 120px;
         }
         .search-bar {
-            text-align: center;
-            margin: 20px;
-        }
-        .search-bar input {
-            padding: 10px;
-            width: 60%;
-            font-size: 16px;
+            padding: 8px;
+            width: 300px;
             border-radius: 5px;
             border: none;
-        }
-        .search-bar button {
-            padding: 10px 15px;
-            font-size: 16px;
-            background-color: #ff4c4c;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .search-bar button:hover {
-            background-color: #d63434;
-        }
-        .banner {
-            text-align: center;
-            padding: 50px;
-            background: url('banner.jpg') no-repeat center center/cover;
-        }
-        .trending {
-            text-align: center;
-            padding: 20px;
         }
         .anime-grid {
             display: grid;
@@ -80,47 +40,44 @@
             padding: 20px;
             text-align: center;
             border-radius: 10px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            cursor: pointer;
         }
         .anime-item img {
             width: 100%;
             border-radius: 10px;
         }
-        .anime-item.show {
-            opacity: 1;
-            transform: translateY(0);
+        .load-more {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .load-more:hover {
+            background-color: #d63434;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Trending</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
 
-    <header class="banner">
-        <h2>Welcome to Anime World</h2>
-        <p>Watch your favorite anime anytime, anywhere!</p>
-    </header>
-
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search for Anime...">
-        <button onclick="searchAnime()">Search</button>
+    <div class="header">
+         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo">
+        
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
     </div>
 
-    <section class="trending">
-        <h2>All Anime List</h2>
-        <div class="anime-grid" id="animeGrid"></div>
-    </section>
+    <h2 style="text-align:center;">All Anime List</h2>
+    <div class="anime-grid" id="animeGrid"></div>
+    <button class="load-more" id="loadMore">Load More</button>
 
     <script>
+        let currentPage = 1;
+        const limit = 10;
+
         async function fetchAnime(url) {
             try {
                 const response = await fetch(url);
@@ -133,34 +90,43 @@
         }
 
         async function displayTrendingAnime() {
-            let animeList = await fetchAnime('https://api.jikan.moe/v4/top/anime');
-            animeList = animeList.filter(anime => anime.score >= 7);
+            let animeList = await fetchAnime(`https://api.jikan.moe/v4/top/anime?page=${currentPage}&limit=${limit}`);
             renderAnime(animeList);
-        }
-
-        async function searchAnime() {
-            const query = document.getElementById('searchInput').value;
-            if (!query) return;
-            let searchResults = await fetchAnime(`https://api.jikan.moe/v4/anime?q=${query}`);
-            renderAnime(searchResults);
         }
 
         function renderAnime(animeList) {
             const animeGrid = document.getElementById('animeGrid');
-            animeGrid.innerHTML = "";
             animeList.forEach(anime => {
                 const animeItem = document.createElement('div');
                 animeItem.classList.add('anime-item');
                 animeItem.innerHTML = `
-                    <img src="${anime.images.jpg.image_url || 'placeholder.jpg'}" alt="${anime.title}">
+                    <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
                     <h3>${anime.title}</h3>
                 `;
+                animeItem.onclick = () => {
+                    window.location.href = `animeDetails.html?id=${anime.mal_id}`;
+                };
                 animeGrid.appendChild(animeItem);
-                setTimeout(() => {
-                    animeItem.classList.add('show');
-                }, 100);
             });
         }
+
+        document.getElementById('searchBar').addEventListener('input', async function() {
+            let query = this.value.trim();
+            if (query.length > 2) {
+                let searchResults = await fetchAnime(`https://api.jikan.moe/v4/anime?q=${query}&limit=${limit}`);
+                document.getElementById('animeGrid').innerHTML = "";
+                renderAnime(searchResults);
+            } else {
+                currentPage = 1;
+                document.getElementById('animeGrid').innerHTML = "";
+                displayTrendingAnime();
+            }
+        });
+
+        document.getElementById('loadMore').addEventListener('click', function() {
+            currentPage++;
+            displayTrendingAnime();
+        });
 
         displayTrendingAnime();
     </script>
