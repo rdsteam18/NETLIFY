@@ -65,43 +65,58 @@
 <body>
 
     <div class="header">
-         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo">
-        
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo">
         <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
     </div>
 
-    <h2 style="text-align:center;">All Anime List</h2>
+    <h2 style="text-align:center;">Trending Anime</h2>
+    <div class="anime-grid" id="trendingAnimeGrid"></div>
+    
+    <h2 style="text-align:center;">Top Rated Anime List</h2>
     <div class="anime-grid" id="animeGrid"></div>
     <button class="load-more" id="loadMore">Load More</button>
 
     <script>
         let currentPage = 1;
         const limit = 10;
+        const apiUrl = "https://api.jikan.moe/v4/top/anime";
+        const trendingApiUrl = "https://api.jikan.moe/v4/top/anime?filter=airing";
 
         async function fetchAnime(url) {
             try {
                 const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 const json = await response.json();
-                return json.data;
+                return json.data.filter(anime => 
+                    !anime.explicit && 
+                    !anime.genres.some(genre => genre.name.toLowerCase().includes("hentai") || genre.name.toLowerCase().includes("ecchi") || genre.name.toLowerCase().includes("adult"))
+                ).sort((a, b) => (b.score || 0) - (a.score || 0));
             } catch (error) {
                 console.error('Error fetching anime data:', error);
                 return [];
             }
         }
 
-        async function displayTrendingAnime() {
-            let animeList = await fetchAnime(`https://api.jikan.moe/v4/top/anime?page=${currentPage}&limit=${limit}`);
-            renderAnime(animeList);
+        async function displayTopRatedAnime() {
+            let animeList = await fetchAnime(`${apiUrl}?page=${currentPage}&limit=${limit}`);
+            renderAnime(animeList, 'animeGrid');
         }
 
-        function renderAnime(animeList) {
-            const animeGrid = document.getElementById('animeGrid');
+        async function displayTrendingAnime() {
+            let animeList = await fetchAnime(trendingApiUrl);
+            renderAnime(animeList, 'trendingAnimeGrid');
+        }
+
+        function renderAnime(animeList, gridId) {
+            const animeGrid = document.getElementById(gridId);
+            animeGrid.innerHTML = "";
             animeList.forEach(anime => {
                 const animeItem = document.createElement('div');
                 animeItem.classList.add('anime-item');
                 animeItem.innerHTML = `
-                    <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
+                    <img src="${anime.images?.jpg?.image_url || 'placeholder.jpg'}" alt="${anime.title}">
                     <h3>${anime.title}</h3>
+                    <p><strong>Score:</strong> ${anime.score || 'N/A'}</p>
                 `;
                 animeItem.onclick = () => {
                     window.location.href = `animeDetails.html?id=${anime.mal_id}`;
@@ -115,20 +130,21 @@
             if (query.length > 2) {
                 let searchResults = await fetchAnime(`https://api.jikan.moe/v4/anime?q=${query}&limit=${limit}`);
                 document.getElementById('animeGrid').innerHTML = "";
-                renderAnime(searchResults);
+                renderAnime(searchResults, 'animeGrid');
             } else {
                 currentPage = 1;
                 document.getElementById('animeGrid').innerHTML = "";
-                displayTrendingAnime();
+                displayTopRatedAnime();
             }
         });
 
         document.getElementById('loadMore').addEventListener('click', function() {
             currentPage++;
-            displayTrendingAnime();
+            displayTopRatedAnime();
         });
 
         displayTrendingAnime();
+        displayTopRatedAnime();
     </script>
 </body>
 </html>
