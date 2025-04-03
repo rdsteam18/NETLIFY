@@ -38,7 +38,7 @@
 </head>
 <body>
 
-    <a href="omdev.html" class="back-button">Back to Home</a>
+    <a class='back-button' href='/omdev'>Back to Home</a>
     <div class="anime-details" id="animeDetails"></div>
 
     <script>
@@ -53,17 +53,6 @@
             }
         }
 
-        async function fetchMangaDetails(animeId) {
-            try {
-                const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}/manga`);
-                const mangaData = await response.json();
-                return mangaData.data;
-            } catch (error) {
-                console.error('Error fetching manga details:', error);
-                return [];
-            }
-        }
-
         async function displayAnimeDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             const animeId = urlParams.get('id');
@@ -74,31 +63,24 @@
             }
 
             const anime = await fetchAnimeDetails(animeId);
-            const mangaList = await fetchMangaDetails(animeId);
 
             if (!anime) {
                 document.getElementById('animeDetails').innerHTML = "<p>Error loading anime details.</p>";
                 return;
             }
 
-            let mangaHTML = "<h3>Manga Adaptations:</h3>";
-            if (mangaList.length === 0) {
-                mangaHTML += "<p>No manga adaptation available.</p>";
-            } else {
-                mangaList.forEach(manga => {
-                    mangaHTML += `<p>${manga.title}</p>`;
-                });
-            }
+            let trailerHTML = anime.trailer && anime.trailer.youtube_id ? 
+                `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${anime.trailer.youtube_id}" frameborder="0" allowfullscreen></iframe>` 
+                : "<p>No trailer available.</p>";
 
             document.getElementById('animeDetails').innerHTML = `
                 <h2>${anime.title}</h2>
                 <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
-                <p><strong>Score:</strong> ${anime.score}</p>
+                <p><strong>Score:</strong> ${anime.score || "N/A"}</p>
                 <p><strong>Episodes:</strong> ${anime.episodes || "Unknown"}</p>
-                <p><strong>Synopsis:</strong> ${anime.synopsis}</p>
+                <p><strong>Synopsis:</strong> ${anime.synopsis || "No synopsis available."}</p>
                 <h3>Watch Trailer:</h3>
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${anime.trailer.youtube_id}" frameborder="0" allowfullscreen></iframe>
-                ${mangaHTML}
+                ${trailerHTML}
             `;
         }
 
