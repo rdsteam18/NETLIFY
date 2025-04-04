@@ -79,6 +79,9 @@
             text-decoration: none;
             color: white;
         }
+        .anime-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -118,7 +121,7 @@
 
         async function displayTopRatedAnime() {
             let animeList = await fetchAnime(`${apiUrl}?page=${currentPage}&limit=${limit}`);
-            renderAnime(animeList, 'animeGrid');
+            renderAnime(animeList, 'animeGrid', false, currentPage > 1);
         }
 
         async function displayTrendingAnime() {
@@ -126,9 +129,9 @@
             renderAnime(animeList, 'trendingAnimeGrid', true);
         }
 
-        function renderAnime(animeList, gridId, isTrending = false) {
+        function renderAnime(animeList, gridId, isTrending = false, append = false) {
             const animeGrid = document.getElementById(gridId);
-            animeGrid.innerHTML = "";
+            if (!append) animeGrid.innerHTML = "";
             animeList.forEach(anime => {
                 const animeItem = document.createElement('div');
                 animeItem.classList.add('anime-item');
