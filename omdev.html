@@ -35,9 +35,12 @@
             gap: 20px;
             padding: 20px;
         }
+        .anime-grid.trending {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        }
         .anime-item {
             background-color: #444;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             border-radius: 10px;
             cursor: pointer;
@@ -49,6 +52,14 @@
         .anime-item img {
             width: 100%;
             border-radius: 10px;
+        }
+        .anime-item h3 {
+            font-size: 14px;
+            margin: 10px 0 0 0;
+        }
+        .anime-item p {
+            font-size: 12px;
+            margin: 5px 0;
         }
         .load-more {
             display: block;
@@ -78,7 +89,7 @@
     </div>
 
     <h2 style="text-align:center;">Trending Anime</h2>
-    <div class="anime-grid" id="trendingAnimeGrid"></div>
+    <div class="anime-grid trending" id="trendingAnimeGrid"></div>
 
     <h2 style="text-align:center;">Top Rated Anime List</h2>
     <div class="anime-grid" id="animeGrid"></div>
@@ -112,10 +123,10 @@
 
         async function displayTrendingAnime() {
             let animeList = await fetchAnime(trendingApiUrl);
-            renderAnime(animeList, 'trendingAnimeGrid');
+            renderAnime(animeList, 'trendingAnimeGrid', true);
         }
 
-        function renderAnime(animeList, gridId) {
+        function renderAnime(animeList, gridId, isTrending = false) {
             const animeGrid = document.getElementById(gridId);
             animeGrid.innerHTML = "";
             animeList.forEach(anime => {
@@ -125,8 +136,8 @@
                     <a href="animeDetails.html?id=${anime.mal_id}" class="anime-link">
                         <img src="${anime.images?.jpg?.image_url || 'placeholder.jpg'}" alt="${anime.title}">
                         <h3>${anime.title}</h3>
-                        <p><strong>Score:</strong> ${anime.score || 'N/A'}</p>
-                        <p>${anime.episodes ? `Episodes: ${anime.episodes}` : 'Ongoing'}</p>
+                        ${!isTrending ? `<p><strong>Score:</strong> ${anime.score || 'N/A'}</p>` : ''}
+                        ${!isTrending ? `<p>${anime.episodes ? `Episodes: ${anime.episodes}` : 'Ongoing'}</p>` : ''}
                     </a>
                 `;
                 animeGrid.appendChild(animeItem);
