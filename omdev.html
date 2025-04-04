@@ -1,232 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a;
-            color: white;
-        }
-        .header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            background-color: #222;
-        }
-        .logo {
-            width: 120px;
-            margin-bottom: 10px;
-        }
-        .search-container {
-            display: flex;
-            width: 100%;
-            justify-content: center;
-            gap: 10px;
-        }
-        .search-bar {
-            padding: 8px;
-            width: 70%;
-            max-width: 300px;
-            border-radius: 5px;
-            border: none;
-        }
-        .search-button {
-            padding: 8px 16px;
-            background-color: #ff4c4c;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .search-button:hover {
-            background-color: #d63434;
-        }
-        .anime-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .anime-grid.trending {
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        }
-        .anime-item {
-            background-color: #444;
-            padding: 10px;
-            text-align: center;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .anime-item:hover {
-            transform: scale(1.05);
-        }
-        .anime-item img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        .anime-item h3 {
-            font-size: 12px;
-            margin: 10px 0 0 0;
-        }
-        .anime-item p {
-            font-size: 12px;
-            margin: 5px 0;
-        }
-        .load-more {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #ff4c4c;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .load-more:hover {
-            background-color: #d63434;
-        }
-        .anime-link {
-            text-decoration: none;
-            color: white;
-        }
-        .anime-link:hover {
-            text-decoration: underline;
-        }
-        .about-us {
-            padding: 40px 20px;
-            background-color: #111;
-            text-align: center;
-        }
-        .about-us h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .about-us p {
-            max-width: 700px;
-            margin: auto;
-            font-size: 16px;
-            color: #ccc;
-        }
-        footer {
-            background-color: #000;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #888;
-        }
-        @media (max-width: 768px) {
-            .anime-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .anime-grid.trending {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anime Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: white;
+    }
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      background-color: #222;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+    .search-container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .search-bar {
+      padding: 8px;
+      width: 70%;
+      max-width: 300px;
+      border-radius: 5px;
+      border: none;
+    }
+    .search-button {
+      padding: 8px 16px;
+      background-color: #ff4c4c;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .search-button:hover {
+      background-color: #d63434;
+    }
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .anime-grid.trending {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .anime-item {
+      background-color: #444;
+      padding: 10px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .anime-item:hover {
+      transform: scale(1.05);
+    }
+    .anime-item img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .anime-item h3 {
+      font-size: 12px;
+      margin: 10px 0 0 0;
+    }
+    .anime-item p {
+      font-size: 12px;
+      margin: 5px 0;
+    }
+    .load-more {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff4c4c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .load-more:hover {
+      background-color: #d63434;
+    }
+    .anime-link {
+      text-decoration: none;
+      color: white;
+    }
+    .anime-link:hover {
+      text-decoration: underline;
+    }
+    .about-us {
+      padding: 40px 20px;
+      background-color: #111;
+      text-align: center;
+    }
+    .about-us h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .about-us p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 16px;
+      color: #ccc;
+    }
+    footer {
+      background-color: #000;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #888;
+    }
+    .loading {
+      text-align: center;
+      font-size: 18px;
+      padding: 20px;
+    }
+    @media (max-width: 768px) {
+      .anime-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .anime-grid.trending {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="header">
-        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo" class="logo">
-        <div class="search-container">
-            <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
-            <button class="search-button">Search</button>
-        </div>
+  <div class="header">
+    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" class="logo" alt="Logo">
+    <div class="search-container">
+      <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
+      <button class="search-button">Search</button>
     </div>
+  </div>
 
-    <h2 style="text-align:center;">Trending Anime</h2>
-    <div class="anime-grid trending" id="trendingAnimeGrid"></div>
+  <h2 id="trendingTitle" style="text-align:center;">Trending Anime</h2>
+  <div class="anime-grid trending" id="trendingAnimeGrid"></div>
 
-    <h2 style="text-align:center;">Top Rated Anime List</h2>
-    <div class="anime-grid" id="animeGrid"></div>
-    <button class="load-more" id="loadMore">Load More</button>
+  <h2 id="topRatedTitle" style="text-align:center;">Top Rated Anime List</h2>
+  <div id="loadingTop" class="loading" style="display: none;">Loading...</div>
+  <div class="anime-grid" id="animeGrid"></div>
+  <button class="load-more" id="loadMore">Load More</button>
 
-    <div class="about-us">
-        <h2>About Us</h2>
-        <p>Welcome to our Anime World! We are passionate anime lovers bringing you a curated collection of the best and trending anime shows. Whether you're a die-hard otaku or a curious newcomer, this is your home for exploring and enjoying top-rated anime content. Stay connected, stay animated!</p>
-    </div>
+  <div class="about-us">
+    <h2>About Us</h2>
+    <p>Welcome to our Anime World! We bring you trending and top-rated anime for otakus and newcomers alike!</p>
+  </div>
 
-    <footer>
-        &copy; 2025 Anime World. All Rights Reserved.
-    </footer>
+  <footer>
+    &copy; 2025 Anime World. All Rights Reserved. | Made by <a href="https://github.com/devdharrajput" style="color: #ff4c4c;">Devdhar Rajput</a>
+  </footer>
 
-    <script>
-        let currentPage = 1;
-        const limit = 10;
-        const apiUrl = "https://api.jikan.moe/v4/top/anime";
-        const trendingApiUrl = "https://api.jikan.moe/v4/top/anime?filter=airing";
+  <script>
+    let currentPage = 1;
+    const limit = 10;
+    const apiUrl = "https://api.jikan.moe/v4/top/anime";
+    const trendingApiUrl = "https://api.jikan.moe/v4/top/anime?filter=airing";
 
-        async function fetchAnime(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const json = await response.json();
-                return json.data.filter(anime => 
-                    !anime.explicit && 
-                    !anime.genres.some(genre => genre.name.toLowerCase().includes("hentai") || genre.name.toLowerCase().includes("ecchi") || genre.name.toLowerCase().includes("adult"))
-                ).sort((a, b) => (b.score || 0) - (a.score || 0));
-            } catch (error) {
-                console.error('Error fetching anime data:', error);
-                return [];
-            }
-        }
+    async function fetchAnime(url) {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        return json.data.filter(anime =>
+          !anime.explicit &&
+          !anime.genres.some(g => ["hentai", "ecchi", "adult"].includes(g.name.toLowerCase()))
+        ).sort((a, b) => (b.score || 0) - (a.score || 0));
+      } catch (error) {
+        console.error("Error:", error);
+        return [];
+      }
+    }
 
-        async function displayTopRatedAnime() {
-            let animeList = await fetchAnime(`${apiUrl}?page=${currentPage}&limit=${limit}`);
-            renderAnime(animeList, 'animeGrid', false, currentPage > 1);
-        }
+    function renderAnime(animeList, gridId, isTrending = false, append = false) {
+      const grid = document.getElementById(gridId);
+      if (!append) grid.innerHTML = "";
+      animeList.forEach(anime => {
+        const div = document.createElement('div');
+        div.className = 'anime-item';
+        div.innerHTML = `
+          <a href="animeDetails.html?id=${anime.mal_id}" class="anime-link">
+            <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
+            <h3>${anime.title}</h3>
+            ${!isTrending ? `<p><strong>Score:</strong> ${anime.score || 'N/A'}</p>` : ''}
+            ${!isTrending ? `<p>${anime.episodes ? `Episodes: ${anime.episodes}` : 'Ongoing'}</p>` : ''}
+          </a>
+        `;
+        grid.appendChild(div);
+      });
+    }
 
-        async function displayTrendingAnime() {
-            let animeList = await fetchAnime(trendingApiUrl);
-            renderAnime(animeList.slice(0, 5), 'trendingAnimeGrid', true);
-        }
+    async function displayTopRatedAnime() {
+      document.getElementById("loadingTop").style.display = "block";
+      let list = await fetchAnime(`${apiUrl}?page=${currentPage}&limit=${limit}`);
+      renderAnime(list, "animeGrid", false, currentPage > 1);
+      document.getElementById("loadingTop").style.display = "none";
+    }
 
-        function renderAnime(animeList, gridId, isTrending = false, append = false) {
-            const animeGrid = document.getElementById(gridId);
-            if (!append) animeGrid.innerHTML = "";
-            animeList.forEach(anime => {
-                const animeItem = document.createElement('div');
-                animeItem.classList.add('anime-item');
-                animeItem.innerHTML = `
-                    <a href="animeDetails.html?id=${anime.mal_id}" class="anime-link">
-                        <img src="${anime.images?.jpg?.image_url || 'placeholder.jpg'}" alt="${anime.title}">
-                        <h3>${anime.title}</h3>
-                        ${!isTrending ? `<p><strong>Score:</strong> ${anime.score || 'N/A'}</p>` : ''}
-                        ${!isTrending ? `<p>${anime.episodes ? `Episodes: ${anime.episodes}` : 'Ongoing'}</p>` : ''}
-                    </a>
-                `;
-                animeGrid.appendChild(animeItem);
-            });
-        }
+    async function displayTrendingAnime() {
+      let list = await fetchAnime(trendingApiUrl);
+      renderAnime(list.slice(0, 5), "trendingAnimeGrid", true);
+    }
 
-        document.getElementById('searchBar').addEventListener('input', async function() {
-            let query = this.value.trim();
-            if (query.length > 2) {
-                let searchResults = await fetchAnime(`https://api.jikan.moe/v4/anime?q=${query}&limit=${limit}`);
-                document.getElementById('animeGrid').innerHTML = "";
-                renderAnime(searchResults, 'animeGrid');
-            } else {
-                currentPage = 1;
-                document.getElementById('animeGrid').innerHTML = "";
-                displayTopRatedAnime();
-            }
-        });
+    document.getElementById('searchBar').addEventListener('input', async function () {
+      let query = this.value.trim();
 
-        document.getElementById('loadMore').addEventListener('click', function() {
-            currentPage++;
-            displayTopRatedAnime();
-        });
+      const trendingSection = document.getElementById('trendingAnimeGrid');
+      const trendingTitle = document.getElementById('trendingTitle');
+      const topRatedSection = document.getElementById('animeGrid');
+      const topRatedTitle = document.getElementById('topRatedTitle');
+      const loadMoreBtn = document.getElementById('loadMore');
 
+      if (query.length > 2) {
+        document.getElementById("loadingTop").style.display = "block";
+
+        trendingSection.style.display = "none";
+        trendingTitle.style.display = "none";
+        topRatedTitle.style.display = "none";
+        loadMoreBtn.style.display = "none";
+
+        let results = await fetchAnime(`https://api.jikan.moe/v4/anime?q=${query}&limit=20`);
+        topRatedSection.innerHTML = "";
+        renderAnime(results, "animeGrid");
+
+        document.getElementById("loadingTop").style.display = "none";
+      } else {
+        trendingSection.style.display = "grid";
+        trendingTitle.style.display = "block";
+        topRatedTitle.style.display = "block";
+        loadMoreBtn.style.display = "block";
+
+        currentPage = 1;
+        topRatedSection.innerHTML = "";
         displayTrendingAnime();
         displayTopRatedAnime();
-    </script>
+      }
+    });
+
+    document.getElementById('loadMore').addEventListener('click', () => {
+      currentPage++;
+      displayTopRatedAnime();
+    });
+
+    displayTrendingAnime();
+    displayTopRatedAnime();
+  </script>
 </body>
 </html>
