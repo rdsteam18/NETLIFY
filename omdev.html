@@ -41,6 +41,10 @@
             text-align: center;
             border-radius: 10px;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .anime-item:hover {
+            transform: scale(1.05);
         }
         .anime-item img {
             width: 100%;
@@ -60,18 +64,22 @@
         .load-more:hover {
             background-color: #d63434;
         }
+        .anime-link {
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo" class="logo">
         <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
     </div>
 
     <h2 style="text-align:center;">Trending Anime</h2>
     <div class="anime-grid" id="trendingAnimeGrid"></div>
-    
+
     <h2 style="text-align:center;">Top Rated Anime List</h2>
     <div class="anime-grid" id="animeGrid"></div>
     <button class="load-more" id="loadMore">Load More</button>
@@ -104,7 +112,7 @@
 
         async function displayTrendingAnime() {
             let animeList = await fetchAnime(trendingApiUrl);
-            renderTrendingAnime(animeList);
+            renderAnime(animeList, 'trendingAnimeGrid');
         }
 
         function renderAnime(animeList, gridId) {
@@ -114,32 +122,13 @@
                 const animeItem = document.createElement('div');
                 animeItem.classList.add('anime-item');
                 animeItem.innerHTML = `
-                    <img src="${anime.images?.jpg?.image_url || 'placeholder.jpg'}" alt="${anime.title}">
-                    <h3>${anime.title}</h3>
-                    <p><strong>Score:</strong> ${anime.score || 'N/A'}</p>
+                    <a href="animeDetails.html?id=${anime.mal_id}" class="anime-link">
+                        <img src="${anime.images?.jpg?.image_url || 'placeholder.jpg'}" alt="${anime.title}">
+                        <h3>${anime.title}</h3>
+                        <p><strong>Score:</strong> ${anime.score || 'N/A'}</p>
+                        <p>${anime.episodes ? `Episodes: ${anime.episodes}` : 'Ongoing'}</p>
+                    </a>
                 `;
-                animeItem.onclick = () => {
-                    window.location.href = `animeDetails.html?id=${anime.mal_id}`;
-                };
-                animeGrid.appendChild(animeItem);
-            });
-        }
-
-        function renderTrendingAnime(animeList) {
-            const animeGrid = document.getElementById('trendingAnimeGrid');
-            animeGrid.innerHTML = "";
-            animeList.forEach(anime => {
-                const animeItem = document.createElement('div');
-                animeItem.classList.add('anime-item');
-                animeItem.innerHTML = `
-                    <img src="${anime.images?.jpg?.image_url || 'placeholder.jpg'}" alt="${anime.title}">
-                    <h3>${anime.title}</h3>
-                    <p><strong>Score:</strong> ${anime.score || 'N/A'}</p>
-                    <p>${anime.episodes ? `Episodes: ${anime.episodes}` : 'Ongoing'}</p>
-                `;
-                animeItem.onclick = () => {
-                    window.location.href = `animeDetails.html?id=${anime.mal_id}`;
-                };
                 animeGrid.appendChild(animeItem);
             });
         }
