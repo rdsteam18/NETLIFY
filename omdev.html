@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Website</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,19 +14,38 @@
         }
         .header {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
+            padding: 10px;
             background-color: #222;
         }
         .logo {
             width: 120px;
+            margin-bottom: 10px;
+        }
+        .search-container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 10px;
         }
         .search-bar {
             padding: 8px;
-            width: 300px;
+            width: 70%;
+            max-width: 300px;
             border-radius: 5px;
             border: none;
+        }
+        .search-button {
+            padding: 8px 16px;
+            background-color: #ff4c4c;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #d63434;
         }
         .anime-grid {
             display: grid;
@@ -36,7 +54,7 @@
             padding: 20px;
         }
         .anime-grid.trending {
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         }
         .anime-item {
             background-color: #444;
@@ -54,7 +72,7 @@
             border-radius: 10px;
         }
         .anime-item h3 {
-            font-size: 14px;
+            font-size: 12px;
             margin: 10px 0 0 0;
         }
         .anime-item p {
@@ -82,13 +100,46 @@
         .anime-link:hover {
             text-decoration: underline;
         }
+        .about-us {
+            padding: 40px 20px;
+            background-color: #111;
+            text-align: center;
+        }
+        .about-us h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .about-us p {
+            max-width: 700px;
+            margin: auto;
+            font-size: 16px;
+            color: #ccc;
+        }
+        footer {
+            background-color: #000;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+        @media (max-width: 768px) {
+            .anime-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .anime-grid.trending {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" alt="Anime Logo" class="logo">
-        <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
+        <div class="search-container">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
+            <button class="search-button">Search</button>
+        </div>
     </div>
 
     <h2 style="text-align:center;">Trending Anime</h2>
@@ -97,6 +148,15 @@
     <h2 style="text-align:center;">Top Rated Anime List</h2>
     <div class="anime-grid" id="animeGrid"></div>
     <button class="load-more" id="loadMore">Load More</button>
+
+    <div class="about-us">
+        <h2>About Us</h2>
+        <p>Welcome to our Anime World! We are passionate anime lovers bringing you a curated collection of the best and trending anime shows. Whether you're a die-hard otaku or a curious newcomer, this is your home for exploring and enjoying top-rated anime content. Stay connected, stay animated!</p>
+    </div>
+
+    <footer>
+        &copy; 2025 Anime World. All Rights Reserved.
+    </footer>
 
     <script>
         let currentPage = 1;
@@ -126,7 +186,7 @@
 
         async function displayTrendingAnime() {
             let animeList = await fetchAnime(trendingApiUrl);
-            renderAnime(animeList, 'trendingAnimeGrid', true);
+            renderAnime(animeList.slice(0, 5), 'trendingAnimeGrid', true);
         }
 
         function renderAnime(animeList, gridId, isTrending = false, append = false) {
