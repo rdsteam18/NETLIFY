@@ -82,18 +82,23 @@
 
     <!-- Multiplex Ad at Bottom -->
     <div class="ads-box">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-format="autorelaxed"
-           data-ad-client="ca-pub-3097658772821429"
-           data-ad-slot="6405801253"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3097658772821429"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-3097658772821429"
+     data-ad-slot="3536095339"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
     </div>
 
-    <script>
+  <script>
         async function fetchAnimeDetails(animeId) {
             try {
-                const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}/full`);
+                const response = await fetch(https://api.jikan.moe/v4/anime/${animeId}/full);
                 const anime = await response.json();
                 return anime.data;
             } catch (error) {
@@ -119,33 +124,18 @@
             }
 
             let trailerHTML = anime.trailer && anime.trailer.youtube_id ? 
-                `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${anime.trailer.youtube_id}" frameborder="0" allowfullscreen></iframe>` 
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${anime.trailer.youtube_id}" frameborder="0" allowfullscreen></iframe> 
                 : "<p>No trailer available.</p>";
 
-            document.getElementById('animeDetails').innerHTML = `
+            document.getElementById('animeDetails').innerHTML = 
                 <h2>${anime.title}</h2>
                 <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
                 <p><strong>Score:</strong> ${anime.score || "N/A"}</p>
                 <p><strong>Episodes:</strong> ${anime.episodes || "Unknown"}</p>
                 <p><strong>Synopsis:</strong> ${anime.synopsis || "No synopsis available."}</p>
-
-                <!-- In-Article Ad Start -->
-                <div class="ads-box">
-                  <ins class="adsbygoogle"
-                       style="display:block; text-align:center;"
-                       data-ad-layout="in-article"
-                       data-ad-format="fluid"
-                       data-ad-client="ca-pub-3097658772821429"
-                       data-ad-slot="3536095339"></ins>
-                  <script>
-                      (adsbygoogle = window.adsbygoogle || []).push({});
-                  </script>
-                </div>
-                <!-- In-Article Ad End -->
-
                 <h3>Watch Trailer:</h3>
                 ${trailerHTML}
-            `;
+            ;
         }
 
         displayAnimeDetails();
