@@ -225,16 +225,6 @@
     "link": "sorry"
   },
   {
-    "title": "Interstellar",
-    "image": "https://bolly4u.ad/uploads/posts/covers/interstellar-2014-hindi-fan-dub-dual-audio-720p-bluray-1-4gb.webp",
-    "link": "Sorry.html"
-  },
-  {
-    "title": "Interstellar",
-    "image": "https://bolly4u.ad/uploads/posts/covers/interstellar-2014-hindi-fan-dub-dual-audio-720p-bluray-1-4gb.webp",
-    "link": "Sorry.html"
-  },
-  {
     "title": "A Condition Called Love",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVkWStY6Os6Y6bk45CItYTk_TgUYPBCd2OSJNOmRCNaE1-BlHpsYj71pRs&s=10",
     "link": "sorry "
@@ -293,5 +283,10 @@
     "title": "Shikimori's Not Just a Cutie",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5rrysmqZP_PYtIHt0KuQ0udWLHQ_hcHu3oQPYg5pBamdGP8LpjqmHNs&s=10",
     "link": "sorry "
+  },
+  {
+    "title": 1,
+    "image": "https://image.tmdb.org/t/p/w185/zg19Paur3lVVSh8J4LJVO1wgBIg.jpg",
+    "link": 1
   }
 ]
