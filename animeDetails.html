@@ -105,25 +105,19 @@
             return;
          }
 
-         let trailerHTML = (anime.trailer && anime.trailer.youtube_id)
-            ? `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${anime.trailer.youtube_id}?rel=0&modestbranding=1&showinfo=0" frameborder="0" allowfullscreen></iframe>`
-            : "<p>No trailer available.</p>";
-
-         let genresHTML = anime.genres.map(genre => `<span style='margin-right:5px;'>${genre.name}</span>`).join(', ');
-
-         let studiosHTML = anime.studios.map(studio => studio.name).join(', ');
+         let trailerHTML = `
+            <iframe width="100%" height="315" 
+            src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(anime.title + ' Hindi Trailer')}&rel=0&modestbranding=1&showinfo=0" 
+            frameborder="0" allowfullscreen></iframe>
+         `;
 
          document.getElementById('animeDetails').innerHTML = `
             <h2>${anime.title}</h2>
             <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
             <p><strong>Score:</strong> ${anime.score || "N/A"}</p>
             <p><strong>Episodes:</strong> ${anime.episodes || "Unknown"}</p>
-            <p><strong>Status:</strong> ${anime.status || "N/A"}</p>
-            <p><strong>Duration:</strong> ${anime.duration || "N/A"}</p>
-            <p><strong>Genres:</strong> ${genresHTML || "N/A"}</p>
-            <p><strong>Studios:</strong> ${studiosHTML || "N/A"}</p>
             <p><strong>Synopsis:</strong> ${anime.synopsis || "No synopsis available."}</p>
-            <h3>Watch Trailer:</h3>
+            <h3>Watch Hindi Trailer:</h3>
             ${trailerHTML}
          `;
       }
