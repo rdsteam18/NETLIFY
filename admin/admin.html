@@ -41,6 +41,10 @@
   <button onclick="submitAnime()">Add Anime</button>
   <div class="message" id="messageBox"></div>
 
+  <h2>Current Anime List</h2>
+<div id="animeList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;"></div>
+
+
   <script>
     function submitAnime() {
       const title = document.getElementById('title').value.trim();
@@ -76,6 +80,48 @@
         messageBox.innerText = "Something went wrong.";
       });
     }
+    function loadAnimeList() {
+  fetch("https://rdsteam18.github.io/NETLIFY/animeData.json")
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("animeList");
+      container.innerHTML = "";
+
+      data.forEach(anime => {
+        const card = document.createElement("div");
+        card.style.padding = "10px";
+        card.style.background = "#fff";
+        card.style.borderRadius = "8px";
+        card.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
+        card.innerHTML = `
+          <img src="${anime.imageURL}" alt="${anime.title}" style="width:100%; border-radius:8px;">
+          <h3>${anime.title}</h3>
+          <p><a href="anime/${anime.filename}" target="_blank">Watch</a></p>
+          <button onclick="deleteAnime('${anime.filename}')">Delete</button>
+        `;
+        container.appendChild(card);
+      });
+    });
+}
+window.onload = () => {
+  loadAnimeList();
+};
+function deleteAnime(filename) {
+  const confirmDelete = confirm(`Are you sure you want to delete: ${filename}?`);
+  if (!confirmDelete) return;
+
+  fetch(`https://script.google.com/macros/s/AKfycbw3itGJB3la3Bgj_ottRn_osgCy70xGB3wd0iB_iGoDRh4KfdI_UpeOVEtN8AC2-_I/exec?action=delete&filename=${filename}`)
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      loadAnimeList(); // Refresh list
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Something went wrong while deleting.");
+    });
+}
+
   </script>
 
 </body>
