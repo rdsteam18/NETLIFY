@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel - Add Anime</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    input, textarea {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Add New Anime</h2>
+
+  <input type="text" id="title" placeholder="Anime Title" required>
+  <input type="text" id="imageURL" placeholder="Image URL" required>
+  <textarea id="description" placeholder="Description" required></textarea>
+
+  <button onclick="submitAnime()">Add Anime</button>
+  <div class="message" id="messageBox"></div>
+
+  <script>
+    function submitAnime() {
+      const title = document.getElementById('title').value.trim();
+      const imageURL = document.getElementById('imageURL').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const messageBox = document.getElementById('messageBox');
+
+      if (!title || !imageURL || !description) {
+        messageBox.innerText = "Please fill in all fields.";
+        return;
+      }
+
+      fetch("https://script.google.com/macros/s/AKfycbw3itGJB3la3Bgj_ottRn_osgCy70xGB3wd0iB_iGoDRh4KfdI_UpeOVEtN8AC2-_I/exec", {
+        method: "POST",
+        body: JSON.stringify({ title, imageURL, description }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          messageBox.innerText = "Anime added successfully!";
+          document.getElementById("title").value = "";
+          document.getElementById("imageURL").value = "";
+          document.getElementById("description").value = "";
+        } else {
+          messageBox.innerText = "Error adding anime.";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        messageBox.innerText = "Something went wrong.";
+      });
+    }
+  </script>
+
+</body>
+</html>
