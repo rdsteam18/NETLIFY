@@ -303,5 +303,10 @@
     "title": "One Piece",
     "filename": "one-piece.html",
     "imageURL": "https://linktoimage.jpg"
+  },
+  {
+    "title": "The Legend of Hanuman",
+    "filename": "the-legend-of-hanuman.html",
+    "imageURL": "https://image.tmdb.org/t/p/w185/jChnoOJwvblBl4vYjale9KEXdQn.jpg"
   }
 ]
