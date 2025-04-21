@@ -40,7 +40,6 @@
 
   <button onclick="submitAnime()">Add Anime</button>
   <div class="message" id="messageBox"></div>
-
   <h2>Current Anime List</h2>
 <div id="animeList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;"></div>
 
@@ -106,21 +105,6 @@
 window.onload = () => {
   loadAnimeList();
 };
-function deleteAnime(filename) {
-  const confirmDelete = confirm(`Are you sure you want to delete: ${filename}?`);
-  if (!confirmDelete) return;
-
-  fetch(`https://script.google.com/macros/s/AKfycbw3itGJB3la3Bgj_ottRn_osgCy70xGB3wd0iB_iGoDRh4KfdI_UpeOVEtN8AC2-_I/exec?action=delete&filename=${filename}`)
-    .then(res => res.json())
-    .then(data => {
-      alert(data.message);
-      loadAnimeList(); // Refresh list
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Something went wrong while deleting.");
-    });
-}
 
   </script>
 
