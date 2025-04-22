@@ -1,111 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Admin Panel - Add Anime</title>
   <style>
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background-color: #f0f0f0;
-    }
-    input, textarea {
-      display: block;
-      margin-bottom: 10px;
-      width: 100%;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .message {
-      margin-top: 10px;
-      font-weight: bold;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, textarea, button { display: block; margin-bottom: 10px; width: 100%; }
+    .episode-input { margin-bottom: 5px; }
   </style>
 </head>
 <body>
 
-  <h2>Add New Anime</h2>
+  <h1>Add New Anime</h1>
 
-  <input type="text" id="title" placeholder="Anime Title" required>
-  <input type="text" id="imageURL" placeholder="Image URL" required>
-  <textarea id="description" placeholder="Description" required></textarea>
+  <form id="animeForm">
+    <input type="text" id="title" placeholder="Anime Title" required />
+    <textarea id="description" placeholder="Description" required></textarea>
+    <input type="text" id="thumbnail" placeholder="Thumbnail Image URL" required />
 
-  <button onclick="submitAnime()">Add Anime</button>
-  <div class="message" id="messageBox"></div>
-  <h2>Current Anime List</h2>
-<div id="animeList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;"></div>
+    <div id="episodeLinks">
+      <input class="episode-input" type="text" placeholder="Episode Link 1" />
+    </div>
+    <button type="button" onclick="addEpisodeInput()">➕ Add Another Episode</button>
 
+    <button type="submit">✅ Submit Anime</button>
+  </form>
 
   <script>
-    function submitAnime() {
-      const title = document.getElementById('title').value.trim();
-      const imageURL = document.getElementById('imageURL').value.trim();
-      const description = document.getElementById('description').value.trim();
-      const messageBox = document.getElementById('messageBox');
-
-      if (!title || !imageURL || !description) {
-        messageBox.innerText = "Please fill in all fields.";
-        return;
-      }
-
-      fetch("https://script.google.com/macros/s/AKfycbw3itGJB3la3Bgj_ottRn_osgCy70xGB3wd0iB_iGoDRh4KfdI_UpeOVEtN8AC2-_I/exec", {
-        method: "POST",
-        body: JSON.stringify({ title, imageURL, description }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          messageBox.innerText = "Anime added successfully!";
-          document.getElementById("title").value = "";
-          document.getElementById("imageURL").value = "";
-          document.getElementById("description").value = "";
-        } else {
-          messageBox.innerText = "Error adding anime.";
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        messageBox.innerText = "Something went wrong.";
-      });
+    function addEpisodeInput() {
+      const epDiv = document.getElementById("episodeLinks");
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = "episode-input";
+      input.placeholder = `Episode Link ${epDiv.children.length + 1}`;
+      epDiv.appendChild(input);
     }
-    function loadAnimeList() {
-  fetch("https://rdsteam18.github.io/NETLIFY/animeData.json")
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("animeList");
-      container.innerHTML = "";
 
-      data.forEach(anime => {
-        const card = document.createElement("div");
-        card.style.padding = "10px";
-        card.style.background = "#fff";
-        card.style.borderRadius = "8px";
-        card.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
-        card.innerHTML = `
-          <img src="${anime.imageURL}" alt="${anime.title}" style="width:100%; border-radius:8px;">
-          <h3>${anime.title}</h3>
-          <p><a href="anime/${anime.filename}" target="_blank">Watch</a></p>
-          <button onclick="deleteAnime('${anime.filename}')">Delete</button>
-        `;
-        container.appendChild(card);
-      });
+    document.getElementById("animeForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const thumbnail = document.getElementById("thumbnail").value.trim();
+      const episodeInputs = document.querySelectorAll(".episode-input");
+      const episodes = Array.from(episodeInputs).map(i => i.value.trim()).filter(i => i !== "");
+
+      const animeData = {
+        title,
+        description,
+        thumbnail,
+        episodes
+      };
+
+      console.log("📦 Anime to submit:", animeData);
+      alert("Form submitted. Check console (Step 1 done)");
+
+      // ⚠️ Next Step: Save this data to GitHub via Apps Script or API
     });
-}
-window.onload = () => {
-  loadAnimeList();
-};
-
   </script>
 
 </body>
