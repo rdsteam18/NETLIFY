@@ -64,7 +64,36 @@
         alert("Form submission failed. Check console.");
       });
     });
+    form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const animeData = {
+    title: titleInput.value,
+    description: descriptionInput.value,
+    thumbnail: thumbnailInput.value,
+    episodes: episodeLinksInput.value.split(",").map(link => link.trim())
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycb.../exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(animeData)
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("✅ Success:", data);
+    alert("Anime added!");
+  })
+  .catch(err => {
+    console.error("❌ Error:", err);
+    alert("Something went wrong!");
+  });
+});
+
   </script>
+  
 
 </body>
 </html>
