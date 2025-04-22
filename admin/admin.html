@@ -26,48 +26,36 @@
   </form>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXnUk2lu4wwhRPJNyCYRWPgagLzH69h9yVFig34-hdpJJ28lmXt_CcfTYr2dxOzos/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXnUk2lu4wwhRPJNyCYRWPgagLzH69h9yVFig34-hdpJJ28lmXt_CcfTYr2dxOzos/exec";
 
-    function addEpisodeInput() {
-      const epDiv = document.getElementById("episodeLinks");
-      const input = document.createElement("input");
-      input.type = "text";
-      input.className = "episode-input";
-      input.placeholder = `Episode Link ${epDiv.children.length + 1}`;
-      epDiv.appendChild(input);
-    }
+  document.getElementById("animeForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    document.getElementById("animeForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const title = document.getElementById("title").value.trim();
-      const description = document.getElementById("description").value.trim();
-      const thumbnail = document.getElementById("thumbnail").value.trim();
-      const episodes = Array.from(document.querySelectorAll(".episode-input"))
-                            .map(input => input.value.trim())
-                            .filter(link => link !== "");
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const thumbnail = document.getElementById("thumbnail").value.trim();
+    const episodeInputs = document.querySelectorAll(".episode-input");
+    const episodes = Array.from(episodeInputs).map(i => i.value.trim()).filter(i => i !== "");
 
-      const data = { title, description, thumbnail, episodes };
+    const animeData = { title, description, thumbnail, episodes };
 
-      fetch(SCRIPT_URL, {
+    try {
+      const res = await fetch(SCRIPT_URL, {
         method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(res => res.text())
-      .then(res => {
-        alert("✅ Anime Added Successfully!");
-        console.log("📦 Server Response:", res);
-        document.getElementById("animeForm").reset();
-        document.getElementById("episodeLinks").innerHTML = `<input class="episode-input" type="text" placeholder="Episode Link 1" />`;
-      })
-      .catch(err => {
-        alert("❌ Failed to add anime.");
-        console.error("❌ Error:", err);
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(animeData)
       });
-    });
-  </script>
+
+      const result = await res.json();
+      console.log("✅ Success:", result);
+      alert("Anime submitted successfully!");
+    } catch (err) {
+      console.error("❌ Error:", err);
+      alert("Error submitting anime.");
+    }
+  });
+</script>
+
 
 </body>
 </html>
