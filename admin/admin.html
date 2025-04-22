@@ -36,34 +36,38 @@
       epDiv.appendChild(input);
     }
 
-    document.getElementById("animeForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const title = document.getElementById("title").value.trim();
-  const description = document.getElementById("description").value.trim();
-  const thumbnail = document.getElementById("thumbnail").value.trim();
-  const episodeInputs = document.querySelectorAll(".episode-input");
-  const episodes = Array.from(episodeInputs).map(i => i.value.trim()).filter(i => i !== "");
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("animeForm");
+      form.addEventListener("submit", async function(e) {
+        e.preventDefault();
 
-  const animeData = { title, description, thumbnail, episodes };
+        const title = document.getElementById("title").value.trim();
+        const description = document.getElementById("description").value.trim();
+        const thumbnail = document.getElementById("thumbnail").value.trim();
+        const episodeInputs = document.querySelectorAll(".episode-input");
+        const episodes = Array.from(episodeInputs).map(i => i.value.trim()).filter(i => i !== "");
 
- fetch("https://script.google.com/macros/s/AKfycbyXnUk2lu4wwhRPJNyCYRWPgagLzH69h9yVFig34-hdpJJ28lmXt_CcfTYr2dxOzos/exec", {
-  method: "POST",
-  body: JSON.stringify(animeData),
-  headers: {
-    "Content-Type": "application/json"
-  }
-})
-  .then(res => res.text())
-  .then(data => {
-    alert("✅ Anime submitted successfully!");
-    console.log("✔ Server response:", data);
-  })
-  .catch(err => {
-    alert("❌ Submission failed");
-    console.error(err);
-  });
-});
+        const animeData = { title, description, thumbnail, episodes };
 
+        try {
+          const response = await fetch("https://script.google.com/macros/s/AKfycbyXnUk2lu4wwhRPJNyCYRWPgagLzH69h9yVFig34-hdpJJ28lmXt_CcfTYr2dxOzos/exec", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(animeData)
+          });
+
+          const result = await response.json();
+          console.log("✅ Success:", result);
+          alert("✅ Anime submitted successfully!");
+          form.reset();
+        } catch (err) {
+          console.error("❌ Failed to submit:", err);
+          alert("❌ Submission failed. Check console for error.");
+        }
+      });
+    });
   </script>
 
 </body>
