@@ -47,48 +47,31 @@
 
       const animeData = { title, description, thumbnail, episodes };
 
-      fetch("https://script.google.com/macros/s/AKfycbyXnUk2lu4wwhRPJNyCYRWPgagLzH69h9yVFig34-hdpJJ28lmXt_CcfTYr2dxOzos/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(animeData),
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log("✅ Response:", data);
-        alert(data.message);
-      })
-      .catch(err => {
-        console.error("❌ Error:", err);
-        alert("Form submission failed. Check console.");
-      });
-    });
-    form.addEventListener("submit", function (e) {
+   document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const animeData = {
-    title: titleInput.value,
-    description: descriptionInput.value,
-    thumbnail: thumbnailInput.value,
-    episodes: episodeLinksInput.value.split(",").map(link => link.trim())
-  };
+  const title = document.getElementById("title").value;
+  const description = document.getElementById("description").value;
+  const thumbnail = document.getElementById("thumbnail").value;
+  const episodes = document.getElementById("episodes").value.split(",").map(e => e.trim());
 
-  fetch("https://script.google.com/macros/s/AKfycb.../exec", {
+  const data = { title, description, thumbnail, episodes };
+
+  fetch("YOUR_NEW_DEPLOYMENT_URL", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(animeData)
+    body: JSON.stringify(data)
   })
   .then(res => res.json())
-  .then(data => {
-    console.log("✅ Success:", data);
-    alert("Anime added!");
+  .then(response => {
+    alert("✅ Anime submitted successfully!");
+    console.log(response);
   })
-  .catch(err => {
-    console.error("❌ Error:", err);
-    alert("Something went wrong!");
+  .catch(error => {
+    console.error("❌ Error:", error);
+    alert("❌ Submission failed.");
   });
 });
 
