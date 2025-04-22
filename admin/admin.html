@@ -46,13 +46,13 @@
 
   const animeData = { title, description, thumbnail, episodes };
 
-  fetch("AKfycbyXnUk2lu4wwhRPJNyCYRWPgagLzH69h9yVFig34-hdpJJ28lmXt_CcfTYr2dxOzos", {
-    method: "POST",
-    body: JSON.stringify(animeData),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
+ fetch("https://script.google.com/macros/s/AKfycbyXnUk2lu4wwhRPJNyCYRWPgagLzH69h9yVFig34-hdpJJ28lmXt_CcfTYr2dxOzos/exec", {
+  method: "POST",
+  body: JSON.stringify(animeData),
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
   .then(res => res.text())
   .then(data => {
     alert("✅ Anime submitted successfully!");
