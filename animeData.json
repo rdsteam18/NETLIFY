@@ -293,20 +293,5 @@
     "title": "My Tiny Senpai",
     "image": "https://m.media-amazon.com/images/M/MV5BMWU4YmIyMjItNDZmNi00M2I3LTkxZjAtYTdhM2I0N2I1NzRhXkEyXkFqcGc@._V1_.jpg",
     "link": "sorry.html"
-  },
-  {
-    "title": "x",
-    "image": "https://image.tmdb.org/t/p/w185/zg19Paur3lVVSh8J4LJVO1wgBIg.jpg",
-    "link": "sorry.html"
-  },
-  {
-    "title": "One Piece",
-    "filename": "one-piece.html",
-    "imageURL": "https://linktoimage.jpg"
-  },
-  {
-    "title": "The Legend of Hanuman",
-    "filename": "the-legend-of-hanuman.html",
-    "imageURL": "https://image.tmdb.org/t/p/w185/jChnoOJwvblBl4vYjale9KEXdQn.jpg"
   }
 ]
