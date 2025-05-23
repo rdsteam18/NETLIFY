@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devil May Cry - NETLIFY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --darker: #020617;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .anime-poster {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+        .anime-poster:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .episode-thumbnail {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        .episode-thumbnail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .server-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        /* Episode badge */
+        .episode-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+        
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Header/Navigation -->
+    <header class="bg-gray-900 shadow-lg sticky top-0 z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-play-circle text-indigo-500 text-2xl"></i>
+                    <a href="https://omdev.netlify.app/" class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">NETLIFY</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="https://omdev.netlify.app/" class="nav-link text-gray-300 hover:text-white transition">Home</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white transition">Popular</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white transition">Genres</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white transition">Schedule</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white transition">News</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative hidden md:block">
+                        <input type="text" placeholder="Search anime..." class="bg-gray-800 text-white px-4 py-1 rounded-full w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button id="mobileMenuButton" class="md:hidden text-xl text-gray-300 hover:text-white">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="hidden md:block bg-indigo-600 hover:bg-indigo-700 px-4 py-1 rounded-full transition font-medium">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="mobile-menu md:hidden bg-gray-900 mt-2 rounded-lg">
+                <div class="px-4 py-3 space-y-4">
+                    <a href="https://omdev.netlify.app/" class="block text-gray-300 hover:text-white transition">Home</a>
+                    <a href="#" class="block text-gray-300 hover:text-white transition">Popular</a>
+                    <a href="#" class="block text-gray-300 hover:text-white transition">Genres</a>
+                    <a href="#" class="block text-gray-300 hover:text-white transition">Schedule</a>
+                    <a href="#" class="block text-gray-300 hover:text-white transition">News</a>
+                    <div class="pt-2 border-t border-gray-800">
+                        <input type="text" placeholder="Search anime..." class="bg-gray-800 text-white px-4 py-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <button class="w-full bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition font-medium">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-6">
+        <!-- Anime Info Section -->
+        <section class="mb-8">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Anime Poster -->
+                <div class="w-full md:w-1/4 lg:w-1/5">
+                    <img src="https://image.tmdb.org/t/p/w185/qm6Mi9051Ws1eG1mtfUbetJunvI.jpg" 
+                         alt="Devil May Cry Poster" 
+                         class="w-full h-auto rounded-lg anime-poster">
+                </div>
+                
+                <!-- Anime Details -->
+                <div class="w-full md:w-3/4 lg:w-4/5">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">Devil May Cry</h1>
+                    <p class="text-gray-400 mb-3">Demon Hunter | Anime Series (2025)</p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Action & Adventure</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Animation</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Series</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">8 Episodes</span>
+                        <span class="bg-indigo-600 px-3 py-1 rounded-full text-sm">HD</span>
+                        <span class="bg-green-600 px-3 py-1 rounded-full text-sm">Completed</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h2 class="text-xl font-semibold mb-2 flex items-center">
+                            <i class="fas fa-info-circle text-indigo-500 mr-2"></i> Synopsis
+                        </h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            When a mysterious villain threatens to open the gates of Hell, a devilishly handsome demon hunter could be the world's best hope for salvation.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg flex items-center transition">
+                            <i class="fas fa-heart mr-2"></i> Add to List
+                        </button>
+                        <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg flex items-center transition">
+                            <i class="fas fa-bookmark mr-2"></i> Bookmark
+                        </button>
+                        <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg flex items-center transition">
+                            <i class="fas fa-share-alt mr-2"></i> Share
+                        </button>
+                        <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg flex items-center transition">
+                            <i class="fas fa-flag mr-2"></i> Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Player Section -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold" id="currentEpisodeTitle">Episode 1: Ryomen Sukuna</h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-400">Quality:</span>
+                    <select class="bg-gray-800 text-white px-3 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option>1080p</option>
+                        <option>720p</option>
+                        <option>480p</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Video Player Container -->
+            <div class="video-container mb-4">
+                <iframe id="videoPlayer" 
+                        src="https://www.youtube.com/embed/pkKu9hLT-t8?autoplay=0" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+            
+            <!-- Server Selection -->
+            <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                <h3 class="text-lg font-semibold mb-3 flex items-center">
+                    <i class="fas fa-server text-indigo-500 mr-2"></i> Select Server:
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="changeServer(1)" class="server-btn active bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-play-circle mr-2"></i> Server 1
+                    </button>
+                    <button onclick="changeServer(2)" class="server-btn bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-play-circle mr-2"></i> Server 2
+                    </button>
+                    <button onclick="changeServer(3)" class="server-btn bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-play-circle mr-2"></i> Server 3
+                    </button>
+                    <button onclick="changeServer(4)" class="server-btn bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-download mr-2"></i> Download
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Episode Navigation -->
+            <div class="flex justify-between mb-4">
+                <button onclick="prevEpisode()" class="bg-gray-900 hover:bg-gray-800 px-4 py-2 rounded-lg flex items-center transition">
+                    <i class="fas fa-arrow-left mr-2"></i> Previous Episode
+                </button>
+                <button onclick="nextEpisode()" class="bg-gray-900 hover:bg-gray-800 px-4 py-2 rounded-lg flex items-center transition">
+                    Next Episode <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Episodes List -->
+        <section>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold">Episodes</h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-400">Sort by:</span>
+                    <select class="bg-gray-900 text-white px-3 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option>Newest First</option>
+                        <option>Oldest First</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                <!-- Episode 1 -->
+                <div onclick="changeEpisode(1)" class="episode-thumbnail bg-gray-900 rounded-lg overflow-hidden shadow-md cursor-pointer group">
+                    <div class="relative">
+                        <img src="https://img1.ak.crunchyroll.com/i/spire4/5a0e2a5a3a73e9e3d9c0e5b5d5e5b5d5/1603918800/thumbnail/640x360/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5.jpg" 
+                             alt="Episode 1" 
+                             class="w-full h-auto transition duration-300 group-hover:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <span class="text-white font-medium">Episode 1</span>
+                            <p class="text-gray-300 text-sm truncate">Ryomen Sukuna</p>
+                        </div>
+                        <div class="episode-badge">24 min</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <div class="bg-indigo-600 rounded-full p-3">
+                                <i class="fas fa-play text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Episode 2 -->
+                <div onclick="changeEpisode(2)" class="episode-thumbnail bg-gray-900 rounded-lg overflow-hidden shadow-md cursor-pointer group">
+                    <div class="relative">
+                        <img src="https://img1.ak.crunchyroll.com/i/spire4/5a0e2a5a3a73e9e3d9c0e5b5d5e5b5d5/1604005200/thumbnail/640x360/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5.jpg" 
+                             alt="Episode 2" 
+                             class="w-full h-auto transition duration-300 group-hover:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <span class="text-white font-medium">Episode 2</span>
+                            <p class="text-gray-300 text-sm truncate">For Myself</p>
+                        </div>
+                        <div class="episode-badge">23 min</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <div class="bg-indigo-600 rounded-full p-3">
+                                <i class="fas fa-play text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Episode 3 -->
+                <div onclick="changeEpisode(3)" class="episode-thumbnail bg-gray-900 rounded-lg overflow-hidden shadow-md cursor-pointer group">
+                    <div class="relative">
+                        <img src="https://img1.ak.crunchyroll.com/i/spire4/5a0e2a5a3a73e9e3d9c0e5b5d5e5b5d5/1604091600/thumbnail/640x360/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5.jpg" 
+                             alt="Episode 3" 
+                             class="w-full h-auto transition duration-300 group-hover:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <span class="text-white font-medium">Episode 3</span>
+                            <p class="text-gray-300 text-sm truncate">Girl of Steel</p>
+                        </div>
+                        <div class="episode-badge">24 min</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <div class="bg-indigo-600 rounded-full p-3">
+                                <i class="fas fa-play text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Episode 4 -->
+                <div onclick="changeEpisode(4)" class="episode-thumbnail bg-gray-900 rounded-lg overflow-hidden shadow-md cursor-pointer group">
+                    <div class="relative">
+                        <img src="https://img1.ak.crunchyroll.com/i/spire4/5a0e2a5a3a73e9e3d9c0e5b5d5e5b5d5/1604178000/thumbnail/640x360/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5.jpg" 
+                             alt="Episode 4" 
+                             class="w-full h-auto transition duration-300 group-hover:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <span class="text-white font-medium">Episode 4</span>
+                            <p class="text-gray-300 text-sm truncate">Curse Womb Must Die</p>
+                        </div>
+                        <div class="episode-badge">23 min</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <div class="bg-indigo-600 rounded-full p-3">
+                                <i class="fas fa-play text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Episode 5 -->
+                <div onclick="changeEpisode(5)" class="episode-thumbnail bg-gray-900 rounded-lg overflow-hidden shadow-md cursor-pointer group">
+                    <div class="relative">
+                        <img src="https://img1.ak.crunchyroll.com/i/spire4/5a0e2a5a3a73e9e3d9c0e5b5d5e5b5d5/1604264400/thumbnail/640x360/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5.jpg" 
+                             alt="Episode 5" 
+                             class="w-full h-auto transition duration-300 group-hover:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <span class="text-white font-medium">Episode 5</span>
+                            <p class="text-gray-300 text-sm truncate">Curse Womb Must Die -II-</p>
+                        </div>
+                        <div class="episode-badge">24 min</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <div class="bg-indigo-600 rounded-full p-3">
+                                <i class="fas fa-play text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Episode 6 -->
+                <div onclick="changeEpisode(6)" class="episode-thumbnail bg-gray-900 rounded-lg overflow-hidden shadow-md cursor-pointer group">
+                    <div class="relative">
+                        <img src="https://img1.ak.crunchyroll.com/i/spire4/5a0e2a5a3a73e9e3d9c0e5b5d5e5b5d5/1604350800/thumbnail/640x360/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5/9b5e5b5d5e5b5d5e5b5d5e5b5d5e5b5d5.jpg" 
+                             alt="Episode 6" 
+                             class="w-full h-auto transition duration-300 group-hover:opacity-80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <span class="text-white font-medium">Episode 6</span>
+                            <p class="text-gray-300 text-sm truncate">After Rain</p>
+                        </div>
+                        <div class="episode-badge">23 min</div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                            <div class="bg-indigo-600 rounded-full p-3">
+                                <i class="fas fa-play text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More episodes can be added following the same pattern -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="flex justify-center mt-8">
+                <nav class="flex items-center space-x-2">
+                    <button class="px-3 py-1 rounded-lg bg-gray-900 text-gray-300 hover:bg-gray-800">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="px-4 py-1 rounded-lg bg-indigo-600 text-white">1</button>
+                    <button class="px-4 py-1 rounded-lg bg-gray-900 text-gray-300 hover:bg-gray-800">2</button>
+                    <button class="px-4 py-1 rounded-lg bg-gray-900 text-gray-300 hover:bg-gray-800">3</button>
+                    <span class="text-gray-400">...</span>
+                    <button class="px-4 py-1 rounded-lg bg-gray-900 text-gray-300 hover:bg-gray-800">5</button>
+                    <button class="px-3 py-1 rounded-lg bg-gray-900 text-gray-300 hover:bg-gray-800">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </nav>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 py-8 mt-12 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-play-circle text-indigo-500 mr-2"></i>
+                        <span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">AniStream Pro</span>
+                    </h3>
+                    <p class="text-gray-400">Watch your favorite anime online in HD quality for free.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-indigo-500 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-indigo-500 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-indigo-500 transition">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-indigo-500 transition">
+                            <i class="fab fa-reddit-alien"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Navigation</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">Popular Anime</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">New Releases</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">Genres</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">Schedule</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Information</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">DMCA</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-500 transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Support Us</h4>
+                    <p class="text-gray-400 mb-4">Help us keep the site running by donating or disabling adblock.</p>
+                    <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-heart mr-2"></i> Donate
+                    </button>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2023 AniStream Pro. All rights reserved. All anime content is property of their respective owners.</p>
+                <p class="mt-1">This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Current episode and server tracking
+        let currentEpisode = 1;
+        let currentServer = 1;
+        let totalEpisodes = 24; // Update this with your total episode count
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Function to change the video server
+        function changeServer(serverNum) {
+            currentServer = serverNum;
+            
+            // Update active server button styling
+            document.querySelectorAll('.server-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-indigo-600', 'text-white');
+                btn.classList.add('bg-gray-800');
+            });
+            event.target.classList.add('active', 'bg-indigo-600', 'text-white');
+            event.target.classList.remove('bg-gray-800');
+            
+            // Update the video player with the new server URL
+            updateVideoPlayer();
+        }
+        
+        // Function to change the episode
+        function changeEpisode(episodeNum) {
+            currentEpisode = episodeNum;
+            
+            // Update the episode title
+            document.getElementById('currentEpisodeTitle').textContent = `Episode ${episodeNum}: ${getEpisodeTitle(episodeNum)}`;
+            
+            // Update the video player with the new episode
+            updateVideoPlayer();
+            
+            // Scroll to player section for better UX
+            document.querySelector('section:nth-of-type(2)').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Function to go to next episode
+        function nextEpisode() {
+            if (currentEpisode < totalEpisodes) {
+                changeEpisode(currentEpisode + 1);
+            } else {
+                alert("This is the last episode available.");
+            }
+        }
+        
+        // Function to go to previous episode
+        function prevEpisode() {
+            if (currentEpisode > 1) {
+                changeEpisode(currentEpisode - 1);
+            } else {
+                alert("This is the first episode.");
+            }
+        }
+        
+        // Function to get episode title
+        function getEpisodeTitle(episodeNum) {
+            const titles = {
+                1: "Ryomen Sukuna",
+                2: "For Myself",
+                3: "Girl of Steel",
+                4: "Curse Womb Must Die",
+                5: "Curse Womb Must Die -II-",
+                6: "After Rain",
+                7: "Assault",
+                8: "Boredom",
+                9: "Ryomen Sukuna",
+                10: "Idle Transfiguration",
+                // Add more episode titles as needed
+            };
+            return titles[episodeNum] || `Episode ${episodeNum}`;
+        }
+        
+        // Function to update the video player with current episode and server
+        function updateVideoPlayer() {
+            const player = document.getElementById('videoPlayer');
+            
+            /*
+                REPLACE THIS SECTION WITH YOUR ACTUAL VIDEO LINKS
+                Structure:
+                - servers: Object with server numbers as keys
+                - Each server contains episode URLs
+                - The embed URL will be constructed based on current server and episode
+                
+                Example format:
+                const videoSources = {
+                    1: {
+                        1: "VIDEO_ID_1",
+                        2: "VIDEO_ID_2",
+                        // etc.
+                    },
+                    2: {
+                        1: "ALTERNATE_VIDEO_ID_1",
+                        // etc.
+                    }
+                };
+                
+                Then construct the embed URL based on your video host
+            */
+            
+            // Example with YouTube embed links
+            const videoSources = {
+                1: {
+                    1: "pkKu9hLT-t8",
+                    2: "eA2kG5pSuBA",
+                    3: "2ZkZg1QaX4Q",
+                    4: "mDUMrDQiA5w",
+                    5: "dQw4w9WgXcQ",
+                    6: "dQw4w9WgXcQ",
+                    // Add more episodes as needed
+                },
+                2: {
+                    1: "dQw4w9WgXcQ",
+                    2: "dQw4w9WgXcQ",
+                    3: "dQw4w9WgXcQ",
+                    // etc.
+                },
+                3: {
+                    1: "dQw4w9WgXcQ",
+                    2: "dQw4w9WgXcQ",
+                    3: "dQw4w9WgXcQ",
+                    // etc.
+                }
+            };
+            
+            // Get the video ID for current episode and server
+            const videoId = videoSources[currentServer][currentEpisode] || videoSources[1][1];
+            
+            // Update the iframe src (using YouTube as example)
+            player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        }
+        
+        // Initialize the first server button as active
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.server-btn').classList.add('active', 'bg-indigo-600', 'text-white');
+            document.querySelector('.server-btn').classList.remove('bg-gray-800');
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextEpisode();
+                } else if (e.key === 'ArrowLeft') {
+                    prevEpisode();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
