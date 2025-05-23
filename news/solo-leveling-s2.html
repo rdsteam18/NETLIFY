@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime News Detail | AnimeStream</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #ff8906;
+            --secondary: #e53170;
+            --background: #0f0e17;
+            --text: #fffffe;
+            --text-secondary: #a7a9be;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        .breadcrumb {
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-right: 20px;
+            margin-right: 10px;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+        
+        .breadcrumb a::after {
+            content: '>';
+            position: absolute;
+            right: 0;
+            color: var(--text-secondary);
+        }
+        
+        .breadcrumb span {
+            color: var(--primary);
+        }
+        
+        /* Article Header */
+        .article-header {
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .article-banner {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .article-banner {
+                height: 250px;
+            }
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: rgba(255, 137, 6, 0.2);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: rgba(255, 137, 6, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* Article Content */
+        .article-content {
+            background: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s ease;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 30px 0 15px;
+            color: var(--text);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .article-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+        
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 137, 6, 0.2);
+            color: var(--primary);
+        }
+        
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 20, 0.8);
+            padding: 30px 0;
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="#">Home</a>
+            <a href="#">News</a>
+            <span>Article</span>
+        </nav>
+        
+        <!-- Back Button -->
+        <a href="#" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to News
+        </a>
+        
+        <!-- Article Header -->
+        <header class="article-header">
+            <img src="https://source.unsplash.com/random/1600x900/?anime,demon-slayer" alt="Demon Slayer" class="article-banner">
+            <h1 class="article-title">New Season of Demon Slayer Announced for Fall 2023</h1>
+            
+            <div class="article-meta">
+                <span><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+                <span><i class="fas fa-user"></i> By AnimeNews Network</span>
+                <span><i class="fas fa-eye"></i> 24,589 Views</span>
+            </div>
+            
+            <div class="article-tags">
+                <a href="#" class="tag">Demon Slayer</a>
+                <a href="#" class="tag">New Season</a>
+                <a href="#" class="tag">Ufotable</a>
+                <a href="#" class="tag">Fall 2023</a>
+            </div>
+        </header>
+        
+        <!-- Article Content -->
+        <article class="article-content">
+            <p>Ufotable has officially confirmed the production of a new season of the wildly popular anime series "Demon Slayer: Kimetsu no Yaiba," focusing on the Hashira Training arc. The announcement was made during a special livestream event celebrating the series' fifth anniversary.</p>
+            
+            <img src="https://source.unsplash.com/random/800x450/?anime,hashira" alt="Hashira Training" style="float: right; margin-left: 20px; max-width: 400px;">
+            
+            <h2>What to Expect in the New Season</h2>
+            <p>The upcoming season will adapt the Hashira Training arc from Koyoharu Gotouge's original manga, which follows Tanjiro Kamado's intensive training with the elite Hashira warriors to prepare for the final battle against Muzan Kibutsuji and his demon forces.</p>
+            
+            <p>Series producer Akifumi Fujio revealed that this season will feature some of the most visually stunning animation sequences yet, with the studio pushing their signature effects to new heights. "We want to surpass what we achieved with the Entertainment District arc," Fujio stated during the announcement.</p>
+            
+            <h2>Release Details</h2>
+            <p>The new season is scheduled to premiere in October 2023 as part of the fall anime season. While the exact date hasn't been confirmed, industry insiders suggest it will likely debut in the first week of October, following the pattern of previous seasons.</p>
+            
+            <img src="https://source.unsplash.com/random/800x450/?anime,tanjiro" alt="Tanjiro" style="float: left; margin-right: 20px; max-width: 400px;">
+            
+            <p>International streaming will be available through Crunchyroll and Funimation, with simuldubs expected to follow shortly after the Japanese broadcast. The season is projected to run for approximately 12 episodes, covering the complete Hashira Training arc.</p>
+            
+            <h2>Cast and Staff Returns</h2>
+            <p>The main cast members, including Natsuki Hanae as Tanjiro, Akari Kitō as Nezuko, and Yoshitsugu Matsuoka as Inosuke, are all confirmed to return for the new season. The production will maintain the same core staff, with Haruo Sotozaki directing and Akira Matsushima handling character designs.</p>
+            
+            <p>Composer Yuki Kajiura and Go Shiina will once again collaborate on the soundtrack, with the opening theme performed by LiSA, continuing her streak as the series' musical voice since the first season.</p>
+            
+            <p>Fans can expect more details, including the exact premiere date and additional cast announcements, to be revealed during Anime Expo in July, where the Demon Slayer team will hold a special panel.</p>
+        </article>
+        
+        <!-- Back Button at Bottom -->
+        <a href="#" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to News
+        </a>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">AnimeStream</div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">News</a>
+                <a href="#">Privacy</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
