@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | NETLIFY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #ff8906;
+            --secondary: #e53170;
+            --background: #0f0e17;
+            --text: #fffffe;
+            --text-secondary: #a7a9be;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        .breadcrumb {
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-right: 20px;
+            margin-right: 10px;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+        
+        .breadcrumb a::after {
+            content: '>';
+            position: absolute;
+            right: 0;
+            color: var(--text-secondary);
+        }
+        
+        .breadcrumb span {
+            color: var(--primary);
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin: 40px 0;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* About Sections */
+        .about-section {
+            background: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s ease;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+        
+        .about-section p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .team-member {
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .member-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .member-info {
+            padding: 20px;
+        }
+        
+        .member-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+        
+        .member-role {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .member-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .member-social a {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        
+        .member-social a:hover {
+            color: var(--primary);
+        }
+        
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 137, 6, 0.2);
+            color: var(--primary);
+        }
+        
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 20, 0.8);
+            padding: 30px 0;
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="https://omdev.netlify.app/omdev">Home</a>
+            <span>About Us</span>
+        </nav>
+        
+        <!-- Back Button -->
+        <a href="https://omdev.netlify.app/omdev" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">We Live and Breathe Anime</h1>
+            <p class="page-subtitle">NETLIFY is more than just a streaming platform - we're a passionate community dedicated to bringing the best of Japanese animation to fans worldwide.</p>
+        </header>
+        
+        <!-- Our Story Section -->
+        <section class="about-section">
+            <h2 class="section-title">Our Story</h2>
+            <p>Founded in 2024 by RDS TEAM, NETLIFY began as a small project to share our love for Japanese animation with like-minded fans. What started as a hobby quickly grew into one of the most respected anime streaming platforms, serving millions of fans across the globe.</p>
+            
+            <p>Our mission has always been simple: to provide high-quality, legal anime streaming with the best user experience possible. We work directly with Japanese studios and licensors to bring you the latest shows as soon as they're available, often with multiple subtitle languages.</p>
+            
+            <img src="https://source.unsplash.com/random/1200x600/?anime,convention" alt="Anime Convention" style="width: 100%; border-radius: 8px; margin: 20px 0;">
+            
+            <p>Today, NETLIFY boasts one of the largest anime libraries outside Japan, with over 10,000 episodes from more than 500 series. But we're not just about quantity - our curated collections, expert recommendations, and community features help fans discover new favorites and connect with each other.</p>
+        </section>
+        
+        <!-- Our Team Section -->
+        <section class="about-section">
+            <h2 class="section-title">Meet The Team</h2>
+            <p>Behind NETLIFY is a diverse team of anime experts, tech enthusiasts, and creative professionals united by our passion for Japanese animation. Get to know some of the key people who make NETLIFY possible:</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmnydY7jAhKpQNKtVfAIWDaEIOHHhAXq2izDDzGsCqJtmR-6Xv81wY_Ud4KRUF0MzcPbFgh5-Gx_LTVOXPcLFS_PNGuL5oxPqPzkGOyXmQo4LZmaWJn7uuPzb2-crblfL2-5tqt93nKs0n2bfQypfKQbl6taiQFOUNE6mbGWErMOr1SErMeSoA8FzO/s1280/2a000a58-e00c-4909-ae1e-befeb91a03ea-Photoroom.png-Photoroom.png" alt="Team Member" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">Devdhar Singh</h3>
+                        <p class="member-role">Founder & CEO</p>
+                        <p>RDS TEAM also</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://source.unsplash.com/random/400x400/?anime,cosplay" alt="Team Member" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">Suraj sahu </h3>
+                        <p class="member-role">Content Manager</p>
+                        <p>RDS TEAM member</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://source.unsplash.com/random/400x400/?anime,programmer" alt="Team Member" class="member-image">
+                    <div class="member-info">
+                        <h3 class="member-name">Rishi </h3>
+                        <p class="member-role">Advertizer</p>
+                        <p>Built the streaming infrastructure that powers our platform.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- By The Numbers Section -->
+        <section class="about-section">
+            <h2 class="section-title">By The Numbers</h2>
+            <p>Our growth and impact in numbers that tell the NETLIFY story:</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Episodes Available</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Series in Library</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Languages Supported</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Our Values Section -->
+        <section class="about-section">
+            <h2 class="section-title">Our Values</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="background: rgba(20, 20, 40, 0.7); padding: 25px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text);"><i class="fas fa-heart" style="color: var(--secondary); margin-right: 10px;"></i> Passion for Anime</h3>
+                    <p style="color: var(--text-secondary);">We're fans first, business second. Every decision we make comes from our genuine love for the medium.</p>
+                </div>
+                
+                <div style="background: rgba(20, 20, 40, 0.7); padding: 25px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text);"><i class="fas fa-globe" style="color: var(--secondary); margin-right: 10px;"></i> Global Community</h3>
+                    <p style="color: var(--text-secondary);">We believe anime transcends borders. Our platform brings together fans from all cultures and backgrounds.</p>
+                </div>
+                
+                <div style="background: rgba(20, 20, 40, 0.7); padding: 25px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text);"><i class="fas fa-handshake" style="color: var(--secondary); margin-right: 10px;"></i> Ethical Streaming</h3>
+                    <p style="color: var(--text-secondary);">We partner directly with creators and studios to ensure artists are properly compensated for their work.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Back Button at Bottom -->
+        <a href="#" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">NETLIFY</div>
+            <div class="footer-links">
+                <a href="/news/artical.html">News</a>
+                <a href="#">Privacy</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
