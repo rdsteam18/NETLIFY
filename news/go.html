@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime News Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f0e17;
+            color: #fffffe;
+            padding: 20px;
+        }
+        
+        .news-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #ff8906;
+            border-radius: 2px;
+        }
+        
+        .news-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(1, 1fr);
+        }
+        
+        @media (min-width: 768px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .news-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .news-card {
+            background: rgba(30, 30, 50, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 137, 6, 0.2);
+            border-color: rgba(255, 137, 6, 0.3);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fffffe;
+            line-height: 1.4;
+        }
+        
+        .card-excerpt {
+            font-size: 0.95rem;
+            color: #a7a9be;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .read-more {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #ff8906, #e53170);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 49, 112, 0.3);
+        }
+        
+        .read-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 49, 112, 0.4);
+        }
+        
+        .news-date {
+            display: flex;
+            align-items: center;
+            color: #ff8906;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-date i {
+            margin-right: 6px;
+        }
+        
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(255, 137, 6, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .news-card:hover .glow {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="news-container">
+        <h2 class="section-title">Latest Anime News</h2>
+        
+        <div class="news-grid">
+            <!-- News Card 1 -->
+            <div class="news-card">
+                <div class="glow"></div>
+                <img src="https://source.unsplash.com/random/600x400/?anime,1" alt="Anime News" class="card-image">
+                <div class="card-content">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i> June 15, 2023
+                    </div>
+                    <h3 class="card-title">New Season of Demon Slayer Announced for Fall 2023</h3>
+                    <p class="card-excerpt">Ufotable has officially confirmed the production of a new season focusing on the Hashira Training arc, set to premiere this October.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+            
+            <!-- News Card 2 -->
+            <div class="news-card">
+                <div class="glow"></div>
+                <img src="https://source.unsplash.com/random/600x400/?anime,2" alt="Anime News" class="card-image">
+                <div class="card-content">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i> June 12, 2023
+                    </div>
+                    <h3 class="card-title">Studio Ghibli Announces New Film by Hayao Miyazaki</h3>
+                    <p class="card-excerpt">The legendary director returns with "How Do You Live?", his first feature film in a decade, scheduled for release in July 2023.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+            
+            <!-- News Card 3 -->
+            <div class="news-card">
+                <div class="glow"></div>
+                <img src="https://source.unsplash.com/random/600x400/?anime,3" alt="Anime News" class="card-image">
+                <div class="card-content">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i> June 10, 2023
+                    </div>
+                    <h3 class="card-title">One Piece Live-Action Series Gets August Release Date on Netflix</h3>
+                    <p class="card-excerpt">The highly anticipated adaptation will premiere on August 31st, covering the East Blue saga with 8 episodes.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+            
+            <!-- News Card 4 -->
+            <div class="news-card">
+                <div class="glow"></div>
+                <img src="https://source.unsplash.com/random/600x400/?anime,4" alt="Anime News" class="card-image">
+                <div class="card-content">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i> June 8, 2023
+                    </div>
+                    <h3 class="card-title">Attack on Titan Final Season Part 3 Second Half Confirmed for Fall</h3>
+                    <p class="card-excerpt">MAPPA will conclude the epic saga with a special extended episode airing this November, wrapping up the 10-year story.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+            
+            <!-- News Card 5 -->
+            <div class="news-card">
+                <div class="glow"></div>
+                <img src="https://source.unsplash.com/random/600x400/?anime,5" alt="Anime News" class="card-image">
+                <div class="card-content">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i> June 5, 2023
+                    </div>
+                    <h3 class="card-title">Jujutsu Kaisen Movie in Development Following Season 2 Success</h3>
+                    <p class="card-excerpt">MAPPA announces a new film project that will adapt the "Cursed Child" arc, bridging the gap between seasons.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+            
+            <!-- News Card 6 -->
+            <div class="news-card">
+                <div class="glow"></div>
+                <img src="https://source.unsplash.com/random/600x400/?anime,6" alt="Anime News" class="card-image">
+                <div class="card-content">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i> June 3, 2023
+                    </div>
+                    <h3 class="card-title">Crunchyroll Announces 20 New Anime Acquisitions for Summer Season</h3>
+                    <p class="card-excerpt">The streaming giant revealed its full summer lineup including highly anticipated shows like "Mushoku Tensei" season 2.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
