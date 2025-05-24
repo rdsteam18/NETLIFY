@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3097658772821429"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3097658772821429"
      crossorigin="anonymous"></script>
 	<link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEgGhd-CvK9t1DntiBFXedIpokqWdKqwRCgOdI9KOEqlkLOgRpUCzkxDhiKbPAUhWgMa_3iCZy-eg1k1udxqEbMP8kMxLP9ktvBAqrgJV5S-nV1iStBeZjxgH7ECwxAJwmI_XUGnVzNO7Ff-Lbg2iHjsq7HPkuEKi3bXiEMaoJKPbgRyUikodONA5h4f=rw">
 <link rel="stylesheet" href="style.css">
@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -166,6 +167,55 @@
             display: none;
         }
         
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        
+        .ad-fallback {
+            display: none;
+            text-align: center;
+            color: #9d50ff;
+            font-family: 'Inter', sans-serif;
+            padding: 1rem;
+            background: #0a0a0e;
+            border-radius: 0.5rem;
+        }
+        
+        .ad-container ins {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #0a0a0e;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(157, 80, 255, 0.5);
+            z-index: 1000;
+            display: none;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid #9d50ff;
+        }
+        
+        .toast.show {
+            display: block;
+            animation: slideIn 0.3s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
         @media (max-width: 768px) {
             .hero-content {
                 padding-top: 2rem;
@@ -175,16 +225,35 @@
             .anime-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
+            
+            .ad-container {
+                margin: 1rem auto;
+            }
+            
+            .toast {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                margin: 0 auto;
+                max-width: 90%;
+            }
         }
         
         @media (min-width: 1024px) {
             .anime-grid {
                 grid-template-columns: repeat(5, minmax(0, 1fr));
             }
+            
+            .ad-container.skyscraper {
+                max-width: 160px;
+            }
         }
     </style>
 </head>
 <body class="bg-dark text-gray-200">
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-darker bg-opacity-90 backdrop-blur-md border-b border-gray-800">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -194,7 +263,7 @@
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
                 <a href="#" class="flex items-center" onclick="showHomePage()">
-                    <span class="text-2xl font-bold font-anime bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">AniFlix</span>
+                    <span class="text-2xl font-bold font-anime bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">NETLIFY</span>
                 </a>
             </div>
             
@@ -243,6 +312,20 @@
         </div>
     </nav>
 
+    <!-- Ad Below Navigation -->
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <div class="ad-fallback">Advertisement not loaded</div>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <!-- Home Page -->
     <div id="home-page">
         <!-- Hero Section -->
@@ -265,7 +348,7 @@
                     <h1 id="hero-title" class="text-4xl md:text-6xl font-bold font-anime mb-4 text-white">Loading...</h1>
                     <div class="flex items-center mb-6">
                         <span id="hero-score" class="text-accent mr-3"><i class="fas fa-star"></i> 9.2</span>
-                        <span id="hero-year" class="text-gray-300 mr-3">2023</span>
+                        <span id="hero-year" class="text-gray-300 mr-3">2025</span>
                         <span id="hero-episodes" class="text-gray-300">24 Episodes</span>
                     </div>
                     <p id="hero-synopsis" class="text-gray-300 mb-6">Loading description...</p>
@@ -273,13 +356,27 @@
                         <button id="hero-watch-now" class="bg-primary hover:bg-opacity-90 text-white px-6 py-2 rounded-full font-medium flex items-center transition-all shadow-neon-pink hover:shadow-neon-purple">
                             <i class="fas fa-play mr-2"></i> Watch Now
                         </button>
-                        <button class="bg-transparent border border-gray-600 hover:border-primary text-white px-6 py-2 rounded-full font-medium flex items-center transition-all hover:text-primary">
-                            <i class="far fa-plus mr-2"></i> My List
+                        <button id="hero-my-list" class="bg-transparent border border-gray-600 hover:border-primary text-white px-6 py-2 rounded-full font-medium flex items-center transition-all hover:text-primary">
+                            <i id="hero-my-list-icon" class="far fa-plus mr-2"></i> <span id="hero-my-list-text">My List</span>
                         </button>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Ad Between Hero and Main Content -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <div class="ad-fallback">Advertisement not loaded</div>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
         <!-- Main Content -->
         <main class="container mx-auto px-4 py-8 relative z-10">
@@ -297,7 +394,21 @@
                     <div class="swiper-button-prev text-primary"></div>
                 </div>
             </section>
-            
+
+            <!-- Ad Between Trending and Popular Sections -->
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <div class="ad-fallback">Advertisement not loaded</div>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
             <!-- Popular This Season -->
             <section class="mb-12">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8">
@@ -315,10 +426,10 @@
                         </select>
                         <select id="season-filter" class="bg-gray-900 text-white rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent">
                             <option value="">All Seasons</option>
-                            <option value="winter">Winter 2023</option>
-                            <option value="spring">Spring 2023</option>
-                            <option value="summer">Summer 2023</option>
-                            <option value="fall">Fall 2023</option>
+                            <option value="winter">Winter 2025</option>
+                            <option value="spring">Spring 2025</option>
+                            <option value="summer">Summer 2025</option>
+                            <option value="fall">Fall 2025</option>
                         </select>
                     </div>
                 </div>
@@ -339,7 +450,21 @@
                     </button>
                 </div>
             </section>
-            
+
+            <!-- Ad Between Popular and Top Rated Sections -->
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <div class="ad-fallback">Advertisement not loaded</div>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
             <!-- Top Rated Anime -->
             <section class="mb-12">
                 <div class="flex items-center justify-between mb-6">
@@ -383,7 +508,7 @@
                             <span id="detail-type" class="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">TV</span>
                             <span id="detail-episodes" class="bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">24 Episodes</span>
                             <span id="detail-status" class="bg-gray-700 text-white px-3 py-1 rounded-full text-sm font-medium">Airing</span>
-                            <span id="detail-year" class="text-gray-300 text-sm">2023</span>
+                            <span id="detail-year" class="text-gray-300 text-sm">2025</span>
                         </div>
                         
                         <div class="mb-6">
@@ -422,12 +547,28 @@
                             <button class="bg-primary hover:bg-opacity-90 text-white px-6 py-2 rounded-full font-medium flex items-center transition-all shadow-neon-pink hover:shadow-neon-purple">
                                 <i class="fas fa-play mr-2"></i> Watch Now
                             </button>
-                            <button class="bg-transparent border border-gray-600 hover:border-primary text-white px-6 py-2 rounded-full font-medium flex items-center transition-all hover:text-primary">
-                                <i class="far fa-plus mr-2"></i> My List
+                            <button id="detail-my-list" class="bg-transparent border border-gray-600 hover:border-primary text-white px-6 py-2 rounded-full font-medium flex items-center transition-all hover:text-primary">
+                                <i id="detail-my-list-icon" class="far fa-plus mr-2"></i> <span id="detail-my-list-text">My List</span>
                             </button>
-                            <button class="bg-transparent border border-gray-600 hover:border-secondary text-white px-6 py-2 rounded-full font-medium flex items-center transition-all hover:text-secondary">
+                            <button id="detail-share" class="bg-transparent border border-gray-600 hover:border-secondary text-white px-6 py-2 rounded-full font-medium flex items-center transition-all hover:text-secondary">
                                 <i class="fas fa-share-alt mr-2"></i> Share
                             </button>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Ad on Anime Detail Page (Visible on lg screens and above) -->
+                    <div class="hidden lg:block w-full lg:w-1/5">
+                        <div class="ad-container skyscraper">
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                                 data-ad-slot="XXXXXXXXXX"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                            <div class="ad-fallback">Advertisement not loaded</div>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -536,12 +677,26 @@
         </div>
     </div>
 
+    <!-- Ad Below Footer -->
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <div class="ad-fallback">Advertisement not loaded</div>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-darker border-t border-gray-800 py-12">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold font-anime bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-4">AniFlix</h3>
+                    <h3 class="text-xl font-bold font-anime bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-4">NETLIFY</h3>
                     <p class="text-gray-400">The ultimate destination for premium anime streaming. Watch the latest and greatest anime series and movies.</p>
                 </div>
                 <div>
@@ -580,7 +735,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
-                <p>© 2023 AniFlix. All rights reserved. All anime titles and associated content are property of their respective owners.</p>
+                <p>© 2025 NETLIFY. All rights reserved. All anime titles and associated content are property of their respective owners.</p>
             </div>
         </div>
     </footer>
@@ -591,6 +746,7 @@
         let currentAnimeId = null;
         let myList = JSON.parse(localStorage.getItem('myList')) || [];
         let currentSearchQuery = '';
+        let currentAnime = null; // Store current anime for hero and detail pages
         
         // Initialize Swiper sliders
         const heroSwiper = new Swiper('.hero-swiper', {
@@ -732,6 +888,61 @@
         // Initialize both search inputs
         setupSearchInput('desktop-search');
         setupSearchInput('mobile-search');
+        
+        // Toast notification
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+        
+        // Share functionality
+        async function shareAnime(anime) {
+            const shareData = {
+                title: anime.title,
+                text: `Check out ${anime.title} on NETLIFY!`,
+                url: `${window.location.origin}/#anime/${anime.mal_id}`
+            };
+            
+            try {
+                if (navigator.share && navigator.canShare(shareData)) {
+                    await navigator.share(shareData);
+                    showToast('Shared successfully!');
+                } else {
+                    // Fallback: Copy to clipboard
+                    await navigator.clipboard.writeText(shareData.url);
+                    showToast('Link copied to clipboard!');
+                }
+            } catch (error) {
+                console.error('Error sharing anime:', error);
+                showToast('Failed to share. Please try again.');
+            }
+        }
+        
+        // Update My List button state
+        function updateMyListButton(animeId, buttonId, iconId, textId) {
+            const button = document.getElementById(buttonId);
+            const icon = document.getElementById(iconId);
+            const text = document.getElementById(textId);
+            const isInList = myList.some(a => a.mal_id === animeId);
+            
+            if (isInList) {
+                icon.className = 'fas fa-check mr-2';
+                text.textContent = 'Remove from My List';
+                button.classList.add('border-primary', 'text-primary');
+                button.classList.remove('border-gray-600', 'text-white');
+            } else {
+                icon.className = 'far fa-plus mr-2';
+                text.textContent = 'Add to My List';
+                button.classList.add('border-gray-600', 'text-white');
+                button.classList.remove('border-primary', 'text-primary');
+            }
+            
+            return isInList;
+        }
         
         // Page navigation functions
         function showHomePage() {
@@ -901,6 +1112,7 @@
         
         // Update hero content based on active slide
         function updateHeroContent(anime) {
+            currentAnime = anime;
             document.getElementById('hero-title').textContent = anime.title;
             document.getElementById('hero-synopsis').textContent = anime.synopsis || 'No description available.';
             document.getElementById('hero-score').innerHTML = `<i class="fas fa-star"></i> ${anime.score || 'N/A'}`;
@@ -911,6 +1123,35 @@
             document.getElementById('hero-watch-now').onclick = function() {
                 showAnimeDetail(anime.mal_id);
             };
+            
+            // Update My List button state
+            updateMyListButton(anime.mal_id, 'hero-my-list', 'hero-my-list-icon', 'hero-my-list-text');
+            
+            // Set up My List button click handler
+            document.getElementById('hero-my-list').onclick = function() {
+                toggleMyList(anime);
+            };
+        }
+        
+        // Toggle anime in My List
+        function toggleMyList(anime) {
+            const isInList = myList.some(a => a.mal_id === anime.mal_id);
+            if (isInList) {
+                removeFromMyList(anime.mal_id);
+                showToast(`Removed ${anime.title} from My List`);
+            } else {
+                addToMyList(anime);
+                showToast(`Added ${anime.title} to My List`);
+            }
+            
+            // Update button states
+            updateMyListButton(anime.mal_id, 'hero-my-list', 'hero-my-list-icon', 'hero-my-list-text');
+            updateMyListButton(anime.mal_id, 'detail-my-list', 'detail-my-list-icon', 'detail-my-list-text');
+            
+            // Refresh My List page if open
+            if (document.getElementById('my-list-page').style.display === 'block') {
+                loadMyList();
+            }
         }
         
         // Fetch anime for grid
@@ -1190,15 +1431,15 @@
         
         // Browse by genre
         function browseByGenre(genreId, genreName) {
-            // For now, just show the genre name in an alert
             alert(`Browsing ${genreName} anime (Genre ID: ${genreId})`);
-            // In a real app, you would filter the anime list by this genre
         }
         
         // Load anime details
         async function loadAnimeDetails(animeId) {
             const anime = await fetchAnimeDetails(animeId);
             if (!anime) return;
+            
+            currentAnime = anime;
             
             // Update background
             document.getElementById('detail-background').style.backgroundImage = `url(${anime.images.webp.large_image_url})`;
@@ -1246,6 +1487,19 @@
             // Update themes
             document.getElementById('detail-themes').textContent = anime.themes.map(t => t.name).join(', ') || 'None';
             
+            // Update My List button state
+            updateMyListButton(anime.mal_id, 'detail-my-list', 'detail-my-list-icon', 'detail-my-list-text');
+            
+            // Set up My List button click handler
+            document.getElementById('detail-my-list').onclick = function() {
+                toggleMyList(anime);
+            };
+            
+            // Set up Share button click handler
+            document.getElementById('detail-share').onclick = function() {
+                shareAnime(anime);
+            };
+            
             // Load characters
             const characters = await fetchAnimeCharacters(animeId);
             displayCharacters(characters, document.querySelector('.characters-swiper .swiper-wrapper'));
@@ -1290,11 +1544,6 @@
             if (!myList.some(a => a.mal_id === anime.mal_id)) {
                 myList.push(anime);
                 localStorage.setItem('myList', JSON.stringify(myList));
-                
-                // If on my list page, refresh the view
-                if (document.getElementById('my-list-page').style.display === 'block') {
-                    loadMyList();
-                }
             }
         }
         
@@ -1302,11 +1551,6 @@
         function removeFromMyList(animeId) {
             myList = myList.filter(a => a.mal_id !== animeId);
             localStorage.setItem('myList', JSON.stringify(myList));
-            
-            // If on my list page, refresh the view
-            if (document.getElementById('my-list-page').style.display === 'block') {
-                loadMyList();
-            }
         }
         
         // Initial load
@@ -1368,7 +1612,6 @@
             });
             
             document.getElementById('season-filter').addEventListener('change', function() {
-                // In a real app, you would filter by season here
                 alert(`Filtering by season: ${this.value}`);
             });
         });
