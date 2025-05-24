@@ -1,309 +1,1295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3097658772821429"
-     crossorigin="anonymous"></script>
-  <link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEgGhd-CvK9t1DntiBFXedIpokqWdKqwRCgOdI9KOEqlkLOgRpUCzkxDhiKbPAUhWgMa_3iCZy-eg1k1udxqEbMP8kMxLP9ktvBAqrgJV5S-nV1iStBeZjxgH7ECwxAJwmI_XUGnVzNO7Ff-Lbg2iHjsq7HPkuEKi3bXiEMaoJKPbgRyUikodONA5h4f=rw">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="google-site-verification" content="d1uLLcwbDH99lepVNG6a_KEpVP24yjo1DqHN4aKhWk8" />
-<meta name="google-site-verification" content="DQqyX9WMxJ5WGu-RztD_YNTQouf8FJe_XGpT24Vol2k" />
-<meta name="google-adsense-account" content="ca-pub-3097658772821429">
-<meta name="generator" content="OmDev NETLIFY"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniFlix - Premium Anime Streaming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;800&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6d28d9;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --darker: #020617;
+            --neon-pink: #ff2d75;
+            --neon-purple: #9d4dff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--darker);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .title-font {
+            font-family: 'Oxanium', sans-serif;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.7));
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+        
+        .nav-search {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(109, 40, 217, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-search:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(109, 40, 217, 0.3), rgba(236, 72, 153, 0.2));
+        }
+        
+        /* Anime Cards */
+        .anime-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(109, 40, 217, 0.2);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        
+        .anime-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(109, 40, 217, 0.4);
+        }
+        
+        .anime-cover {
+            aspect-ratio: 2/3;
+            object-fit: cover;
+        }
+        
+        /* Neon Effects */
+        .neon-text {
+            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-purple);
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-purple);
+        }
+        
+        /* Category Filter */
+        .category-filter {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        /* Loading Animation */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-spinner {
+            border: 3px solid rgba(109, 40, 217, 0.3);
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Responsive Grid */
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.25rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 1rem;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
 
-<meta name="description" content="Watch & stream the best anime series, movies, and web series in HD for free on OmDev NETLIFY. Enjoy popular anime like One Piece, Demon Slayer, Jujutsu Kaisen, and more!"/>
+        /* Load More Button */
+        .load-more {
+            display: block;
+            margin: 2rem auto;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-<meta name="keywords" content="Anime Streaming, Watch Anime Free, Best Anime Online, HD Anime, Dubbed Anime, Subbed Anime, Jujutsu Kaisen, One Piece, Demon Slayer, Attack on Titan, Naruto, My Hero Academia, Bleach, Blue Lock, Black Clover, Solo Leveling, Tokyo Revengers, Chainsaw Man, Re:Zero, Mushoku Tensei, Oshi no Ko, Hell’s Paradise, Upcoming Anime 2025, Anime Movies, Web Series, Top Anime Series"/>
+        .load-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(109, 40, 217, 0.3);
+        }
 
-<meta name="author" content="OmDev NETLIFY"/>
-<meta name="contact" content="rdsteam18@gmail.com"/>
-<meta name="robots" content="index, follow"/>
-<meta name="language" content="English"/>
-<meta name="distribution" content="global"/>
-<meta name="rating" content="general"/>
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--neon-purple);
+            font-weight: bold;
+        }
 
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="OmDev NETLIFY - Watch HD Anime, Movies & Web Series Online for Free"/>
-<meta property="og:site_name" content="OmDev NETLIFY"/>
-<meta property="og:url" content="https://omdev.netlify.app/"/>
-<meta property="og:image" content="https://omdev.netlify.app/fa282e9ffcafd1725a90be01d101fc65.webp"/>
-<meta property="og:description" content="Stream the best anime series, movies, and web series in HD quality for free on OmDev NETLIFY. Explore your favorite content anytime, anywhere!"/>
-<meta property="og:locale" content="en_US"/>
+        /* Anime Item */
+        .anime-item {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(109, 40, 217, 0.2);
+        }
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="OmDev NETLIFY - Watch HD Anime, Movies & Web Series Online for Free"/>
-<meta name="twitter:image" content="https://omdev.netlify.app/fa282e9ffcafd1725a90be01d101fc65.webp"/>
-<meta name="twitter:description" content="Stream popular anime, movies, and web series in HD for free on OmDev NETLIFY. Find your favorite content and start watching now!"/>
-<meta name="twitter:site" content="@OmDevNETLIFY"/>
-<meta name="twitter:url" content="https://omdev.netlify.app" />
+        .anime-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(109, 40, 217, 0.4);
+            border-color: var(--primary);
+        }
 
-<title>OmDev NETLIFY - Watch HD Anime, Movies & Web Series Details Online</title>
-  <title>OmDev NETLIFY</title>
+        .anime-item img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+        }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #1a1a1a;
-      color: white;
-    }
-    .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-      background-color: #222;
-    }
-    .logo {
-      width: 120px;
-      margin-bottom: 10px;
-    }
-    .search-container {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .search-bar {
-      padding: 8px;
-      width: 70%;
-      max-width: 300px;
-      border-radius: 5px;
-      border: none;
-    }
-    .search-button {
-      padding: 8px 16px;
-      background-color: #ff4c4c;
-      border: none;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .search-button:hover {
-      background-color: #d63434;
-    }
-    .anime-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .anime-grid.trending {
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-    .anime-item {
-      background-color: #444;
-      padding: 10px;
-      text-align: center;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .anime-item:hover {
-      transform: scale(1.05);
-    }
-    .anime-item img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .anime-item h3 {
-      font-size: 12px;
-      margin: 10px 0 0 0;
-    }
-    .anime-item p {
-      font-size: 12px;
-      margin: 5px 0;
-    }
-    .load-more {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #ff4c4c;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .load-more:hover {
-      background-color: #d63434;
-    }
-    .anime-link {
-      text-decoration: none;
-      color: white;
-    }
-    .anime-link:hover {
-      text-decoration: underline;
-    }
-    .about-us {
-      padding: 40px 20px;
-      background-color: #111;
-      text-align: center;
-    }
-    .about-us h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    .about-us p {
-      max-width: 700px;
-      margin: auto;
-      font-size: 16px;
-      color: #ccc;
-    }
-    footer {
-      background-color: #000;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #888;
-    }
-    .loading {
-      text-align: center;
-      font-size: 18px;
-      padding: 20px;
-    }
-    @media (max-width: 768px) {
-      .anime-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .anime-grid.trending {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-  </style>
+        .anime-item h3 {
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .anime-item p {
+            padding: 0 0.75rem 0.75rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .anime-link {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Anime Details Page Styles */
+        .anime-details-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .anime-poster {
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .anime-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .anime-backdrop::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.7));
+        }
+
+        .episode-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(109, 40, 217, 0.4);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .character-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(109, 40, 217, 0.4);
+        }
+
+        .recommendation-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(109, 40, 217, 0.4);
+        }
+
+        /* Rating Stars */
+        .rating-stars {
+            color: #fbbf24;
+        }
+
+        /* Watch Now Button */
+        .watch-now-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+
+        .watch-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(109, 40, 217, 0.3);
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            border-bottom: 1px solid rgba(109, 40, 217, 0.3);
+        }
+
+        .tab-btn {
+            position: relative;
+            padding-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: white;
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        /* Responsive adjustments for details page */
+        @media (max-width: 768px) {
+            .anime-details-container {
+                padding-top: 6rem;
+            }
+            
+            .anime-poster {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+            
+            .anime-title {
+                text-align: center;
+            }
+            
+            .anime-actions {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
-  <body>
-  <div class="header">
-    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgOdgskhXzj0oi2k1uVv-ep3amyGKxy-enoPCQSvIiABDZ3kgfJ-OJeIiaOGK85wBCW_ZXSC7V9YB5j9l-cDJqCf8K2zh63CFw7KNA0sO69dpYGqZdLy-v74l9qVGxj4lIqyod3Ed8basauzXVJUFUk66L3HLEHnYwMC718EvR_cjZZJrMykvBCzj1C=w401-h149-rw" class="logo" alt="Logo">
-    <div class="search-container">
-      <input type="text" id="searchBar" class="search-bar" placeholder="Search Anime...">
-      <button class="search-button">Search</button>
+<body class="min-h-screen">
+    <!-- Main Content (will be replaced when viewing anime details) -->
+    <div id="main-content">
+        <!-- Fixed Navigation -->
+        <nav class="navbar fixed top-0 left-0 right-0 py-3 px-4 md:px-8 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="flex items-center" onclick="showMainPage()">
+                    <i class="fas fa-play-circle text-3xl mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500"></i>
+                    <span class="title-font text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">AniFlix</span>
+                </a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="hover:text-purple-300 transition" onclick="showMainPage()">Home</a>
+                    <a href="#" class="hover:text-purple-300 transition">Popular</a>
+                    <a href="#" class="hover:text-purple-300 transition">Genres</a>
+                    <a href="#" class="hover:text-purple-300 transition">My List</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <input 
+                        type="text" 
+                        id="searchBar"
+                        placeholder="Search anime..." 
+                        class="nav-search w-64 px-4 py-2 rounded-full text-white focus:outline-none focus:ring-0 pr-10"
+                    >
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <button class="w-9 h-9 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                    <i class="fas fa-user text-white"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Banner -->
+        <section class="pt-24 pb-16 px-4 md:px-8 hero-gradient">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-2xl">
+                    <h1 class="title-font text-4xl md:text-5xl lg:text-6xl font-bold mb-4 neon-text">Unlimited Anime</h1>
+                    <p class="text-lg text-gray-300 mb-8">Stream thousands of anime titles, from classics to the latest releases. Watch anywhere, anytime.</p>
+                    
+                    <div class="relative w-full mb-8">
+                        <input 
+                            type="text" 
+                            id="mobileSearch"
+                            placeholder="What anime are you looking for?" 
+                            class="w-full px-6 py-4 rounded-full bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 border border-gray-800"
+                        >
+                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-purple-600 to-pink-600 w-12 h-12 rounded-full flex items-center justify-center text-white hover:scale-105 transition">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300">Trending</span>
+                        <span class="px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300">New Releases</span>
+                        <span class="px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300">Popular</span>
+                        <span class="px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300">Dubbed</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="px-4 md:px-8 py-8 max-w-7xl mx-auto">
+            <!-- Category Filter -->
+            <section class="mb-8 category-filter p-4 rounded-xl sticky top-20 z-10">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <h2 class="title-font text-xl md:text-2xl font-bold">Browse Anime</h2>
+                    
+                    <div class="flex items-center space-x-2 overflow-x-auto pb-2">
+                        <button class="filter-btn active px-4 py-2 rounded-full bg-gray-800 text-sm">All</button>
+                        <button class="filter-btn px-4 py-2 rounded-full bg-gray-800 text-sm">Action</button>
+                        <button class="filter-btn px-4 py-2 rounded-full bg-gray-800 text-sm">Adventure</button>
+                        <button class="filter-btn px-4 py-2 rounded-full bg-gray-800 text-sm">Comedy</button>
+                        <button class="filter-btn px-4 py-2 rounded-full bg-gray-800 text-sm">Drama</button>
+                        <button class="filter-btn px-4 py-2 rounded-full bg-gray-800 text-sm">Fantasy</button>
+                        <button class="filter-btn px-4 py-2 rounded-full bg-gray-800 text-sm">Romance</button>
+                    </div>
+                    
+                    <div class="relative w-full md:w-auto">
+                        <select class="bg-gray-900 border border-gray-800 text-white rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm">
+                            <option>Sort by Popularity</option>
+                            <option>Sort by Rating</option>
+                            <option>Sort by Newest</option>
+                            <option>Sort by A-Z</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Anime Grids -->
+            <section class="mb-12">
+                <h2 id="trendingTitle" class="title-font text-xl font-bold mb-4 flex items-center">
+                    <span class="w-1 h-6 bg-gradient-to-b from-purple-500 to-pink-500 mr-2"></span>
+                    Trending Anime
+                </h2>
+                <div class="anime-grid" id="trendingAnimeGrid"></div>
+            </section>
+
+            <section class="mb-12">
+                <h2 id="topRatedTitle" class="title-font text-xl font-bold mb-4 flex items-center">
+                    <span class="w-1 h-6 bg-gradient-to-b from-purple-500 to-pink-500 mr-2"></span>
+                    Top Rated Anime
+                </h2>
+                <div id="loadingTop" class="loading" style="display: none;">
+                    <div class="loading-spinner w-8 h-8 rounded-full mx-auto"></div>
+                    <p class="mt-2">Loading anime...</p>
+                </div>
+                <div class="anime-grid" id="animeGrid"></div>
+                <button class="load-more" id="loadMore">Load More</button>
+            </section>
+
+            <!-- Continue Watching Section -->
+            <section class="mt-12">
+                <h3 class="title-font text-xl font-bold mb-4 flex items-center">
+                    <span class="w-1 h-6 bg-gradient-to-b from-purple-500 to-pink-500 mr-2"></span>
+                    Continue Watching
+                </h3>
+                
+                <div class="anime-grid" id="continueWatchingGrid">
+                    <!-- Continue Watching Cards will be added here by JavaScript -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900/50 mt-16 py-8 px-4 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div>
+                        <h4 class="title-font text-lg font-bold mb-4">AniFlix</h4>
+                        <p class="text-gray-400 text-sm">The premium anime streaming service with thousands of titles available anytime, anywhere.</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="title-font text-lg font-bold mb-4">Navigation</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-purple-300 text-sm">Home</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-purple-300 text-sm">Popular</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-purple-300 text-sm">Genres</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-purple-300 text-sm">My List</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="title-font text-lg font-bold mb-4">Legal</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-purple-300 text-sm">Terms of Service</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-purple-300 text-sm">Privacy Policy</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-purple-300 text-sm">DMCA</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="title-font text-lg font-bold mb-4">Connect</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-purple-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-purple-300">
+                                <i class="fab fa-discord"></i>
+                            </a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-purple-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                    <p>© 2023 AniFlix. All rights reserved. All anime titles and logos are trademarks of their respective owners.</p>
+                </div>
+            </div>
+        </footer>
     </div>
-  </div>
 
-  <h2 id="trendingTitle" style="text-align:center;">Trending Anime</h2>
-  <div class="anime-grid trending" id="trendingAnimeGrid"></div>
+    <!-- Anime Details Page (hidden by default) -->
+    <div id="anime-details" class="hidden">
+        <!-- Backdrop Image -->
+        <div id="anime-backdrop" class="anime-backdrop fixed inset-0"></div>
+        
+        <!-- Navigation -->
+        <nav class="navbar fixed top-0 left-0 right-0 py-3 px-4 md:px-8 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="flex items-center" onclick="showMainPage()">
+                    <i class="fas fa-play-circle text-3xl mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500"></i>
+                    <span class="title-font text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">AniFlix</span>
+                </a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="hover:text-purple-300 transition" onclick="showMainPage()">Home</a>
+                    <a href="#" class="hover:text-purple-300 transition">Popular</a>
+                    <a href="#" class="hover:text-purple-300 transition">Genres</a>
+                    <a href="#" class="hover:text-purple-300 transition">My List</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button class="w-9 h-9 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                    <i class="fas fa-user text-white"></i>
+                </button>
+            </div>
+        </nav>
 
-  <h2 id="topRatedTitle" style="text-align:center;">Top Rated Anime List</h2>
-  <div id="loadingTop" class="loading" style="display: none;">Loading...</div>
-  <div class="anime-grid" id="animeGrid"></div>
-  <button class="load-more" id="loadMore">Load More</button>
+        <!-- Anime Details Content -->
+        <div class="anime-details-container pt-24">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Left Column (Poster and Basic Info) -->
+                <div class="w-full lg:w-1/3 xl:w-1/4">
+                    <img id="anime-poster" class="w-full anime-poster mb-4" src="" alt="Anime Poster">
+                    
+                    <div class="bg-gray-900/50 rounded-lg p-4 mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span id="anime-type" class="text-xs bg-purple-600 px-2 py-1 rounded"></span>
+                            <span id="anime-episodes" class="text-xs bg-gray-800/90 px-2 py-1 rounded"></span>
+                        </div>
+                        
+                        <div class="flex items-center mb-2">
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span id="anime-score" class="text-sm"></span>
+                            <span class="text-gray-400 text-sm ml-1">(<span id="anime-scored-by"></span> users)</span>
+                        </div>
+                        
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-calendar-alt text-gray-400 mr-2 text-sm"></i>
+                            <span id="anime-aired" class="text-sm text-gray-300"></span>
+                        </div>
+                        
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-tv text-gray-400 mr-2 text-sm"></i>
+                            <span id="anime-status" class="text-sm text-gray-300"></span>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-gray-400 mr-2 text-sm"></i>
+                            <span id="anime-duration" class="text-sm text-gray-300"></span>
+                        </div>
+                    </div>
+                    
+                    <button id="watch-now-btn" class="watch-now-btn w-full py-3 rounded-lg font-bold mb-4">
+                        <i class="fas fa-play mr-2"></i> Watch Now
+                    </button>
+                    
+                    <button class="w-full py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition mb-2">
+                        <i class="fas fa-plus mr-2"></i> Add to List
+                    </button>
+                    
+                    <div class="flex space-x-2">
+                        <button class="flex-1 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="flex-1 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="flex-1 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+                            <i class="fas fa-flag"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Column (Details) -->
+                <div class="w-full lg:w-2/3 xl:w-3/4">
+                    <h1 id="anime-title" class="title-font text-3xl md:text-4xl font-bold mb-2"></h1>
+                    <h2 id="anime-title-japanese" class="text-xl text-gray-400 mb-4"></h2>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="tab-nav flex space-x-6 mb-6">
+                        <button class="tab-btn active text-purple-400" onclick="changeTab('overview')">Overview</button>
+                        <button class="tab-btn text-gray-400" onclick="changeTab('episodes')">Episodes</button>
+                        <button class="tab-btn text-gray-400" onclick="changeTab('characters')">Characters</button>
+                        <button class="tab-btn text-gray-400" onclick="changeTab('recommendations')">Recommendations</button>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div id="overview-tab" class="tab-content">
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-2">Synopsis</h3>
+                            <p id="anime-synopsis" class="text-gray-300"></p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-2">Background</h3>
+                            <p id="anime-background" class="text-gray-300">No background information has been added to this title.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-2">Genres</h3>
+                            <div id="anime-genres" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-2">Themes</h3>
+                            <div id="anime-themes" class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-gray-800 rounded">No themes have been added to this title.</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Related Anime</h3>
+                            <div id="anime-related" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <!-- Related anime will be added here by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="episodes-tab" class="tab-content hidden">
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-bold">Episodes</h3>
+                                <div class="flex items-center">
+                                    <span class="text-sm text-gray-400 mr-2">Sort by:</span>
+                                    <select class="bg-gray-800 border border-gray-700 text-white rounded px-2 py-1 text-sm">
+                                        <option>Default</option>
+                                        <option>Newest First</option>
+                                        <option>Oldest First</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="anime-episodes-list" class="space-y-3">
+                            <!-- Episodes will be added here by JavaScript -->
+                            <div class="text-center py-8 text-gray-500">
+                                <i class="fas fa-tv text-4xl mb-2"></i>
+                                <p>No episode information available</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="characters-tab" class="tab-content hidden">
+                        <h3 class="text-xl font-bold mb-4">Characters & Voice Actors</h3>
+                        
+                        <div id="anime-characters" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Characters will be added here by JavaScript -->
+                            <div class="text-center py-8 text-gray-500">
+                                <i class="fas fa-users text-4xl mb-2"></i>
+                                <p>No character information available</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="recommendations-tab" class="tab-content hidden">
+                        <h3 class="text-xl font-bold mb-4">Recommended Anime</h3>
+                        
+                        <div id="anime-recommendations" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                            <!-- Recommendations will be added here by JavaScript -->
+                            <div class="text-center py-8 text-gray-500">
+                                <i class="fas fa-thumbs-up text-4xl mb-2"></i>
+                                <p>No recommendations available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="about-us">
-    <h2>About Us</h2>
-    <p>Welcome to our Anime World! We bring you trending and top-rated anime for otakus and newcomers alike!</p>
-  </div>
+    <script>
+        // Global variables
+        let currentPage = 1;
+        const limit = 10;
+        const apiUrl = "https://api.jikan.moe/v4/top/anime";
+        const trendingApiUrl = "https://api.jikan.moe/v4/top/anime?filter=airing";
+        let currentAnimeId = null;
 
-  <footer>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3097658772821429"
-     crossorigin="anonymous"></script>
-<!-- OmDev NETLIFY footer -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3097658772821429"
-     data-ad-slot="4259754721"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    &copy; 2025 Anime World. All Rights Reserved. | Made by <a href="https://github.com/devdharrajput" style="color: #ff4c4c;">Devdhar Rajput</a>
-  </footer>
+        // Local Storage Keys
+        const CONTINUE_WATCHING_KEY = 'continueWatching';
+        const WATCH_HISTORY_KEY = 'watchHistory';
 
-  <script>
-    let currentPage = 1;
-    const limit = 10;
-    const apiUrl = "https://api.jikan.moe/v4/top/anime";
-    const trendingApiUrl = "https://api.jikan.moe/v4/top/anime?filter=airing";
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check URL for anime ID (simulating routing)
+            const urlParams = new URLSearchParams(window.location.search);
+            const animeId = urlParams.get('id');
+            
+            if (window.location.pathname.includes('animedetails') && animeId) {
+                showAnimeDetails(parseInt(animeId));
+            } else {
+                showMainPage();
+                displayTrendingAnime();
+                displayTopRatedAnime();
+                loadContinueWatching();
+            }
+        });
 
-    async function fetchAnime(url) {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        return json.data.filter(anime =>
-          !anime.explicit &&
-          !anime.genres.some(g => ["hentai", "ecchi", "adult"].includes(g.name.toLowerCase()))
-        ).sort((a, b) => (b.score || 0) - (a.score || 0));
-      } catch (error) {
-        console.error("Error:", error);
-        return [];
-      }
-    }
+        // Page navigation functions
+        function showAnimeDetails(animeId) {
+            currentAnimeId = animeId;
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('anime-details').classList.remove('hidden');
+            fetchAnimeDetails(animeId);
+            window.scrollTo(0, 0);
+            
+            // Update URL without reloading
+            history.pushState({}, '', `/animedetails?id=${animeId}`);
+        }
 
-    function renderAnime(animeList, gridId, isTrending = false, append = false) {
-      const grid = document.getElementById(gridId);
-      if (!append) grid.innerHTML = "";
-      animeList.forEach(anime => {
-        const div = document.createElement('div');
-        div.className = 'anime-item';
-        div.innerHTML = `
-          <a href="animeDetails.html?id=${anime.mal_id}" class="anime-link">
-            <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
-            <h3>${anime.title}</h3>
-            ${!isTrending ? `<p><strong>Score:</strong> ${anime.score || 'N/A'}</p>` : ''}
-            ${!isTrending ? `<p>${anime.episodes ? `Episodes: ${anime.episodes}` : 'Ongoing'}</p>` : ''}
-          </a>
-        `;
-        grid.appendChild(div);
-      });
-    }
+        function showMainPage() {
+            document.getElementById('main-content').classList.remove('hidden');
+            document.getElementById('anime-details').classList.add('hidden');
+            window.scrollTo(0, 0);
+            
+            // Update URL without reloading
+            history.pushState({}, '', '/');
+        }
 
-    async function displayTopRatedAnime() {
-      document.getElementById("loadingTop").style.display = "block";
-      let list = await fetchAnime(`${apiUrl}?page=${currentPage}&limit=${limit}`);
-      renderAnime(list, "animeGrid", false, currentPage > 1);
-      document.getElementById("loadingTop").style.display = "none";
-    }
+        // Handle browser back/forward buttons
+        window.onpopstate = function(event) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const animeId = urlParams.get('id');
+            
+            if (window.location.pathname.includes('animedetails') && animeId) {
+                showAnimeDetails(parseInt(animeId));
+            } else {
+                showMainPage();
+            }
+        };
 
-    async function displayTrendingAnime() {
-      let list = await fetchAnime(trendingApiUrl);
-      renderAnime(list.slice(0, 5), "trendingAnimeGrid", true);
-    }
+        // Tab navigation
+        function changeTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-purple-400');
+                btn.classList.add('text-gray-400');
+            });
+            
+            // Show selected tab and mark button as active
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+            document.querySelector(`.tab-btn[onclick="changeTab('${tabName}')"]`).classList.add('active', 'text-purple-400');
+            document.querySelector(`.tab-btn[onclick="changeTab('${tabName}')"]`).classList.remove('text-gray-400');
+            
+            // Load additional data if needed
+            if (tabName === 'characters' && currentAnimeId) {
+                fetchAnimeCharacters(currentAnimeId);
+            } else if (tabName === 'recommendations' && currentAnimeId) {
+                fetchAnimeRecommendations(currentAnimeId);
+            }
+        }
 
-    document.getElementById('searchBar').addEventListener('input', async function () {
-      let query = this.value.trim();
+        // Filter button functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // Here you would filter the anime based on the selected category
+            });
+        });
 
-      const trendingSection = document.getElementById('trendingAnimeGrid');
-      const trendingTitle = document.getElementById('trendingTitle');
-      const topRatedSection = document.getElementById('animeGrid');
-      const topRatedTitle = document.getElementById('topRatedTitle');
-      const loadMoreBtn = document.getElementById('loadMore');
+        // Anime API Integration
+        async function fetchAnime(url) {
+            try {
+                const response = await fetch(url);
+                const json = await response.json();
+                return json.data.filter(anime => 
+                    !anime.explicit && 
+                    !anime.genres.some(g => ["hentai", "ecchi", "adult"].includes(g.name.toLowerCase()))
+                ).sort((a, b) => (b.score || 0) - (a.score || 0));
+            } catch (error) {
+                console.error("Error:", error);
+                return [];
+            }
+        }
 
-      if (query.length > 2) {
-        document.getElementById("loadingTop").style.display = "block";
+        function renderAnime(animeList, gridId, isTrending = false, append = false) {
+            const grid = document.getElementById(gridId);
+            if (!append) grid.innerHTML = "";
+            
+            animeList.forEach(anime => {
+                const div = document.createElement('div');
+                div.className = 'anime-card rounded-lg overflow-hidden cursor-pointer group';
+                div.onclick = () => {
+                    // Update URL to show anime details
+                    window.location.href = `/animedetails?id=${anime.mal_id}`;
+                };
+                
+                // Get the first two genres for tags
+                const genres = anime.genres.slice(0, 2).map(g => g.name);
+                
+                div.innerHTML = `
+                    <div class="relative">
+                        <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="w-full anime-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
+                            <div class="w-full">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs bg-purple-600 px-2 py-1 rounded">${anime.type || 'TV'}</span>
+                                    <span class="text-xs bg-gray-800/90 px-2 py-1 rounded">${anime.episodes ? `${anime.episodes} eps` : 'Ongoing'}</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 mr-1 text-xs"></i>
+                                    <span class="text-xs">${anime.score || 'N/A'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-medium text-sm truncate">${anime.title}</h4>
+                        <div class="flex flex-wrap gap-1 mt-1">
+                            ${genres.map(genre => `<span class="text-xs px-1.5 py-0.5 bg-gray-800 rounded">${genre}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(div);
+            });
+        }
 
-        trendingSection.style.display = "none";
-        trendingTitle.style.display = "none";
-        topRatedTitle.style.display = "none";
-        loadMoreBtn.style.display = "none";
+        // Continue Watching functionality
+        function loadContinueWatching() {
+            const continueWatching = getContinueWatching();
+            const grid = document.getElementById('continueWatchingGrid');
+            grid.innerHTML = '';
+            
+            if (continueWatching.length === 0) {
+                grid.innerHTML = '<p class="text-gray-500 col-span-full text-center py-8">No recently watched anime</p>';
+                return;
+            }
+            
+            continueWatching.slice(0, 6).forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'anime-card rounded-lg overflow-hidden cursor-pointer group';
+                div.onclick = () => {
+                    // Update URL to show anime details
+                    window.location.href = `/animedetails?id=${item.id}`;
+                };
+                
+                div.innerHTML = `
+                    <div class="relative">
+                        <img src="${item.image}" alt="${item.title}" class="w-full anime-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
+                            <div class="w-full">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs bg-purple-600 px-2 py-1 rounded">${item.type || 'TV'}</span>
+                                    <span class="text-xs bg-gray-800/90 px-2 py-1 rounded">${item.episode}</span>
+                                </div>
+                                <div class="progress-bar w-full mb-1">
+                                    <div class="progress-fill" style="width: ${item.progress}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-medium text-sm truncate">${item.title}</h4>
+                        <p class="text-xs text-gray-400 mt-1">Episode ${item.episodeNumber}</p>
+                    </div>
+                `;
+                
+                grid.appendChild(div);
+            });
+        }
 
-        let results = await fetchAnime(`https://api.jikan.moe/v4/anime?q=${query}&limit=20`);
-        topRatedSection.innerHTML = "";
-        renderAnime(results, "animeGrid");
+        function getContinueWatching() {
+            const stored = localStorage.getItem(CONTINUE_WATCHING_KEY);
+            return stored ? JSON.parse(stored) : [];
+        }
 
-        document.getElementById("loadingTop").style.display = "none";
-      } else {
-        trendingSection.style.display = "grid";
-        trendingTitle.style.display = "block";
-        topRatedTitle.style.display = "block";
-        loadMoreBtn.style.display = "block";
+        function addToContinueWatching(anime, episodeNumber = 1, progress = 0) {
+            const continueWatching = getContinueWatching();
+            
+            // Remove if already exists
+            const existingIndex = continueWatching.findIndex(item => item.id === anime.mal_id);
+            if (existingIndex !== -1) {
+                continueWatching.splice(existingIndex, 1);
+            }
+            
+            // Add to beginning of array
+            continueWatching.unshift({
+                id: anime.mal_id,
+                title: anime.title,
+                image: anime.images.jpg.image_url,
+                type: anime.type,
+                episode: anime.episodes ? `${anime.episodes} eps` : 'Ongoing',
+                episodeNumber: episodeNumber,
+                progress: progress,
+                lastWatched: new Date().toISOString()
+            });
+            
+            // Keep only the last 10 items
+            const updatedList = continueWatching.slice(0, 10);
+            localStorage.setItem(CONTINUE_WATCHING_KEY, JSON.stringify(updatedList));
+            
+            // Update the UI
+            loadContinueWatching();
+        }
 
-        currentPage = 1;
-        topRatedSection.innerHTML = "";
-        displayTrendingAnime();
-        displayTopRatedAnime();
-      }
-    });
+        function addToWatchHistory(anime, episodeNumber = 1) {
+            const watchHistory = getWatchHistory();
+            
+            // Remove if already exists for this episode
+            const existingIndex = watchHistory.findIndex(
+                item => item.id === anime.mal_id && item.episodeNumber === episodeNumber
+            );
+            if (existingIndex !== -1) {
+                watchHistory.splice(existingIndex, 1);
+            }
+            
+            // Add to beginning of array
+            watchHistory.unshift({
+                id: anime.mal_id,
+                title: anime.title,
+                image: anime.images.jpg.image_url,
+                type: anime.type,
+                episodeNumber: episodeNumber,
+                watchedAt: new Date().toISOString()
+            });
+            
+            // Keep only the last 50 items
+            const updatedHistory = watchHistory.slice(0, 50);
+            localStorage.setItem(WATCH_HISTORY_KEY, JSON.stringify(updatedHistory));
+        }
 
-    document.getElementById('loadMore').addEventListener('click', () => {
-      currentPage++;
-      displayTopRatedAnime();
-    });
+        function getWatchHistory() {
+            const stored = localStorage.getItem(WATCH_HISTORY_KEY);
+            return stored ? JSON.parse(stored) : [];
+        }
 
-    displayTrendingAnime();
-    displayTopRatedAnime();
-  </script>
+        async function fetchAnimeDetails(animeId) {
+            try {
+                document.getElementById('loadingTop').style.display = "block";
+                
+                const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}/full`);
+                const json = await response.json();
+                const anime = json.data;
+                
+                // Set backdrop image
+                const backdrop = document.getElementById('anime-backdrop');
+                if (anime.images.jpg.large_image_url) {
+                    backdrop.style.backgroundImage = `url(${anime.images.jpg.large_image_url})`;
+                }
+                
+                // Set basic info
+                document.getElementById('anime-poster').src = anime.images.jpg.large_image_url || anime.images.jpg.image_url;
+                document.getElementById('anime-title').textContent = anime.title;
+                document.getElementById('anime-title-japanese').textContent = anime.title_japanese || '';
+                document.getElementById('anime-type').textContent = anime.type || 'Unknown';
+                document.getElementById('anime-episodes').textContent = anime.episodes ? `${anime.episodes} eps` : 'Ongoing';
+                document.getElementById('anime-score').textContent = anime.score || 'N/A';
+                document.getElementById('anime-scored-by').textContent = anime.scored_by ? anime.scored_by.toLocaleString() : '0';
+                document.getElementById('anime-status').textContent = anime.status || 'Unknown';
+                document.getElementById('anime-duration').textContent = anime.duration || 'Unknown';
+                
+                // Set dates
+                let airedText = 'Unknown';
+                if (anime.aired.from) {
+                    const fromDate = new Date(anime.aired.from);
+                    airedText = fromDate.getFullYear();
+                    if (anime.aired.to) {
+                        const toDate = new Date(anime.aired.to);
+                        airedText += ` - ${toDate.getFullYear()}`;
+                    } else {
+                        airedText += ' - Present';
+                    }
+                }
+                document.getElementById('anime-aired').textContent = airedText;
+                
+                // Set synopsis
+                document.getElementById('anime-synopsis').textContent = anime.synopsis || 'No synopsis available.';
+                
+                // Set background (if available)
+                if (anime.background) {
+                    document.getElementById('anime-background').textContent = anime.background;
+                }
+                
+                // Set genres
+                const genresContainer = document.getElementById('anime-genres');
+                genresContainer.innerHTML = '';
+                if (anime.genres && anime.genres.length > 0) {
+                    anime.genres.forEach(genre => {
+                        const span = document.createElement('span');
+                        span.className = 'text-xs px-2 py-1 bg-gray-800 rounded';
+                        span.textContent = genre.name;
+                        genresContainer.appendChild(span);
+                    });
+                } else {
+                    genresContainer.innerHTML = '<span class="text-xs px-2 py-1 bg-gray-800 rounded">No genres added</span>';
+                }
+                
+                // Set themes (if available)
+                const themesContainer = document.getElementById('anime-themes');
+                themesContainer.innerHTML = '';
+                if (anime.themes && anime.themes.length > 0) {
+                    anime.themes.forEach(theme => {
+                        const span = document.createElement('span');
+                        span.className = 'text-xs px-2 py-1 bg-gray-800 rounded';
+                        span.textContent = theme.name;
+                        themesContainer.appendChild(span);
+                    });
+                } else {
+                    themesContainer.innerHTML = '<span class="text-xs px-2 py-1 bg-gray-800 rounded">No themes added</span>';
+                }
+                
+                // Set related anime
+                const relatedContainer = document.getElementById('anime-related');
+                relatedContainer.innerHTML = '';
+                if (anime.relations && anime.relations.length > 0) {
+                    anime.relations.slice(0, 4).forEach(relation => {
+                        const relationAnime = relation.entry[0];
+                        const div = document.createElement('div');
+                        div.className = 'episode-card p-3 cursor-pointer';
+                        div.onclick = () => {
+                            // Update URL to show anime details
+                            window.location.href = `/animedetails?id=${relationAnime.mal_id}`;
+                        };
+                        
+                        div.innerHTML = `
+                            <img src="${relationAnime.images.jpg.image_url}" alt="${relationAnime.title}" class="w-full rounded mb-2">
+                            <h4 class="text-sm font-medium truncate">${relationAnime.title}</h4>
+                            <p class="text-xs text-gray-400">${relation.relation}</p>
+                        `;
+                        
+                        relatedContainer.appendChild(div);
+                    });
+                } else {
+                    relatedContainer.innerHTML = '<div class="col-span-4 text-center py-4 text-gray-500">No related anime</div>';
+                }
+                
+                // Load characters and recommendations
+                fetchAnimeCharacters(animeId);
+                fetchAnimeRecommendations(animeId);
+                
+                document.getElementById('loadingTop').style.display = "none";
+            } catch (error) {
+                console.error("Error fetching anime details:", error);
+                document.getElementById('loadingTop').style.display = "none";
+            }
+        }
+
+        async function fetchAnimeCharacters(animeId) {
+            try {
+                const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}/characters`);
+                const json = await response.json();
+                const characters = json.data;
+                
+                const charactersContainer = document.getElementById('anime-characters');
+                charactersContainer.innerHTML = '';
+                
+                if (characters && characters.length > 0) {
+                    characters.slice(0, 6).forEach(character => {
+                        const characterData = character.character;
+                        const voiceActors = character.voice_actors.filter(va => va.language === 'Japanese');
+                        const voiceActor = voiceActors.length > 0 ? voiceActors[0].person : null;
+                        
+                        const div = document.createElement('div');
+                        div.className = 'character-card p-3';
+                        
+                        let voiceActorHtml = '';
+                        if (voiceActor) {
+                            voiceActorHtml = `
+                                <div class="flex items-center mt-2">
+                                    <div class="w-10 h-10 rounded-full overflow-hidden mr-2">
+                                        <img src="${voiceActor.images.jpg.image_url}" alt="${voiceActor.name}" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">${voiceActor.name}</p>
+                                        <p class="text-xs text-gray-400">Japanese VA</p>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        div.innerHTML = `
+                            <div class="flex">
+                                <div class="w-16 h-16 rounded-full overflow-hidden mr-3">
+                                    <img src="${characterData.images.jpg.image_url}" alt="${characterData.name}" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">${characterData.name}</h4>
+                                    <p class="text-sm text-gray-400">${character.role}</p>
+                                </div>
+                            </div>
+                            ${voiceActorHtml}
+                        `;
+                        
+                        charactersContainer.appendChild(div);
+                    });
+                } else {
+                    charactersContainer.innerHTML = `
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-users text-4xl mb-2"></i>
+                            <p>No character information available</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error fetching characters:", error);
+            }
+        }
+
+        async function fetchAnimeRecommendations(animeId) {
+            try {
+                const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}/recommendations`);
+                const json = await response.json();
+                const recommendations = json.data;
+                
+                const recommendationsContainer = document.getElementById('anime-recommendations');
+                recommendationsContainer.innerHTML = '';
+                
+                if (recommendations && recommendations.length > 0) {
+                    recommendations.slice(0, 5).forEach(rec => {
+                        const anime = rec.entry;
+                        
+                        const div = document.createElement('div');
+                        div.className = 'recommendation-card p-3 cursor-pointer';
+                        div.onclick = () => {
+                            // Update URL to show anime details
+                            window.location.href = `/animedetails?id=${anime.mal_id}`;
+                        };
+                        
+                        div.innerHTML = `
+                            <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="w-full rounded mb-2">
+                            <h4 class="text-sm font-medium truncate">${anime.title}</h4>
+                            <div class="flex items-center justify-between mt-1">
+                                <span class="text-xs bg-gray-800 px-2 py-0.5 rounded">${anime.type || 'TV'}</span>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 mr-1 text-xs"></i>
+                                    <span class="text-xs">${anime.score || 'N/A'}</span>
+                                </div>
+                            </div>
+                        `;
+                        
+                        recommendationsContainer.appendChild(div);
+                    });
+                } else {
+                    recommendationsContainer.innerHTML = `
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-thumbs-up text-4xl mb-2"></i>
+                            <p>No recommendations available</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error fetching recommendations:", error);
+            }
+        }
+
+        async function displayTopRatedAnime() {
+            document.getElementById("loadingTop").style.display = "block";
+            let list = await fetchAnime(`${apiUrl}?page=${currentPage}&limit=${limit}`);
+            renderAnime(list, "animeGrid", false, currentPage > 1);
+            document.getElementById("loadingTop").style.display = "none";
+        }
+
+        async function displayTrendingAnime() {
+            let list = await fetchAnime(trendingApiUrl);
+            renderAnime(list.slice(0, 8), "trendingAnimeGrid", true);
+        }
+
+        // Search functionality
+        document.getElementById('searchBar').addEventListener('input', async function() {
+            let query = this.value.trim();
+            const trendingSection = document.getElementById('trendingAnimeGrid');
+            const trendingTitle = document.getElementById('trendingTitle');
+            const topRatedSection = document.getElementById('animeGrid');
+            const topRatedTitle = document.getElementById('topRatedTitle');
+            const loadMoreBtn = document.getElementById('loadMore');
+
+            if (query.length > 2) {
+                document.getElementById("loadingTop").style.display = "block";
+
+                trendingSection.style.display = "none";
+                trendingTitle.style.display = "none";
+                topRatedTitle.style.display = "none";
+                loadMoreBtn.style.display = "none";
+
+                let results = await fetchAnime(`https://api.jikan.moe/v4/anime?q=${query}&limit=20`);
+                topRatedSection.innerHTML = "";
+                renderAnime(results, "animeGrid");
+
+                document.getElementById("loadingTop").style.display = "none";
+            } else {
+                trendingSection.style.display = "grid";
+                trendingTitle.style.display = "block";
+                topRatedTitle.style.display = "block";
+                loadMoreBtn.style.display = "block";
+
+                currentPage = 1;
+                topRatedSection.innerHTML = "";
+                displayTrendingAnime();
+                displayTopRatedAnime();
+            }
+        });
+
+        // Mobile search functionality
+        document.getElementById('mobileSearch').addEventListener('input', function() {
+            document.getElementById('searchBar').value = this.value;
+            const event = new Event('input');
+            document.getElementById('searchBar').dispatchEvent(event);
+        });
+
+        // Load more button
+        document.getElementById('loadMore').addEventListener('click', () => {
+            currentPage++;
+            displayTopRatedAnime();
+        });
+
+        // Watch now button
+        document.getElementById('watch-now-btn').addEventListener('click', function() {
+            if (currentAnimeId) {
+                // Get anime details from the page
+                const anime = {
+                    mal_id: currentAnimeId,
+                    title: document.getElementById('anime-title').textContent,
+                    images: {
+                        jpg: {
+                            image_url: document.getElementById('anime-poster').src
+                        }
+                    },
+                    type: document.getElementById('anime-type').textContent,
+                    episodes: parseInt(document.getElementById('anime-episodes').textContent) || 0
+                };
+                
+                // Add to continue watching (starting at episode 1 with 0% progress)
+                addToContinueWatching(anime, 1, 0);
+                
+                // Add to watch history
+                addToWatchHistory(anime, 1);
+                
+                // In a real app, this would redirect to the player page
+                alert(`Would normally play anime with ID: ${currentAnimeId}, Episode 1`);
+            }
+        });
+    </script>
 </body>
 </html>
