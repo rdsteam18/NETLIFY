@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmDev NETLIFY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;800&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6d28d9;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --darker: #020617;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .title-font {
+            font-family: 'Oxanium', sans-serif;
+        }
+        
+        .search-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .search-input {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(109, 40, 217, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.3), 0 0 20px 5px rgba(109, 40, 217, 0.2);
+        }
+        
+        .search-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+        }
+        
+        .anime-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(109, 40, 217, 0.2);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .anime-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(109, 40, 217, 0.3);
+        }
+        
+        .anime-cover {
+            height: 120px;
+            width: 80px;
+            object-fit: cover;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(109, 40, 217, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(109, 40, 217, 0.8), 0 0 30px rgba(236, 72, 153, 0.6);
+            }
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px rgba(236, 72, 153, 0.8);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .results-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(109, 40, 217, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-12">
+            <div class="flex items-center">
+                <i class="fas fa-ghost text-3xl mr-3 text-purple-500"></i>
+                <h1 class="title-font text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    NETLIFY
+                </h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition">
+                    <i class="fas fa-user text-purple-400"></i>
+                </button>
+                <button class="px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 transition">
+                    <i class="fas fa-cog text-purple-400"></i>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Search Section -->
+        <section class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="title-font text-4xl md:text-5xl font-bold mb-4 neon-text">Find Your Next Anime</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Search through thousands of anime titles with our powerful search engine. Discover hidden gems and popular hits alike.</p>
+            </div>
+            
+            <div class="search-container">
+                <div class="relative flex items-center glow">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search for anime..." 
+                        class="search-input w-full px-6 py-4 rounded-full text-white focus:outline-none focus:ring-0 pr-16"
+                    >
+                    <button id="searchBtn" class="search-btn absolute right-2 w-12 h-12 rounded-full flex items-center justify-center text-white">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="flex justify-center mt-4 space-x-4">
+                    <button class="tag-btn px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300 hover:bg-purple-600 transition" data-tag="action">
+                        <i class="fas fa-fire mr-1"></i> Action
+                    </button>
+                    <button class="tag-btn px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300 hover:bg-purple-600 transition" data-tag="romance">
+                        <i class="fas fa-heart mr-1"></i> Romance
+                    </button>
+                    <button class="tag-btn px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300 hover:bg-purple-600 transition" data-tag="fantasy">
+                        <i class="fas fa-hat-wizard mr-1"></i> Fantasy
+                    </button>
+                    <button class="tag-btn px-3 py-1 rounded-full bg-gray-800 text-sm text-gray-300 hover:bg-purple-600 transition" data-tag="comedy">
+                        <i class="fas fa-laugh-squint mr-1"></i> Comedy
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="title-font text-2xl font-bold text-white">Search Results</h3>
+                <div class="text-gray-400 text-sm">
+                    <span id="resultCount">0</span> results found
+                </div>
+            </div>
+            
+            <div id="resultsContainer" class="results-grid">
+                <!-- Results will be dynamically inserted here -->
+                <div class="empty-state col-span-full">
+                    <div class="text-2xl mb-2"><i class="fas fa-search"></i></div>
+                    <p>Search for anime to see results</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let animeData = [];
+        let isLoading = true;
+
+        // Show loading state
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultCount = document.getElementById('resultCount');
+        
+        function showLoading() {
+            resultsContainer.innerHTML = `
+                <div class="col-span-full flex justify-center py-12">
+                    <div class="loading-spinner"></div>
+                </div>
+            `;
+        }
+
+        function showEmptyState(message = "Search for anime to see results") {
+            resultsContainer.innerHTML = `
+                <div class="empty-state col-span-full">
+                    <div class="text-2xl mb-2"><i class="fas fa-search"></i></div>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // Initial empty state
+        showEmptyState();
+
+        // Fetch anime data
+        fetch("https://raw.githubusercontent.com/rdsteam18/NETLIFY/main/animeData.json")
+            .then(response => response.json())
+            .then(data => {
+                animeData = data;
+                isLoading = false;
+            })
+            .catch(error => {
+                console.error("Error loading anime data:", error);
+                showEmptyState("Failed to load anime data. Please try again later.");
+                isLoading = false;
+            });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            
+            if (isLoading) {
+                showLoading();
+                return;
+            }
+            
+            if (!query) {
+                showEmptyState();
+                resultCount.textContent = "0";
+                return;
+            }
+            
+            const filtered = animeData.filter(item => 
+                item.title.toLowerCase().includes(query)
+            );
+            
+            updateResults(filtered);
+        });
+
+        function updateResults(results) {
+            resultCount.textContent = results.length;
+            
+            if (results.length === 0) {
+                showEmptyState("No results found. Try a different search term.");
+                return;
+            }
+            
+            resultsContainer.innerHTML = '';
+            
+            results.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'anime-card flex rounded-lg cursor-pointer';
+                card.onclick = () => window.location.href = item.link;
+                
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="anime-cover">
+                    <div class="p-4 flex-1">
+                        <h4 class="font-bold text-white">${item.title}</h4>
+                        <div class="flex items-center mt-1">
+                            <span class="text-xs bg-purple-600 px-2 py-0.5 rounded mr-2">${item.type || 'Unknown'}</span>
+                            <span class="text-xs text-gray-400">${item.episodes || '?'} eps</span>
+                        </div>
+                        <div class="mt-2 flex">
+                            <i class="fas fa-star text-yellow-400 mr-1 text-sm"></i>
+                            <span class="text-sm">${item.rating || 'N/A'}</span>
+                        </div>
+                    </div>
+                `;
+                
+                resultsContainer.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
