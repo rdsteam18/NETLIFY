@@ -56,7 +56,7 @@
         
         .card-hover:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(157, 80, 255, 0.3);
+            box shadow: 0 10px 20px rgba(157, 80, 255, 0.3);
         }
         
         .neon-border {
@@ -270,6 +270,9 @@
                 <a href="#" class="nav-link text-gray-400 hover:text-primary font-medium" onclick="showTrendingAnime()">Trending</a>
                 <a href="#" class="nav-link text-gray-400 hover:text-primary font-medium" onclick="showGenres()">Genres</a>
                 <a href="#" class="nav-link text-gray-400 hover:text-primary font-medium" onclick="showMyList()">My List</a>
+                <button onclick="window.location.href='https://omdev-netlify.kesug.com/'" class="bg-primary hover:bg-opacity-90 text-white px-4 py-1 rounded-full font-medium transition-all shadow-neon-pink hover:shadow-neon-purple">
+                    Visit OmDev
+                </button>
                 <button class="bg-primary hover:bg-opacity-90 text-white px-4 py-1 rounded-full font-medium transition-all shadow-neon-pink hover:shadow-neon-purple">
                     Sign In
                 </button>
@@ -292,6 +295,9 @@
                 <a href="#" class="text-gray-400 hover:text-primary font-medium py-1" onclick="showTrendingAnime()">Trending</a>
                 <a href="#" class="text-gray-400 hover:text-primary font-medium py-1" onclick="showGenres()">Genres</a>
                 <a href="#" class="text-gray-400 hover:text-primary font-medium py-1" onclick="showMyList()">My List</a>
+                <button onclick="window.location.href='https://omdev-netlify.kesug.com/'" class="bg-primary hover:bg-opacity-90 text-white px-4 py-2 rounded-full font-medium mt-2">
+                    Visit OmDev
+                </button>
                 <button class="bg-primary hover:bg-opacity-90 text-white px-4 py-2 rounded-full font-medium mt-2">
                     Sign In
                 </button>
@@ -320,58 +326,7 @@
 
     <!-- Home Page -->
     <div id="home-page">
-        <section class="relative pt-16 pb-24 md:pt-20 md:pb-32 overflow-hidden">
-            <div class="swiper hero-swiper">
-                <div class="swiper-wrapper"></div>
-                <div class="swiper-pagination"></div>
-            </div>
-            
-            <div class="hero-gradient absolute inset-0 z-1"></div>
-            
-            <div class="container mx-auto px-4 relative z-10 hero-content">
-                <div class="max-w-2xl">
-                    <div class="flex items-center mb-3">
-                        <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded mr-2">NEW EPISODE</span>
-                        <span class="text-secondary text-sm">Season 2 • Dubbed</span>
-                    </div>
-                    <h1 id="hero-title" class="text-4xl md:text-6xl font-bold font-anime mb-4 text-white">Loading...</h1>
-                    <div class="flex items-center mb-6">
-                        <span id="hero-score" class="text-accent mr-3"><i class="fas fa-star"></i> 9.2</span>
-                        <span id="hero-year" class="text-gray-300 mr-3">2025</span>
-                        <span id="hero-episodes" class="text-gray-300">24 Episodes</span>
-                    </div>
-                    <p id="hero-synopsis" class="text-gray-300 mb-6">Loading description...</p>
-                    <div class="flex space-x-4">
-                        <button id="hero-watch-now" class="bg-primary hover:bg-opacity-90 text-white px-6 py-2 rounded-full font-medium flex items-center transition-all shadow-neon-pink hover:shadow-neon-purple">
-                            <i class="fas fa-play mr-2"></i> Watch Now
-                        </button>
-                        <button id="hero-my-list" class="bg-transparent border border-gray-600 hover:border-primary text-white px-6 py-2 rounded-full font-medium flex items-center transition-all hover:text-primary">
-                            <i id="hero-my-list-icon" class="far fa-plus mr-2"></i> <span id="hero-my-list-text">My List</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-3097658772821429"
-                 data-ad-slot="YOUR_AD_SLOT_ID"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <div class="ad-fallback">Advertisement not loaded</div>
-            <script>
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) {
-                    console.error('Ad loading error:', e);
-                    document.querySelector('.ad-container .ad-fallback').style.display = 'block';
-                }
-            </script>
-        </div>
-
-        <main class="container mx-auto px-4 py-8 relative z-10">
+        <main class="container mx-auto px-4 py-8 relative z-10 pt-20">
             <section class="mb-12">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-2xl font-bold font-anime text-white">Trending Now</h2>
@@ -736,19 +691,7 @@
         let currentSearchQuery = '';
         let currentAnime = null;
         
-        // Initialize Swiper sliders
-        const heroSwiper = new Swiper('.hero-swiper', {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
-        
+        // Initialize Swiper sliders (removed heroSwiper)
         const trendingSwiper = new Swiper('.trending-swiper', {
             slidesPerView: 2,
             spaceBetween: 15,
@@ -993,71 +936,6 @@
                     console.error(`Error fetching ${url}:`, error);
                     return [];
                 }
-            }
-        }
-        
-        // Fetch featured anime for hero section
-        async function fetchFeaturedAnime() {
-            const animeList = await apiCall('https://api.jikan.moe/v4/top/anime?filter=airing&limit=5');
-            if (!animeList) return;
-            
-            document.querySelector('.hero-swiper .swiper-wrapper').innerHTML = '';
-            
-            animeList.forEach(anime => {
-                const slide = document.createElement('div');
-                slide.className = 'swiper-slide';
-                slide.style.backgroundImage = `url(${anime.images.webp.large_image_url})`;
-                slide.style.backgroundSize = 'cover';
-                slide.style.backgroundPosition = 'center';
-                document.querySelector('.hero-swiper .swiper-wrapper').appendChild(slide);
-            });
-            
-            heroSwiper.update();
-            updateHeroContent(animeList[0]);
-            
-            heroSwiper.on('slideChange', function() {
-                updateHeroContent(animeList[heroSwiper.realIndex]);
-            });
-            
-            return animeList;
-        }
-        
-        // Update hero content
-        function updateHeroContent(anime) {
-            currentAnime = anime;
-            document.getElementById('hero-title').textContent = anime.title;
-            document.getElementById('hero-synopsis').textContent = anime.synopsis || 'No description available.';
-            document.getElementById('hero-score').innerHTML = `<i class="fas fa-star"></i> ${anime.score || 'N/A'}`;
-            document.getElementById('hero-year').textContent = anime.year || 'Unknown';
-            document.getElementById('hero-episodes').textContent = anime.episodes ? `${anime.episodes} Episodes` : 'Unknown episodes';
-            
-            document.getElementById('hero-watch-now').onclick = function() {
-                showAnimeDetail(anime.mal_id);
-            };
-            
-            updateMyListButton(anime.mal_id, 'hero-my-list', 'hero-my-list-icon', 'hero-my-list-text');
-            
-            document.getElementById('hero-my-list').onclick = function() {
-                toggleMyList(anime);
-            };
-        }
-        
-        // Toggle anime in My List
-        function toggleMyList(anime) {
-            const isInList = myList.some(a => a.mal_id === anime.mal_id);
-            if (isInList) {
-                removeFromMyList(anime.mal_id);
-                showToast(`Removed ${anime.title} from My List`);
-            } else {
-                addToMyList(anime);
-                showToast(`Added ${anime.title} to My List`);
-            }
-            
-            updateMyListButton(anime.mal_id, 'hero-my-list', 'hero-my-list-icon', 'hero-my-list-text');
-            updateMyListButton(anime.mal_id, 'detail-my-list', 'detail-my-list-icon', 'detail-my-list-text');
-            
-            if (document.getElementById('my-list-page').style.display === 'block') {
-                loadMyList();
             }
         }
         
@@ -1400,7 +1278,6 @@
         
         // Initial load
         document.addEventListener('DOMContentLoaded', async function() {
-            await fetchFeaturedAnime();
             await populateGenreFilter();
             
             const animeList = await fetchAnime(currentPage);
