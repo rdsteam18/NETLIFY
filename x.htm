@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime & Movie Hub - Ultimate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #f3f4f6;
+        }
+        .card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.2), 0 10px 10px -5px rgba(99, 102, 241, 0.1);
+        }
+        .loader {
+            border: 4px solid #4b5563;
+            border-top: 4px solid #6366f1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .view { display: none; }
+        .view.active { display: block; }
+        .pagination-btn, .filter-select { background-color: #374151; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; transition: background-color 0.2s; cursor: pointer; }
+        .pagination-btn:hover, .filter-select:hover { background-color: #4f46e5; }
+        .pagination-btn:disabled { background-color: #1f2937; cursor: not-allowed; opacity: 0.5; }
+        .category-btn.active, .nav-btn.active { background-color: #6366f1; color: white; }
+        .adsense-placeholder {
+            background-color: #1f2937; border: 2px dashed #4b5563; display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #6b7280; border-radius: 0.5rem; width: 100%;
+        }
+        .playlist-btn.in-playlist { color: #facc15; } /* Yellow for in playlist */
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-gray-900/70 backdrop-blur-lg shadow-lg sticky top-0 z-30">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" id="homeButton" class="text-3xl font-bold text-white"><i class="fas fa-film text-indigo-400"></i> Hub</a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <button data-view="mainView" class="nav-btn font-semibold py-2 px-4 rounded-full">Home</button>
+                    <button data-view="tvView" class="nav-btn font-semibold py-2 px-4 rounded-full">TV Shows</button>
+                    <button data-view="trendingView" class="nav-btn font-semibold py-2 px-4 rounded-full">Trending</button>
+                    <button data-view="comingSoonView" class="nav-btn font-semibold py-2 px-4 rounded-full">Coming Soon</button>
+                    <button data-view="playlistView" class="nav-btn font-semibold py-2 px-4 rounded-full">My Playlist</button>
+                    <button data-view="aiView" class="nav-btn font-semibold py-2 px-4 rounded-full">AI Recommender</button>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="relative w-full max-w-xs mr-4">
+                        <input type="text" id="searchInput" placeholder="Search..." class="w-full bg-gray-800 text-white placeholder-gray-400 border-2 border-gray-700 rounded-full py-2 pl-4 pr-10 focus:outline-none focus:border-indigo-500">
+                        <button id="searchButton" class="absolute inset-y-0 right-0 flex items-center justify-center bg-indigo-600 text-white w-10 h-full rounded-r-full hover:bg-indigo-700"><i class="fas fa-search"></i></button>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="mobileMenuBtn" class="text-white text-2xl"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-gray-900">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button data-view="mainView" class="nav-btn text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">Home</button>
+                <button data-view="tvView" class="nav-btn text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">TV Shows</button>
+                <button data-view="trendingView" class="nav-btn text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">Trending</button>
+                <button data-view="comingSoonView" class="nav-btn text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">Coming Soon</button>
+                <button data-view="playlistView" class="nav-btn text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">My Playlist</button>
+                <button data-view="aiView" class="nav-btn text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">AI Recommender</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main View -->
+    <div id="mainView" class="view">
+        <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-4">
+                <button data-category="hollywood" class="category-btn bg-gray-700 text-white font-semibold py-2 px-4 rounded-full">Hollywood</button>
+                <button data-category="bollywood" class="category-btn bg-gray-700 text-white font-semibold py-2 px-4 rounded-full">Bollywood</button>
+                <button data-category="animation" class="category-btn bg-gray-700 text-white font-semibold py-2 px-4 rounded-full">Animation</button>
+                <button data-category="anime" class="category-btn bg-gray-700 text-white font-semibold py-2 px-4 rounded-full">Anime</button>
+            </div>
+            <div id="filters" class="flex flex-wrap justify-center gap-4 mb-8">
+                <select id="sortFilter" class="filter-select"></select>
+                <select id="genreFilter" class="filter-select"></select>
+            </div>
+            <h2 id="contentTitle" class="text-3xl font-bold mb-8 text-center"></h2>
+            <div id="loader" class="flex justify-center items-center h-64"><div class="loader"></div></div>
+            <div id="contentGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
+            <div id="paginationControls" class="flex justify-center items-center space-x-4 mt-12"></div>
+        </main>
+    </div>
+
+    <!-- Other Views -->
+    <div id="detailsView" class="view"></div>
+    <div id="tvView" class="view"></div>
+    <div id="trendingView" class="view"></div>
+    <div id="comingSoonView" class="view"></div>
+    <div id="playlistView" class="view"></div>
+    <div id="aiView" class="view"></div>
+
+    <script>
+        // --- Element References ---
+        const views = document.querySelectorAll('.view');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const homeButton = document.getElementById('homeButton');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        // --- API Configuration ---
+        const TMDB_API_KEY = '7b664bab914adf4b6cd60117cd412a78';
+        const GEMINI_API_KEY = 'AIzaSyBxcvZePBmQIjCnyXm51Wp2bfP9MaXdcHI';
+        const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+        const JIKAN_BASE_URL = 'https://api.jikan.moe/v4';
+
+        // --- State ---
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentCategory = 'hollywood';
+        let currentView = 'mainView';
+        let currentSort = 'popularity.desc';
+        let currentGenre = '';
+        let playlist = [];
+
+        // --- Local Storage ---
+        function getPlaylist() {
+            const savedPlaylist = localStorage.getItem('movieHubPlaylist');
+            playlist = savedPlaylist ? JSON.parse(savedPlaylist) : [];
+        }
+        function savePlaylist() {
+            localStorage.setItem('movieHubPlaylist', JSON.stringify(playlist));
+        }
+        function togglePlaylistItem(itemData) {
+            const index = playlist.findIndex(p => p.id === itemData.id && p.type === itemData.type);
+            if (index > -1) {
+                playlist.splice(index, 1); // Remove
+            } else {
+                playlist.push(itemData); // Add
+            }
+            savePlaylist();
+            // Re-render current view to update buttons
+            if (currentView === 'playlistView') renderView('playlistView', playlist);
+            else if (currentView === 'detailsView') getDetails(itemData.id, itemData.type);
+            else fetchDataForCurrentCategory();
+        }
+        function isInPlaylist(id, type) {
+            return playlist.some(p => p.id === id && p.type === type);
+        }
+
+        // --- Navigation & View Rendering ---
+        function showView(viewId) {
+            currentView = viewId;
+            views.forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            // Update both desktop and mobile nav buttons
+            navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.view === viewId));
+            window.scrollTo(0, 0);
+            mobileMenu.classList.add('hidden'); // Close mobile menu on navigation
+        }
+
+        function renderView(viewId, data) {
+            const viewContainer = document.getElementById(viewId);
+            let content = '';
+            switch (viewId) {
+                case 'tvView':
+                case 'comingSoonView':
+                    const title = viewId === 'tvView' ? 'Popular TV Shows' : 'Coming Soon';
+                    content = `
+                        <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+                            <h2 class="text-4xl font-extrabold mb-8 text-center tracking-tight">${title}</h2>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">${generateCards(data, viewId === 'tvView' ? 'tv' : 'movie')}</div>
+                        </main>`;
+                    break;
+                case 'trendingView':
+                     content = `
+                        <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+                            <h2 class="text-4xl font-extrabold mb-8 text-center tracking-tight">Trending This Week</h2>
+                            <div class="adsense-placeholder h-24 mb-8"><p><i class="fas fa-ad mr-2"></i>Adsense Leaderboard Ad (728x90)</p></div>
+                            <div class="space-y-4">${generateTrendingList(data)}</div>
+                        </main>`;
+                    break;
+                case 'playlistView':
+                    content = `
+                        <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+                            <h2 class="text-4xl font-extrabold mb-8 text-center tracking-tight">My Playlist</h2>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">${generateCards(playlist, 'playlist')}</div>
+                        </main>`;
+                    if (playlist.length === 0) content += '<p class="text-center text-gray-400 mt-8">Your playlist is empty. Add some movies and shows!</p>';
+                    break;
+                case 'aiView':
+                    content = `
+                        <main class="container mx-auto p-4 sm:p-6 lg:p-8 text-center">
+                            <h2 class="text-4xl font-extrabold mb-4 tracking-tight">Discover with AI</h2>
+                            <p class="max-w-3xl mx-auto text-lg text-gray-300 mb-8">Tell our AI what you're in the mood for, and get personalized recommendations!</p>
+                            <div class="max-w-2xl mx-auto bg-gray-800 p-6 rounded-lg shadow-2xl">
+                                <textarea id="aiPrompt" class="w-full bg-gray-700 text-white placeholder-gray-400 rounded-lg p-4" rows="3" placeholder="e.g., 'A mind-bending sci-fi movie with a surprise twist'"></textarea>
+                                <button id="aiRecommendBtn" class="mt-4 w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700"><i class="fas fa-magic mr-2"></i>Find Recommendations</button>
+                            </div>
+                            <div id="aiResultsLoader" class="mt-8 hidden"><div class="loader mx-auto"></div></div>
+                            <div id="aiResults" class="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
+                        </main>`;
+                    break;
+            }
+            viewContainer.innerHTML = content;
+            if (viewId === 'aiView') {
+                document.getElementById('aiRecommendBtn').addEventListener('click', getAiRecommendations);
+            }
+        }
+        
+        // --- API Fetching ---
+        async function fetchApi(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) { console.error("API Fetch Error:", error); return null; }
+        }
+
+        async function populateFilters() {
+            const sortFilter = document.getElementById('sortFilter');
+            const genreFilter = document.getElementById('genreFilter');
+            sortFilter.innerHTML = `
+                <option value="popularity.desc">Popularity</option>
+                <option value="vote_average.desc">Rating</option>
+                <option value="primary_release_date.desc">Release Date</option>
+            `;
+            const genreUrl = `${TMDB_BASE_URL}/genre/movie/list?api_key=${TMDB_API_KEY}`;
+            const data = await fetchApi(genreUrl);
+            if(data && data.genres) {
+                genreFilter.innerHTML = `<option value="">All Genres</option>` + data.genres.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
+            }
+        }
+
+        async function fetchDataForCurrentCategory() {
+            const loader = document.getElementById('loader');
+            const contentGrid = document.getElementById('contentGrid');
+            const paginationControls = document.getElementById('paginationControls');
+            loader.style.display = 'flex';
+            contentGrid.style.display = 'none';
+            paginationControls.style.display = 'none';
+            
+            let url;
+            let isMovie = true;
+            const filters = document.getElementById('filters');
+
+            if (currentCategory === 'anime') {
+                isMovie = false;
+                filters.style.display = 'none';
+                document.getElementById('contentTitle').textContent = 'Top Anime Series';
+                url = `${JIKAN_BASE_URL}/top/anime?page=${currentPage}`;
+            } else {
+                filters.style.display = 'flex';
+                let title = '';
+                let base_url = `${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&page=${currentPage}&sort_by=${currentSort}`;
+                if (currentGenre) base_url += `&with_genres=${currentGenre}`;
+
+                switch (currentCategory) {
+                    case 'hollywood': title = 'Hollywood Movies'; url = `${base_url}&with_origin_country=US`; break;
+                    case 'bollywood': title = 'Bollywood Movies'; url = `${base_url}&with_origin_country=IN&with_original_language=hi`; break;
+                    case 'animation': title = 'Animation Movies'; url = `${base_url}&with_genres=16`; break;
+                    default: // Search
+                        const query = currentCategory.split(':')[1];
+                        title = `Search Results for "${query}"`;
+                        url = `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&page=${currentPage}`;
+                }
+                document.getElementById('contentTitle').textContent = title;
+            }
+
+            const responseData = await fetchApi(url);
+            if (responseData) {
+                const items = isMovie ? responseData.results : responseData.data;
+                contentGrid.innerHTML = generateCards(items, isMovie ? 'movie' : 'anime');
+                totalPages = isMovie ? responseData.total_pages : (responseData.pagination?.last_visible_page || 1);
+                displayPagination();
+            } else {
+                contentGrid.innerHTML = `<p class="text-center text-red-400 col-span-full">Could not fetch data.</p>`;
+            }
+            loader.style.display = 'none';
+            contentGrid.style.display = 'grid';
+            paginationControls.style.display = 'flex';
+        }
+
+        async function getDetails(id, type) {
+            const detailsView = document.getElementById('detailsView');
+            detailsView.innerHTML = '<div class="flex justify-center items-center h-screen"><div class="loader"></div></div>';
+            showView('detailsView');
+            let detailsData;
+            if (type === 'movie' || type === 'tv') {
+                const mediaType = type === 'tv' ? 'tv' : 'movie';
+                const url = `${TMDB_BASE_URL}/${mediaType}/${id}?api_key=${TMDB_API_KEY}&append_to_response=videos,credits,watch/providers,recommendations,reviews`;
+                detailsData = await fetchApi(url);
+            } else {
+                const url = `${JIKAN_BASE_URL}/anime/${id}/full`;
+                detailsData = await fetchApi(url);
+            }
+            if (detailsData) displayDetails(detailsData, type);
+        }
+
+        // --- HTML Generation ---
+        function generateCards(items, type) {
+            if (!items || items.length === 0) return '';
+            return items.map(item => {
+                if (!item) return '';
+                const isPlaylist = type === 'playlist';
+                const itemType = isPlaylist ? item.type : type;
+                const title = item.title || item.name;
+                const imageUrl = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : (item.images?.jpg.large_image_url || 'https://placehold.co/500x750/1f2937/4b5563?text=No+Image');
+                const score = item.vote_average ? item.vote_average.toFixed(1) : item.score;
+                const itemData = JSON.stringify({ id: item.id || item.mal_id, type: itemType, title, poster_path: item.poster_path || item.images?.jpg.image_url, vote_average: score });
+                const inPlaylist = isInPlaylist(item.id || item.mal_id, itemType);
+
+                return `
+                    <div class="card bg-gray-800 rounded-lg overflow-hidden shadow-lg relative">
+                        <div class="cursor-pointer" onclick="getDetails(${item.id || item.mal_id}, '${itemType}')">
+                            <img src="${imageUrl}" alt="${title}" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x750/1f2937/4b5563?text=Error';">
+                            ${score ? `<div class="absolute top-2 right-2 bg-indigo-600 text-white text-sm font-bold px-2 py-1 rounded-full">${score}</div>` : ''}
+                        </div>
+                        <div class="p-2 flex justify-between items-center">
+                            <h3 class="font-bold text-sm truncate pr-2">${title}</h3>
+                            <button class="playlist-btn text-2xl text-gray-500 hover:text-yellow-400 ${inPlaylist ? 'in-playlist' : ''}" onclick='togglePlaylistItem(${itemData})'>
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+        
+        function generateTrendingList(items) {
+             return items.map((item, index) => {
+                const title = item.title || item.name;
+                const type = item.media_type;
+                const imageUrl = item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://placehold.co/500x750/1f2937/4b5563?text=No+Image';
+                return `
+                    <div class="bg-gray-800 rounded-lg shadow-lg p-4 flex items-center space-x-4 cursor-pointer hover:bg-gray-700" onclick="getDetails(${item.id}, '${type}')">
+                        <span class="text-3xl font-bold text-gray-500 w-12 text-center">${index + 1}</span>
+                        <img src="${imageUrl}" class="w-16 h-24 object-cover rounded-md">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold">${title}</h3>
+                            <p class="text-sm text-gray-400">${new Date(item.release_date || item.first_air_date).getFullYear()} &bull; <span class="uppercase">${type}</span></p>
+                        </div>
+                        <div class="text-yellow-400 font-bold text-lg"><i class="fas fa-star mr-1"></i> ${item.vote_average.toFixed(1)}</div>
+                    </div>`;
+             }).join('');
+        }
+
+        function displayDetails(data, type) {
+            const detailsView = document.getElementById('detailsView');
+            let detailsHTML = '';
+            const isMovie = type === 'movie' || type === 'tv';
+
+            if (isMovie) {
+                const title = data.title || data.name;
+                const releaseDate = data.release_date || data.first_air_date;
+                const itemData = JSON.stringify({ id: data.id, type, title, poster_path: data.poster_path, vote_average: data.vote_average });
+                const inPlaylist = isInPlaylist(data.id, type);
+                const trailer = data.videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+                const providers = data['watch/providers']?.results.IN; // India specific
+                const flatrate = providers?.flatrate?.map(p => `<img src="https://image.tmdb.org/t/p/w45${p.logo_path}" title="${p.provider_name}" class="w-10 h-10 rounded-md">`).join('') || '<p class="text-sm text-gray-400">Not available for streaming.</p>';
+                
+                detailsHTML = `
+                <div class="relative -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8">
+                    <div class="h-64 md:h-96 bg-cover bg-center" style="background-image: linear-gradient(to top, #111827, rgba(17,24,39,0.5)), url(https://image.tmdb.org/t/p/w1280${data.backdrop_path})"></div>
+                </div>
+                <div class="container mx-auto p-4 sm:p-6 lg:p-8 -mt-32 relative">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:col-span-1">
+                            <img src="${data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : 'https://placehold.co/500x750/1f2937/4b5563?text=No+Image'}" alt="${title}" class="rounded-lg w-full shadow-2xl">
+                        </div>
+                        <div class="md:col-span-2 pt-16 md:pt-32">
+                            <h2 class="text-3xl md:text-5xl font-extrabold mb-2 tracking-tight">${title} (${releaseDate ? releaseDate.split('-')[0] : 'N/A'})</h2>
+                            <div class="flex items-center space-x-4 mb-4 text-lg">
+                                <span class="font-bold text-yellow-400"><i class="fas fa-star mr-1"></i> ${data.vote_average ? data.vote_average.toFixed(1) : 'N/A'}</span>
+                                <span class="text-gray-400">${data.runtime || data.episode_run_time?.[0] || '?'} min</span>
+                            </div>
+                            <p class="text-gray-300 mb-6 text-lg">${data.overview}</p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                ${data.genres.map(g => `<span class="bg-gray-700 text-xs font-semibold px-3 py-1 rounded-full">${g.name}</span>`).join('')}
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <button class="flex items-center gap-2 text-lg font-bold py-2 px-4 rounded-lg ${inPlaylist ? 'bg-yellow-500 text-black' : 'bg-gray-700 text-white'}" onclick='togglePlaylistItem(${itemData})'>
+                                    <i class="fas fa-bookmark"></i> ${inPlaylist ? 'In Playlist' : 'Add to Playlist'}
+                                </button>
+                                ${trailer ? `<a href="https://www.youtube.com/watch?v=${trailer.key}" target="_blank" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700"><i class="fab fa-youtube mr-2"></i>Watch Trailer</a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                        <div class="md:col-span-2">
+                            <h3 class="text-3xl font-bold mb-6">Cast</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                ${data.credits.cast.slice(0, 10).map(actor => `
+                                    <div class="flex items-center space-x-4">
+                                        <img src="${actor.profile_path ? `https://image.tmdb.org/t/p/w92${actor.profile_path}` : 'https://placehold.co/92x138/1f2937/4b5563?text=N/A'}" class="w-16 h-24 object-cover rounded-md">
+                                        <div><p class="font-bold">${actor.name}</p><p class="text-sm text-gray-400">${actor.character}</p></div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <h3 class="text-3xl font-bold mb-6 mt-12">Reviews</h3>
+                            ${data.reviews.results.length > 0 ? data.reviews.results.slice(0, 2).map(review => `
+                                <div class="bg-gray-800 p-4 rounded-lg mb-4">
+                                    <p class="font-bold mb-2">A review by ${review.author}</p>
+                                    <p class="text-sm text-gray-400">${review.content.substring(0, 200)}...</p>
+                                </div>
+                            `).join('') : '<p class="text-gray-400">No reviews found.</p>'}
+                        </div>
+                        <div class="md:col-span-1">
+                            <div class="adsense-placeholder h-64 mb-8"><p><i class="fas fa-ad mr-2"></i>Adsense Skyscraper Ad (300x600)</p></div>
+                            <h3 class="text-2xl font-bold mb-4">Where to Watch</h3>
+                            <div class="flex flex-wrap gap-2 mb-8">${flatrate}</div>
+                            <h3 class="text-2xl font-bold mb-4">Production</h3>
+                            ${data.production_companies.map(c => `<p class="text-sm text-gray-300">${c.name}</p>`).join('')}
+                            <p class="text-sm mt-4"><b>Budget:</b> ${data.budget ? `$${data.budget.toLocaleString()}` : 'N/A'}</p>
+                            <p class="text-sm"><b>Revenue:</b> ${data.revenue ? `$${data.revenue.toLocaleString()}` : 'N/A'}</p>
+                        </div>
+                    </div>
+                     <h3 class="text-3xl font-bold mb-6 mt-12">Recommendations</h3>
+                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        ${data.recommendations.results.slice(0, 6).map(rec => generateCards([rec], 'movie')).join('')}
+                     </div>
+                </div>`;
+            } else { // Anime
+                 const item = data;
+                 const itemData = JSON.stringify({ id: item.mal_id, type, title: item.title, poster_path: item.images?.jpg.image_url, score: item.score });
+                 const inPlaylist = isInPlaylist(item.mal_id, type);
+                 detailsHTML = `
+                    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="md:col-span-1"><img src="${item.images.jpg.large_image_url}" alt="${item.title}" class="rounded-lg w-full shadow-lg"></div>
+                            <div class="md:col-span-2">
+                                <h2 class="text-4xl font-bold mb-2">${item.title}</h2>
+                                <div class="flex items-center space-x-4 mb-4 text-lg">
+                                    <span class="font-bold text-yellow-400"><i class="fas fa-star mr-1"></i> ${item.score || 'N/A'}</span>
+                                    <span class="text-gray-400">${item.episodes || '?'} episodes</span>
+                                    <span class="text-gray-400">${item.type || 'Unknown'}</span>
+                                </div>
+                                <button class="flex items-center gap-2 text-lg font-bold py-2 px-4 rounded-lg mb-6 ${inPlaylist ? 'bg-yellow-500 text-black' : 'bg-gray-700 text-white'}" onclick='togglePlaylistItem(${itemData})'>
+                                    <i class="fas fa-bookmark"></i> ${inPlaylist ? 'In Playlist' : 'Add to Playlist'}
+                                </button>
+                                <p class="text-gray-300 mb-6 h-48 overflow-y-auto">${item.synopsis || 'No synopsis available.'}</p>
+                                <div class="flex flex-wrap gap-2 mb-8">${item.genres.map(g => `<span class="bg-gray-700 text-xs font-semibold px-3 py-1 rounded-full">${g.name}</span>`).join('')}</div>
+                                ${item.trailer?.url ? `<a href="${item.trailer.url}" target="_blank" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700"><i class="fab fa-youtube mr-2"></i>Watch Trailer</a>` : ''}
+                            </div>
+                        </div>
+                    </div>`;
+            }
+            detailsView.innerHTML = detailsHTML;
+        }
+
+        function displayPagination() {
+            const paginationControls = document.getElementById('paginationControls');
+            paginationControls.innerHTML = `
+                <button id="prevPageBtn" class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+                <span class="text-lg font-semibold">${currentPage} / ${totalPages > 500 ? 500 : totalPages}</span>
+                <button id="nextPageBtn" class="pagination-btn" ${currentPage >= (totalPages > 500 ? 500 : totalPages) ? 'disabled' : ''}>Next</button>`;
+            document.getElementById('prevPageBtn').addEventListener('click', () => { if (currentPage > 1) { currentPage--; fetchDataForCurrentCategory(); } });
+            document.getElementById('nextPageBtn').addEventListener('click', () => { if (currentPage < (totalPages > 500 ? 500 : totalPages)) { currentPage++; fetchDataForCurrentCategory(); } });
+        }
+
+        // --- Gemini AI ---
+        async function getAiRecommendations() {
+            const prompt = document.getElementById('aiPrompt').value;
+            if (!prompt) return;
+            const resultsContainer = document.getElementById('aiResults');
+            const loader = document.getElementById('aiResultsLoader');
+            resultsContainer.innerHTML = '';
+            loader.style.display = 'block';
+            
+            const apiPrompt = `Based on the user's mood: "${prompt}", recommend 5 movies. Respond ONLY with a valid JSON array of objects, where each object has a "title" and "year" key.`;
+            try {
+                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: apiPrompt }] }] })
+                });
+                if (!response.ok) throw new Error('Gemini API error');
+                const result = await response.json();
+                const textResult = result.candidates[0].content.parts[0].text.replace(/```json/g, '').replace(/```/g, '').trim();
+                const recommendations = JSON.parse(textResult);
+                const moviePromises = recommendations.map(rec => fetchApi(`${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(rec.title)}&year=${rec.year}`));
+                const movieResults = await Promise.all(moviePromises);
+                const moviesToDisplay = movieResults.map(res => res?.results[0]).filter(Boolean);
+                resultsContainer.innerHTML = generateCards(moviesToDisplay, 'movie');
+            } catch (error) {
+                console.error("AI Recommendation Error:", error);
+                resultsContainer.innerHTML = `<p class="text-red-400 col-span-full">Sorry, couldn't get recommendations. Please try a different prompt.</p>`;
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // --- Event Listeners & Initial Load ---
+        async function init() {
+            getPlaylist();
+            showView('mainView');
+            document.querySelector('[data-category="hollywood"]').classList.add('active');
+            await populateFilters();
+            fetchDataForCurrentCategory();
+
+            navButtons.forEach(btn => btn.addEventListener('click', async () => {
+                const viewId = btn.dataset.view;
+                if (viewId === 'mainView') {
+                    showView('mainView');
+                    fetchDataForCurrentCategory();
+                    return;
+                }
+                showView(viewId);
+                let data;
+                switch(viewId) {
+                    case 'tvView': data = await fetchApi(`${TMDB_BASE_URL}/tv/popular?api_key=${TMDB_API_KEY}`); renderView(viewId, data.results); break;
+                    case 'trendingView': data = await fetchApi(`${TMDB_BASE_URL}/trending/all/week?api_key=${TMDB_API_KEY}`); renderView(viewId, data.results); break;
+                    case 'comingSoonView': data = await fetchApi(`${TMDB_BASE_URL}/movie/upcoming?api_key=${TMDB_API_KEY}`); renderView(viewId, data.results); break;
+                    case 'playlistView': renderView(viewId, playlist); break;
+                    case 'aiView': renderView(viewId); break;
+                }
+            }));
+            
+            document.querySelectorAll('.category-btn').forEach(btn => btn.addEventListener('click', () => {
+                currentCategory = btn.dataset.category; currentPage = 1;
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                fetchDataForCurrentCategory();
+            }));
+
+            document.getElementById('sortFilter').addEventListener('change', (e) => { currentSort = e.target.value; currentPage = 1; fetchDataForCurrentCategory(); });
+            document.getElementById('genreFilter').addEventListener('change', (e) => { currentGenre = e.target.value; currentPage = 1; fetchDataForCurrentCategory(); });
+            searchButton.addEventListener('click', () => { 
+                const query = searchInput.value.trim();
+                if (query) {
+                    currentCategory = `search:${query}`; currentPage = 1;
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    showView('mainView');
+                    fetchDataForCurrentCategory();
+                }
+            });
+            homeButton.addEventListener('click', (e) => { e.preventDefault(); showView('mainView'); fetchDataForCurrentCategory(); });
+            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
