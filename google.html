@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDS TEAM - Fast Google AdSense Approval</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for elements that need more styling than Tailwind provides */
+        .gradient-bg {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 50%, #FBBC05 100%);
+        }
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .dashboard-nav {
+            min-height: calc(100vh - 64px);
+        }
+        .dashboard-content {
+            min-height: calc(100vh - 64px);
+        }
+        #adminLoginModal, #userLoginModal, #registerModal {
+            transition: all 0.3s ease;
+        }
+        .modal-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-closed {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-xl font-bold text-blue-600">AdSense<span class="text-green-500">Express</span></span>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#home" class="px-3 py-2 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-100">Home</a>
+                            <a href="#plans" class="px-3 py-2 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-100">Plans</a>
+                            <a href="#how-it-works" class="px-3 py-2 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-100">How It Works</a>
+                            <a href="#testimonials" class="px-3 py-2 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-100">Testimonials</a>
+                            <a href="#faq" class="px-3 py-2 rounded-md text-sm font-medium text-gray-900 hover:bg-gray-100">FAQ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <button onclick="openUserLoginModal()" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900">Login</button>
+                        <button onclick="openRegisterModal()" class="ml-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">Register</button>
+                        <button onclick="openAdminLoginModal()" class="ml-4 px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded-md hover:bg-gray-700">Admin</button>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">Home</a>
+                <a href="plans.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">Plans</a>
+                <a href="how-it-works.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">How It Works</a>
+                <a href="testimonials.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">Testimonials</a>
+                <a href="faq.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-100">FAQ</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-200">
+                <div class="flex items-center px-5">
+                    <button onclick="openUserLoginModal()" class="w-full px-4 py-2 text-left text-sm font-medium text-gray-700 hover:text-gray-900">Login</button>
+                </div>
+                <div class="mt-3 px-2 space-y-1">
+                    <button onclick="openRegisterModal()" class="block w-full px-4 py-2 text-left text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Register</button>
+                    <button onclick="openAdminLoginModal()" class="block w-full mt-2 px-4 py-2 text-left text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-700">Admin</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2">
+                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                        Get Google AdSense Approval <br>
+                        <span class="text-yellow-300">In Just 1 Day</span>
+                    </h1>
+                    <p class="mt-5 text-xl text-gray-100">
+                        Our expert team guarantees AdSense approval for your website with our proven methods. 
+                        No tampering with your content or data - just fast, reliable approval.
+                    </p>
+                    <div class="mt-8">
+                        <a href="#plans" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-600 bg-white hover:bg-gray-100">
+                            Choose Your Plan
+                        </a>
+                        <a href="#how-it-works" class="ml-4 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-700 bg-opacity-60 hover:bg-opacity-70">
+                            How It Works
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-10 lg:mt-0 lg:w-1/2">
+                    <img class="rounded-lg shadow-xl" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="AdSense approval">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="text-center">
+                    <p class="text-5xl font-extrabold text-blue-600">98%</p>
+                    <p class="mt-2 text-base font-medium text-gray-500">Approval Rate</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-5xl font-extrabold text-green-600">2,500+</p>
+                    <p class="mt-2 text-base font-medium text-gray-500">Websites Approved</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-5xl font-extrabold text-yellow-500">24h</p>
+                    <p class="mt-2 text-base font-medium text-gray-500">Fastest Approval</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-5xl font-extrabold text-red-500">100%</p>
+                    <p class="mt-2 text-base font-medium text-gray-500">Satisfaction Guarantee</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="plans" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Choose Your Approval Plan
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Select the plan that fits your timeline and budget
+                </p>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+                <!-- Silver Plan -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 plan-card">
+                    <div class="px-6 py-8">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-gray-200 rounded-md p-3">
+                                <i class="fas fa-medal text-gray-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Silver Plan</h3>
+                                <p class="mt-1 text-gray-500">Standard Approval</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <p class="text-4xl font-extrabold text-gray-900">$49</p>
+                            <p class="mt-2 text-base text-gray-500">One-time payment</p>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Approval within 7 days</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Basic website review</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Content optimization</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Email support</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50">
+                        <button onclick="selectPlan('silver')" class="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-600 hover:bg-gray-700">
+                            Select Plan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Golden Plan -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 plan-card transform scale-105">
+                    <div class="absolute top-0 right-0 bg-yellow-500 text-white text-xs font-bold px-3 py-1 transform translate-x-2 -translate-y-2">
+                        POPULAR
+                    </div>
+                    <div class="px-6 py-8">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-yellow-100 rounded-md p-3">
+                                <i class="fas fa-trophy text-yellow-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Golden Plan</h3>
+                                <p class="mt-1 text-gray-500">Fast Approval</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <p class="text-4xl font-extrabold text-gray-900">$99</p>
+                            <p class="mt-2 text-base text-gray-500">One-time payment</p>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Approval within 3 days</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Priority website review</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Full content optimization</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Live chat support</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">SEO recommendations</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50">
+                        <button onclick="selectPlan('golden')" class="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-yellow-600 hover:bg-yellow-700">
+                            Select Plan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- On Demand Plan -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 plan-card">
+                    <div class="px-6 py-8">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                <i class="fas fa-bolt text-blue-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">On Demand</h3>
+                                <p class="mt-1 text-gray-500">Instant Approval</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <p class="text-4xl font-extrabold text-gray-900">$199</p>
+                            <p class="mt-2 text-base text-gray-500">One-time payment</p>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Approval within 24 hours</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Immediate website review</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Premium content optimization</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">24/7 priority support</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Complete SEO audit</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    </div>
+                                    <p class="ml-2 text-base text-gray-700">Money-back guarantee</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50">
+                        <button onclick="selectPlan('ondemand')" class="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700">
+                            Select Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    How It Works
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Our simple 4-step process to get your AdSense approval
+                </p>
+            </div>
+            
+            <div class="mt-12">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+                    <!-- Step 1 -->
+                    <div class="text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600">
+                            <span class="text-2xl font-bold">1</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">Choose Your Plan</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Select the approval speed that fits your needs and budget
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600">
+                            <span class="text-2xl font-bold">2</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">Provide Website Access</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Grant us temporary admin access (no content changes will be made)
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 text-yellow-600">
+                            <span class="text-2xl font-bold">3</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">We Optimize & Submit</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Our experts prepare your site and submit to AdSense
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 text-red-600">
+                            <span class="text-2xl font-bold">4</span>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-medium text-gray-900">Get Approved!</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Receive your approval within the guaranteed timeframe
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <div class="bg-gray-50 rounded-lg p-6 inline-block">
+                        <h3 class="text-lg font-medium text-gray-900">Our No-Tampering Promise</h3>
+                        <p class="mt-2 text-base text-gray-600 max-w-3xl mx-auto">
+                            We only require temporary admin access to review your site structure and content. 
+                            We will not modify, delete, or add any content to your website. 
+                            Our process is completely transparent and non-invasive.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    What Our Customers Say
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Trusted by hundreds of website owners
+                </p>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900">Sarah Johnson</h3>
+                            <p class="text-gray-500">Blogger</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600">
+                            "I was struggling for months to get AdSense approval. RDS TEAM got me approved in just 2 days with their Golden Plan. Worth every penny!"
+                        </p>
+                    </div>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen">
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900">Michael Chen</h3>
+                            <p class="text-gray-500">E-commerce Owner</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600">
+                            "The On Demand plan was perfect for our launch timeline. Got approved in 18 hours! Their team was professional and kept my site completely secure."
+                        </p>
+                    </div>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez">
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900">Emma Rodriguez</h3>
+                            <p class="text-gray-500">Content Creator</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600">
+                            "After 3 rejections from Google, I tried RDS TEAM. Their Silver Plan got me approved in 5 days. The content optimization tips were incredibly helpful."
+                        </p>
+                    </div>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Frequently Asked Questions
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Everything you need to know about our service
+                </p>
+            </div>
+            
+            <div class="mt-12 max-w-3xl mx-auto">
+                <div class="space-y-6">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(1)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">Is this service legitimate?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-1-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-1-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                Absolutely. We don't use any black hat methods or violate Google's policies. Our team consists of former AdSense reviewers who know exactly what Google looks for in an approval. We simply optimize your site to meet all requirements.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(2)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">Why do you need admin access?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-2-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-2-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                We need temporary admin access to thoroughly review your website's structure, content organization, and technical setup. This allows us to identify any issues that might cause rejection. We do not modify any content - we only analyze and provide recommendations. You can revoke access immediately after our review.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(3)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">What if I don't get approved?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-3-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-3-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                In the rare case that your site isn't approved within the guaranteed timeframe, we'll provide a detailed analysis of why and make additional recommendations at no extra cost. For On Demand plans, we offer a full money-back guarantee if we can't get you approved in 24 hours.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(4)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">How is this different from applying directly?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-4-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-4-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                When you apply directly, Google's automated systems may reject your site for reasons they don't fully explain. Our service includes a comprehensive pre-approval audit and optimization based on known AdSense requirements. We also handle the submission process in a way that increases approval chances significantly.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(5)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">Can I upgrade my plan later?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-5-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-5-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                Yes, you can upgrade from Silver to Golden or On Demand at any time by paying the difference in price. This won't affect your place in the queue and may actually speed up your approval process.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(6)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">What payment methods do you accept?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-6-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-6-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and several cryptocurrencies including Bitcoin and Ethereum.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 7 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(7)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">Do you offer refunds?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-7-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-7-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                We offer a 7-day money-back guarantee for our On Demand plan if we fail to get you approved within 24 hours. Other plans are eligible for partial refunds if we cannot get you approved within the promised timeframe.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 8 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <button onclick="toggleFAQ(8)" class="flex items-center justify-between w-full text-left">
+                            <h3 class="text-lg font-medium text-gray-900">How do I track my approval status?</h3>
+                            <svg class="h-6 w-6 text-gray-500 transform transition-transform duration-200" id="faq-8-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="faq-8-content" class="mt-4 hidden">
+                            <p class="text-gray-600">
+                                Once you've registered and selected a plan, you can log in to your dashboard to see real-time updates on your approval status. We'll also email you at each step of the process.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <h3 class="text-lg font-medium text-gray-900">Still have questions?</h3>
+                    <p class="mt-2 text-base text-gray-600">
+                        Contact our support team at <a href="mailto:rdsteam18@gmail.com" class="text-blue-600 hover:underline">rdsteam18@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold sm:text-4xl">
+                Ready to Get Approved?
+            </h2>
+            <p class="mt-4 text-xl max-w-3xl mx-auto">
+                Join hundreds of website owners who've successfully monetized their content with Google AdSense
+            </p>
+            <div class="mt-8">
+                <a href="#plans" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-600 bg-white hover:bg-gray-100">
+                    Choose Your Plan
+                </a>
+                <a href="#how-it-works" class="ml-4 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-700 bg-opacity-60 hover:bg-opacity-70">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+                <div>
+                    <h3 class="text-lg font-medium">RDS TEAM</h3>
+                    <p class="mt-4 text-gray-400">
+                        Fast, reliable Google AdSense approval services with guaranteed results.
+                    </p>
+                    <div class="mt-6 flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium">Services</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#plans" class="text-gray-400 hover:text-white">Silver Plan</a></li>
+                        <li><a href="#plans" class="text-gray-400 hover:text-white">Golden Plan</a></li>
+                        <li><a href="#plans" class="text-gray-400 hover:text-white">On Demand</a></li>
+                        <li><a href="#how-it-works" class="text-gray-400 hover:text-white">How It Works</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium">Company</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="testimonials.html" class="text-gray-400 hover:text-white">Testimonials</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-700">
+                <p class="text-gray-400 text-sm text-center">
+                    &copy; 2025 RDS TEAM. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed z-50 inset-0 overflow-y-auto modal-closed">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-lock text-red-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Admin Login</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">Enter your admin credentials to access the dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <form>
+                            <div>
+                                <label for="admin-email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="admin-email" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mt-4">
+                                <label for="admin-password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input type="password" id="admin-password" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button onclick="adminLogin()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Login
+                    </button>
+                    <button onclick="closeAdminLoginModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Login Modal -->
+    <div id="userLoginModal" class="fixed z-50 inset-0 overflow-y-auto modal-closed">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">User Login</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">Sign in to your account to check your approval status.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <form>
+                            <div>
+                                <label for="user-email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="user-email" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mt-4">
+                                <label for="user-password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input type="password" id="user-password" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button onclick="userLogin()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Login
+                    </button>
+                    <button onclick="closeUserLoginModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed z-50 inset-0 overflow-y-auto modal-closed">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-user-plus text-green-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Create Account</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">Register for an account to get started with our AdSense approval service.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <form>
+                            <div>
+                                <label for="register-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" id="register-name" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mt-4">
+                                <label for="register-email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="register-email" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mt-4">
+                                <label for="register-password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input type="password" id="register-password" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            <div class="mt-4">
+                                <label for="register-website" class="block text-sm font-medium text-gray-700">Website URL</label>
+                                <input type="url" id="register-website" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button onclick="register()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Register
+                    </button>
+                    <button onclick="closeRegisterModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan Selection Modal -->
+    <div id="planModal" class="fixed z-50 inset-0 overflow-y-auto modal-closed">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-crown text-yellow-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="planModalTitle">Select Plan</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500" id="planModalDescription">Choose your preferred payment method for the selected plan.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <div id="planDetails" class="bg-gray-50 p-4 rounded-md">
+                            <!-- Plan details will be inserted here -->
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700">Payment Method</label>
+                            <div class="mt-2 space-y-2">
+                                <div class="flex items-center">
+                                    <input id="credit-card" name="payment-method" type="radio" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                                    <label for="credit-card" class="ml-3 block text-sm font-medium text-gray-700">Credit/Debit Card</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="paypal" name="payment-method" type="radio" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                                    <label for="paypal" class="ml-3 block text-sm font-medium text-gray-700">PayPal</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="crypto" name="payment-method" type="radio" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                                    <label for="crypto" class="ml-3 block text-sm font-medium text-gray-700">Cryptocurrency</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4" id="cardDetails">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="card-number" class="block text-sm font-medium text-gray-700">Card Number</label>
+                                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <div>
+                                    <label for="card-cvc" class="block text-sm font-medium text-gray-700">CVC</label>
+                                    <input type="text" id="card-cvc" placeholder="123" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label for="card-expiry" class="block text-sm font-medium text-gray-700">Expiry Date</label>
+                                <input type="text" id="card-expiry" placeholder="MM/YY" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                        <div class="mt-4 hidden" id="paypalDetails">
+                            <p class="text-sm text-gray-500">You will be redirected to PayPal to complete your payment after clicking "Purchase".</p>
+                        </div>
+                        <div class="mt-4 hidden" id="cryptoDetails">
+                            <label for="crypto-address" class="block text-sm font-medium text-gray-700">Select Cryptocurrency</label>
+                            <select id="crypto-address" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option>Bitcoin (BTC)</option>
+                                <option>Ethereum (ETH)</option>
+                                <option>Litecoin (LTC)</option>
+                                <option>Bitcoin Cash (BCH)</option>
+                            </select>
+                            <p class="mt-2 text-sm text-gray-500">We'll provide a wallet address after you click "Purchase".</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button onclick="processPayment()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Purchase
+                    </button>
+                    <button onclick="closePlanModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (Hidden by default) -->
+    <div id="adminDashboard" class="hidden">
+        <div class="flex h-screen bg-gray-100">
+            <!-- Sidebar -->
+            <div class="dashboard-nav w-64 bg-gray-800 text-white">
+                <div class="flex items-center justify-center h-16 px-4 bg-gray-900">
+                    <span class="text-xl font-bold">Admin Dashboard</span>
+                </div>
+                <nav class="mt-6">
+                    <div>
+                        <a href="#" class="flex items-center px-6 py-3 text-gray-100 hover:bg-gray-700 hover:text-white">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-gray-100 hover:bg-gray-700 hover:text-white">
+                            <i class="fas fa-users mr-3"></i>
+                            <span>Users</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-gray-100 hover:bg-gray-700 hover:text-white">
+                            <i class="fas fa-file-invoice-dollar mr-3"></i>
+                            <span>Orders</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-gray-100 hover:bg-gray-700 hover:text-white">
+                            <i class="fas fa-globe mr-3"></i>
+                            <span>Websites</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-gray-100 hover:bg-gray-700 hover:text-white">
+                            <i class="fas fa-cog mr-3"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-gray-100 hover:bg-gray-700 hover:text-white">
+                            <i class="fas fa-sign-out-alt mr-3"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="dashboard-content flex-1 overflow-auto">
+                <header class="flex items-center justify-between h-16 px-4 bg-white shadow-sm">
+                    <div>
+                        <button class="p-1 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="relative">
+                            <button class="p-1 rounded-full text-gray-500 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring">
+                                <i class="fas fa-bell"></i>
+                            </button>
+                            <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                        </div>
+                        <div class="ml-4 relative">
+                            <button id="user-menu-button" class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <span class="sr-only">Open user menu</span>
+                                <img class="h-8 w-8 rounded-full" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Admin">
+                                <span class="ml-2 text-gray-700">Admin</span>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                
+                <main class="p-6">
+                    <div class="mb-6">
+                        <h1 class="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+                        <!-- Stats Card 1 -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                                    <i class="fas fa-users text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Total Users</p>
+                                    <p class="text-2xl font-semibold text-gray-800">1,254</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex items-center text-sm text-green-500">
+                                    <span>+12.5%</span>
+                                    <i class="fas fa-arrow-up ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats Card 2 -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-green-100 text-green-600">
+                                    <i class="fas fa-file-invoice-dollar text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Total Orders</p>
+                                    <p class="text-2xl font-semibold text-gray-800">856</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex items-center text-sm text-green-500">
+                                    <span>+8.3%</span>
+                                    <i class="fas fa-arrow-up ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats Card 3 -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                                    <i class="fas fa-globe text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Approved Websites</p>
+                                    <p class="text-2xl font-semibold text-gray-800">732</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex items-center text-sm text-green-500">
+                                    <span>+5.7%</span>
+                                    <i class="fas fa-arrow-up ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h2 class="text-lg font-medium text-gray-800">Recent Orders</h2>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ADS-1254</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">john.doe@example.com</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Golden</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$99</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Approved</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <a href="#" class="text-blue-600 hover:text-blue-900">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ADS-1253</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">sarah.smith@example.com</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">On Demand</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$199</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <a href="#" class="text-blue-600 hover:text-blue-900">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ADS-1252</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">mike.johnson@example.com</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Silver</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$49</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Rejected</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <a href="#" class="text-blue-600 hover:text-blue-900">View</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard (Hidden by default) -->
+    <div id="userDashboard" class="hidden">
+        <div class="flex h-screen bg-gray-100">
+            <!-- Sidebar -->
+            <div class="dashboard-nav w-64 bg-blue-600 text-white">
+                <div class="flex items-center justify-center h-16 px-4 bg-blue-700">
+                    <span class="text-xl font-bold">My Dashboard</span>
+                </div>
+                <nav class="mt-6">
+                    <div>
+                        <a href="#" class="flex items-center px-6 py-3 text-blue-100 hover:bg-blue-700 hover:text-white">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-blue-100 hover:bg-blue-700 hover:text-white">
+                            <i class="fas fa-file-invoice-dollar mr-3"></i>
+                            <span>My Orders</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-blue-100 hover:bg-blue-700 hover:text-white">
+                            <i class="fas fa-globe mr-3"></i>
+                            <span>My Websites</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-blue-100 hover:bg-blue-700 hover:text-white">
+                            <i class="fas fa-cog mr-3"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#" class="flex items-center px-6 py-3 text-blue-100 hover:bg-blue-700 hover:text-white">
+                            <i class="fas fa-sign-out-alt mr-3"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="dashboard-content flex-1 overflow-auto">
+                <header class="flex items-center justify-between h-16 px-4 bg-white shadow-sm">
+                    <div>
+                        <button class="p-1 rounded-md text-gray-500 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring">
+                            <i class="fas fa-bars"></i>
+                        </button>
+
+</body>
+</html>
